@@ -1,6 +1,6 @@
 
 import Image from "./image"
-export default function CardChannelRow({data}:any) {
+export default function CardChannelRow({data}) {
   return (
     <div  className="card-channel" key={`${data?.id||"-"}`}>
       <div className="card-channel-image">
