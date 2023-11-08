@@ -1,0 +1,3 @@
+/                 => yt:80%  > tw:20% 
+/watch            => yt:100%
+/dashboard/stream => yt:0%   > tw:0% > bh:90%

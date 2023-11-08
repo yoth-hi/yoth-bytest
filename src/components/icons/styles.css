@@ -1,0 +1,5 @@
+svg.classic{
+ width: 20px ;
+ stroke-width: 0;
+ @apply stroke-black dark:stroke-white 
+}

@@ -1,0 +1,33 @@
+{
+  "name": "yoth_uabo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "hls.js": "^1.4.12",
+    "i18next": "^23.6.0",
+    "i18next-http-backend": "^2.3.1",
+    "next": "^13.5.6",
+    "next-i18next": "^14.0.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-i18next": "^13.3.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
+    "video.js": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}

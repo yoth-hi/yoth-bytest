@@ -1,0 +1,18 @@
+ROUTERS
+ [PAGE_HOME]            => /
+ [PAGE_WATCH]           => /watch
+ [PAGE_POST]            => /post/[:Id]
+ [PAGE_REELS]           => /reels/[:id]
+ [PAGE_CHANNEL_HOME]    => /[:id]
+ [PAGE_CHANNEL_VIDEOS]  => /[:id]/videos
+ [PAGE_CHANNEL_POSTS]   => /[:id]/posts
+ [PAGE_CHANNEL_REELS]   => /[:id]/reels
+ [PAGE_CHANNEL_PL]      => /[:id]/playlist
+ [PAGE_CHANNEL_ABOUT]   => /[:id]/about
+ 
+API
+ [PLAYER]    => /yothpi/player
+ [BROWSE]    => /yothpi/browse
+ [SUBSCRIBE] => /yothpi/event/subscribe
+ [DESLiKE]   => /yothpi/event/delike
+ [LiKE]      => /yothpi/event/like
