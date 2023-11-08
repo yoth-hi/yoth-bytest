@@ -8,7 +8,7 @@ import CardChannel from "../../components/cardChannelBox";
 import { useState, useEffect, useLayoutEffect } from "react";
 
 
-export default function (props: any) {
+export default function (props) {
   "commentario teste ¿¿ ■□□■□ ??";
   const [data, setData] = useState(null);
   const ApiGet = () =>
