@@ -1,6 +1,6 @@
 import Page from "./_page"
 import Player from "../../components/player";
-const RendOlayer = ({ id, sp, platform }) => (
+const RendOlayer = ({ id, sp, platform }:any) => (
   <div className="page-watch-container">
     <div
       className="page-watch-primary"
