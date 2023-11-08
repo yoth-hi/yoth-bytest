@@ -11,10 +11,10 @@ import Fetch from "./../service/ApiRest";
 import Share from "./icons/share";
 
 var t = {};
-const BrowseChannelAndNextItem = function ({ Player,_context }: any) {
+const BrowseChannelAndNextItem = function ({ Player,_context }) {
   const [data, setData] = useState({});
-  const { videoDetails,content }: any = data;
-  const { platform, id }: any = _context;
+  const { videoDetails,content }= data;
+  const { platform, id }= _context;
   const getdata = function () {
     return Fetch({
       type: "browse",
