@@ -26,7 +26,7 @@ const BrowseChannelAndNextItem = function ({ Player,_context }: any) {
     });
   };
   useState(() => {
-    const _data = (t[`${platform}_${id}`] = t[`${platform}_${id}`] || getdata);
+    const _data = (t[platform+id] = t[platform+id] || getdata);
     _data().then(setData);
   }, []);
   return (
