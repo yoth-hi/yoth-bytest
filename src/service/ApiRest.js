@@ -49,7 +49,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Fetch = function (a, b) {
-    a = "".concat("", "").concat(a);
+    a = "https://yoth-hi-github-io.vercel.app/".concat("", "").concat(a);
     var req = new Request(a, b);
     return new Promise(function (ok, erro) {
         fetch(a, b)
