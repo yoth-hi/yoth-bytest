@@ -65,7 +65,8 @@ var MyComponent = function (props) { return __awaiter(void 0, void 0, void 0, fu
       "Accept-Encoding":"*;q=0.3",
     }
     return __generator(this, function (_a) {
-        lg = navigator.language;
+        try{
+        lg = navigator.language;}catch(a){}
         body = __assign(__assign({}, props), { context: __assign(__assign({}, props.context), { lg: lg }) });
         switch (props.type) {
             case "player":
