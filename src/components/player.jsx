@@ -1,5 +1,4 @@
 "use client";
-const __a=require("../libs/v1");
 import Slider from "./Slider";
 import Image from "./image";
 import Cine from "../libs/Cine";
@@ -104,7 +103,7 @@ export default function ({ platform, id }) {
           platform,
           id,
         },
-      }).then((a) => {
+      }).then((a) => {/*
         var options = {
     width: 100000,
     height: 10000,
@@ -115,7 +114,7 @@ export default function ({ platform, id }) {
   };console.log(__a)
   var player = new __a.Player("twplayer", options);
   player.setVolume(0.5);
-  window.player=player
+  window.player=player*/
         setData(a);
         hls.loadSource(a?.stream?.streamM3u8Url);
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
