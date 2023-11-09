@@ -72,7 +72,7 @@ const setPlayerMode = function (isFull, isTheater) {
 
 export default function ({ platform, id }) {
   const [data, setData] = useState({});
-  const sp = window["_change-player-mode"];
+  var sp;
   const video = useRef(null);
   const [paused, setPaused] = useState(true);
   const [start_play, setStart_play] = useState(false);
@@ -82,7 +82,7 @@ export default function ({ platform, id }) {
   const [resolutions, setResolutions] = useState([]);
   const [fullscreen, setFullscreen] = useState(false);
   const [_hls, set_hls] = useState(null);
-  useLayoutEffect(() => {
+  useLayoutEffect(() => {sp=window["_change-player-mode"];
     const hls = new Hls();
     if (Hls.isSupported() && platform === "twitch") {
       set_hls(hls);
