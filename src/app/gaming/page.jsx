@@ -10,13 +10,13 @@ import CardCategory from "../../components/CardCategory";
 export default function Home() {
   const [data, setData] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const getdata = function () {
+  const getdata = function () {try{
     Fetch({
-      type: "browse",
+      type: "browse", 
       context: {
         type: "home_gaming",
       },
-    }).then(setData);
+    }).then(setData);}catch(a){}
   };
   useState(getdata, [loaded]);
   return (
