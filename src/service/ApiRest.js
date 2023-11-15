@@ -48,11 +48,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+
+
+
+
 var Fetch = function (a, b) {
-    a = "https://yoth-hi-github-io.vercel.app/".concat("", "").concat(a);
+    a = "".concat("", "").concat(a);
     var req = new Request(a, b);
     return new Promise(function (ok, erro) {
-        fetch(a, b)
+        fetch(req)
             .then(function (e) { return e.json(); })
             .then(ok)
             .catch(erro);
@@ -66,7 +70,11 @@ var MyComponent = function (props) { return __awaiter(void 0, void 0, void 0, fu
     }
     return __generator(this, function (_a) {
         try{
-        lg = navigator.language;}catch(a){}
+        lg = navigator.language;
+          
+        }catch(a){
+          lg="en"
+        }
         body = __assign(__assign({}, props), { context: __assign(__assign({}, props.context), { lg: lg }) });
         switch (props.type) {
             case "player":

@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import { getTraslate, req_btn } from "../_service";
 export async function POST(req) {
-  const startTime = Date.now()
+  const startTime = Date.now();
   const data = {};
   data.content = {};
   try {
     const json = await req.json();
-    if (json && json.context) {
-    } else {
+    if (!json || !json.context) {
       return new NextResponse(`the '${JSON.stringify(json)}' not is valid`, {
         status: 403,
       });
@@ -67,7 +66,7 @@ export async function POST(req) {
             actorId: us?.login,
             actorImage: us?.profileImageURL,
             thumbnail:
-              size(us?.stream?.previewImageURL, 1920, 1080) ||
+              size(us?.stream?.previewImageURL, 400,(400/16)*9) ||
               us?.offlineImageURL,
             id: us?.id,
             isLive: !!us?.stream,
@@ -81,7 +80,7 @@ export async function POST(req) {
               /(\d{3})/g,
               " $1"
             )} Visualizações`,
-            thumbnail: size(node.previewThumbnailURL, 1920 / 4, 1080 / 4),
+            thumbnail: size(node.previewThumbnailURL, 400,(400/16)*9),
             endpoint: `/watch?vod_tw=${node.id}`,
           }));
           data.content.asesibility = {
@@ -122,7 +121,7 @@ export async function POST(req) {
         },
         body: JSON.stringify({
           query:
-            "query Homepage_Query(\n  $requestID: String!\n  $platform: String!\n  $itemsPerRow: Int!\n  $url: String!\n  $first: Int!\n  $after: Cursor\n) {\n  ...RecommendationShelves_shelves\n  ...SeoHead_query\n}\n\nfragment ClipCardCommon_clip on Clip {\n  id\n  __typename\n  broadcaster {\n    login\n    displayName\n    profileImageURL(width: 50)\n    id\n    __typename\n  }\n  createdAt\n  durationSeconds\n  game {\n    categorySlug: slug\n    displayName\n    name\n    id\n    __typename\n  }\n  slug\n  thumbnailURL(width: 480, height: 272)\n  title\n  viewCount\n}\n\nfragment RecommendationShelves_shelves on Query {\n  shelves(requestID: $requestID, platform: $platform, itemsPerRow: $itemsPerRow, first: $first, after: $after) {\n    edges {\n      node {\n        id\n        __typename\n        ...Shelf_shelf\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SeoHead_query on Query {\n  urlMetadata(url: $url) {\n    title\n    metatags {\n      name\n      attributes {\n        key\n        value\n      }\n    }\n    jsonld\n    share {\n      title\n      text\n      url\n    }\n  }\n}\n\nfragment ShelfGameCard_game on Game {\n  id\n  __typename\n  name\n  ...useGameCardCommonFragment_game\n}\n\nfragment ShelfStreamCard_stream on Stream {\n  id\n  __typename\n  ...useStreamCardCommonFragment_stream\n  broadcaster {\n    login\n    id\n    __typename\n  }\n}\n\nfragment ShelfTitle_title on ShelfTitle {\n  key\n  fallbackLocalizedTitle\n  localizedTitleTokens {\n    node {\n      __typename\n      ...TokenContent_node\n      ... on BrowsableCollection {\n        id\n        __typename\n      }\n      ... on Game {\n        id\n        __typename\n      }\n      ... on Tag {\n        id\n        __typename\n      }\n      ... on User {\n        id\n        __typename\n      }\n    }\n  }\n}\n\nfragment Shelf_shelf on Shelf {\n  __typename\n  id\n  __typename\n  title {\n    ...ShelfTitle_title\n  }\n  content {\n    __typename\n    edges {\n      __typename\n      trackingID\n      node {\n        __typename\n        ... on Game {\n          id\n          __typename\n          ...ShelfGameCard_game\n        }\n        ... on Stream {\n          id\n          __typename\n          broadcaster {\n            id\n            __typename\n            login\n          }\n          ...ShelfStreamCard_stream\n        }\n        ... on Clip {\n          id\n          __typename\n          ...useShelfClipCardFragment\n        }\n        ... on Tag {\n          id\n          __typename\n        }\n        ... on Video {\n          id\n          __typename\n        }\n      }\n    }\n  }\n  trackingInfo {\n    __typename\n    rowName\n  }\n}\n\nfragment StreamCardDropDownMenu_broadcaster on User {\n  id\n  __typename\n  login\n  displayName\n}\n\nfragment TokenContent_node on TitleTokenNode {\n  __isTitleTokenNode: __typename\n  __typename\n  ... on Game {\n    id\n    __typename\n    name\n    displayName\n    categorySlug: slug\n  }\n  ... on TextToken {\n    text\n    hasEmphasis\n    location\n  }\n  ... on BrowsableCollection {\n    id\n    __typename\n    collectionSlug: slug\n    collectionName: name {\n      fallbackLocalizedTitle\n    }\n  }\n}\n\nfragment useGameCardCommonFragment_game on Game {\n  boxArtURL\n  displayName\n  name\n  categorySlug: slug\n  viewersCount\n  ...useGameTagListFragment_game\n}\n\nfragment useGameTagListFragment_game on Game {\n  gameTags: tags(limit: 10, tagType: CONTENT) {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useShelfClipCardFragment on Clip {\n  id\n  __typename\n  broadcaster {\n    login\n    id\n    __typename\n  }\n  slug\n  ...ClipCardCommon_clip\n}\n\nfragment useStreamCardCommonFragment_stream on Stream {\n  id\n  __typename\n  viewersCount\n  previewImageURL\n  type\n  game {\n    id\n    __typename\n    name\n    slug\n  }\n  broadcaster {\n    id\n    __typename\n    broadcastSettings {\n      title\n      id\n      __typename\n    }\n    login\n    displayName\n    profileImageURL(width: 50)\n    ...StreamCardDropDownMenu_broadcaster\n  }\n  ...useStreamTagListFragment_stream\n}\n\nfragment useStreamTagListFragment_stream on Stream {\n  streamTags: tags {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useTagLinkFragment_tag on Tag {\n  id\n  __typename\n  tagName\n  localizedDescription\n  localizedName\n}\n",
+            "query Homepage_Query(\n  $requestID: String!\n  $platform: String!\n  $itemsPerRow: Int!\n  $url: String!\n  $first: Int!\n  $after: Cursor\n) {\n  ...RecommendationShelves_shelves\n  ...SeoHead_query\n}\n\nfragment ClipCardCommon_clip on Clip {\n  id\n  __typename\n  broadcaster {\n    login\n    displayName\n    profileImageURL(width: 64)\n    id\n    __typename\n  }\n  createdAt\n  durationSeconds\n  game {\n    categorySlug: slug\n    displayName\n    name\n    id\n    __typename\n  }\n  slug\n  thumbnailURL(width: 480, height: 272)\n  title\n  viewCount\n}\n\nfragment RecommendationShelves_shelves on Query {\n  shelves(requestID: $requestID, platform: $platform, itemsPerRow: $itemsPerRow, first: $first, after: $after) {\n    edges {\n      node {\n        id\n        __typename\n        ...Shelf_shelf\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SeoHead_query on Query {\n  urlMetadata(url: $url) {\n    title\n    metatags {\n      name\n      attributes {\n        key\n        value\n      }\n    }\n    jsonld\n    share {\n      title\n      text\n      url\n    }\n  }\n}\n\nfragment ShelfGameCard_game on Game {\n  id\n  __typename\n  name\n  ...useGameCardCommonFragment_game\n}\n\nfragment ShelfStreamCard_stream on Stream {\n  id\n  __typename\n  ...useStreamCardCommonFragment_stream\n  broadcaster {\n    login\n    id\n    __typename\n  }\n}\n\nfragment ShelfTitle_title on ShelfTitle {\n  key\n  fallbackLocalizedTitle\n  localizedTitleTokens {\n    node {\n      __typename\n      ...TokenContent_node\n      ... on BrowsableCollection {\n        id\n        __typename\n      }\n      ... on Game {\n        id\n        __typename\n      }\n      ... on Tag {\n        id\n        __typename\n      }\n      ... on User {\n        id\n        __typename\n      }\n    }\n  }\n}\n\nfragment Shelf_shelf on Shelf {\n  __typename\n  id\n  __typename\n  title {\n    ...ShelfTitle_title\n  }\n  content {\n    __typename\n    edges {\n      __typename\n      trackingID\n      node {\n        __typename\n        ... on Game {\n          id\n          __typename\n          ...ShelfGameCard_game\n        }\n        ... on Stream {\n          id\n          __typename\n          broadcaster {\n            id\n            __typename\n            login\n          }\n          ...ShelfStreamCard_stream\n        }\n        ... on Clip {\n          id\n          __typename\n          ...useShelfClipCardFragment\n        }\n        ... on Tag {\n          id\n          __typename\n        }\n        ... on Video {\n          id\n          __typename\n        }\n      }\n    }\n  }\n  trackingInfo {\n    __typename\n    rowName\n  }\n}\n\nfragment StreamCardDropDownMenu_broadcaster on User {\n  id\n  __typename\n  login\n  displayName\n}\n\nfragment TokenContent_node on TitleTokenNode {\n  __isTitleTokenNode: __typename\n  __typename\n  ... on Game {\n    id\n    __typename\n    name\n    displayName\n    categorySlug: slug\n  }\n  ... on TextToken {\n    text\n    hasEmphasis\n    location\n  }\n  ... on BrowsableCollection {\n    id\n    __typename\n    collectionSlug: slug\n    collectionName: name {\n      fallbackLocalizedTitle\n    }\n  }\n}\n\nfragment useGameCardCommonFragment_game on Game {\n  boxArtURL\n  displayName\n  name\n  categorySlug: slug\n  viewersCount\n  ...useGameTagListFragment_game\n}\n\nfragment useGameTagListFragment_game on Game {\n  gameTags: tags(limit: 10, tagType: CONTENT) {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useShelfClipCardFragment on Clip {\n  id\n  __typename\n  broadcaster {\n    login\n    id\n    __typename\n  }\n  slug\n  ...ClipCardCommon_clip\n}\n\nfragment useStreamCardCommonFragment_stream on Stream {\n  id\n  __typename\n  viewersCount\n  previewImageURL\n  type\n  game {\n    id\n    __typename\n    name\n    slug\n  }\n  broadcaster {\n    id\n    __typename\n    broadcastSettings {\n      title\n      id\n      __typename\n    }\n    login\n    displayName\n    profileImageURL(width: 50)\n    ...StreamCardDropDownMenu_broadcaster\n  }\n  ...useStreamTagListFragment_stream\n}\n\nfragment useStreamTagListFragment_stream on Stream {\n  streamTags: tags {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useTagLinkFragment_tag on Tag {\n  id\n  __typename\n  tagName\n  localizedDescription\n  localizedName\n}\n",
           variables: {
             requestID: "LmLqsk9ZGlITX4Qz",
             platform: "mobile_web",
@@ -142,7 +141,7 @@ export async function POST(req) {
               title: n?.broadcaster?.broadcastSettings?.title,
               viewsCount: n?.viewsCount,
               endpoint: "/watch?tw=" + n?.broadcaster?.login,
-              thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${n?.broadcaster?.login}-1920x1080.jpg`,
+              thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${n?.broadcaster?.login}-400x${(400/16)*9}.jpg`,
 
               actorImage: `${n?.broadcaster?.profileImageURL}`,
               actorName: `${n?.broadcaster?.displayName}`,
@@ -281,7 +280,7 @@ export async function POST(req) {
             title: n?.broadcaster?.broadcastSettings?.title,
             viewsCount: n?.viewsCount,
             endpoint: "/watch?tw=" + n?.broadcaster?.login,
-            thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${n?.broadcaster?.login}-1920x1080.jpg`,
+            thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${n?.broadcaster?.login}-400x${(400/16)*9}.jpg`,
 
             actorImage: `${n?.broadcaster?.profileImageURL}`,
             actorName: `${n?.broadcaster?.displayName}`,
@@ -297,7 +296,7 @@ export async function POST(req) {
               viewsCount:
                 n?.shortViewCountText[0]?.text + n?.shortViewCountText[1]?.text,
               endpoint: "/watch?v=" + n?.videoId,
-              thumbnail: `https://i3.ytimg.com/vi/${n?.videoId}/maxresdefault.jpg`,
+              thumbnail: `https://i3.ytimg.com/vi/${n?.videoId}/hq720.jpg?sqp=CIiZ06oG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLATAd7np_HlL_nt47fL2pOXo6qkPQ`,
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
               actorName: `${n?.ownerText?.runs?.[0]?.text}`,
@@ -311,29 +310,27 @@ export async function POST(req) {
         );
       });
       data.content.banner = {
-        title:"wouat live, recommended ", 
-        id:"tw:wuant",
-        viewsCount:"---",
-        list:[]
-      }
-    }
-   else if (type === "following") {
-      data.content. channels = {
-        title:"Canais que você segui",
-        list:[]
+        title: "wouat live, recommended ",
+        id: "tw:wuant",
+        viewsCount: "---",
+        list: [],
       };
-      data.content. videos={
-        _types:["youtube","kick","twitch"],
-        twitch:[],
-        youtube:[],
-        kick:[],
+    } else if (type === "following") {
+      data.content.channels = {
+        title: "Canais que você segui",
+        list: [],
       };
-      
+      data.content.videos = {
+        _types: ["youtube", "kick", "twitch"],
+        twitch: [],
+        youtube: [],
+        kick: [],
+      };
     }
   } catch (error) {
     return new NextResponse(error, { status: 403 });
   }
-  data.time = Date.now()-startTime;
+  data.time = Date.now() - startTime;
   return Response.json(data);
 }
 function size(a = "", b, c) {

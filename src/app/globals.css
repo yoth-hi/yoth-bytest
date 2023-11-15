@@ -18,7 +18,7 @@
   }
   :root {
     --foreground-rgb: 221, 221, 221;
-    --background-rgb: 0, 0, 0;
+    --background-rgb: 15,15,15;
   }
   .page-watch-primary-player-conteiner {
     background: #0000 !important;
@@ -47,6 +47,10 @@ svg {
   height: 100%;
   width: 100%;
   @apply dark:fill-white;
+}
+img{
+  width: 100%;
+  display: block;
 }
 /*  class */
 #app-desktop {
@@ -185,8 +189,32 @@ svg {
 body[exped] .sidebar .button > div {
   flex-direction: row !important;
 }
+body:not([exped]) .guide-section-item-content > *:not(.guide-section-item-icon) {
+  display: none !important;
+}
+body:not([exped]) .guide-section-item-icon{
+  margin-right: 0px!important;
+  min-width: 24px;
+}
+body:not([exped]) .guide-section-item-content {
+  width: var(--sidebar-width);
+  padding: 0px calc( calc( var(--sidebar-width) - 24px ) / 2 );
+}
 body:not([exped]) .sidebar [reqexped] {
   display: none !important;
+}
+body .sidebar [line-shot] * {
+  transition: .2s;
+  opacity: 1;
+}
+body:not([exped]) .sidebar [line-shot] * {
+  opacity: 0;
+}
+body:not([exped]) .sidebar [line-shot] {
+   margin: 20px 3px;
+   height: 3px;
+   background: #8883;
+   border-radius: 8px;
 }
 body:not([exped]) .sidebar .card-avatar-endpoint{
   background: transparent!important;
@@ -292,6 +320,7 @@ body[watchpage]:not([exped]) {
   min-width: 56px;
   max-width: 56px;
   height: 56px;
+  @apply flex items-center justify-center;
 }
 .card-avatar {
   @apply mt-[10px] mx-[10px] relative;
@@ -357,7 +386,7 @@ body[fullscreen] .desktop-header {
 body:not([watchpage]) .desktop-header ,
 body[scrollwatch] .desktop-header {
   top: 0px !important;
-  background: #000 !important;
+  background: rgb(var(--background-rgb))!important;
 }
 .layout-content:not([full]) .page-watch-container {
   max-width: 1500px;
@@ -463,7 +492,7 @@ body:not([fullscreen])
   max-width: 100%;
 }
 .player-prosses.pplay {
-  @apply bg-[#53fc18];
+  @apply bg-[#741dff];
 }
 .player-prosses.pload {
   @apply bg-[#fff]/40;
@@ -489,7 +518,7 @@ body:not([fullscreen])
 .player-prosses-dot {
   width: 16px;
   height: 16px;
-  background: #53fc18;
+  background: #741dff;
   border-radius: 50%;
 
   transform: translate(-50%, -9px);
@@ -635,7 +664,7 @@ body:not([fullscreen])
   content: "";
   right: 0px;
   display: block;
-  background: #53fc18;
+  background: #741dff;
 }
 .chat-edit-input-text {
   appearance: none;
@@ -708,7 +737,7 @@ body:not([fullscreen])
   @apply flex pb-[15px] px-[14px] items-center justify-between w-full;
 }
 .chat-btn-send {
-  background: #53fc18;
+  background: #741dff;
   padding: 5px 10px;
   border-radius: 8px;
   color: #000;
@@ -946,6 +975,13 @@ body:not([fullscreen])
 .card-thumbnail {
   position: absolute;
   @apply inset-0;
+  min-width: 400px;
+  max-width: 400px;
+}
+.card-thumbnail img{
+  
+  min-width: 400px;
+  max-width: 400px;
 }
 .card-video-row-title {
   @apply line-clamp-2;
@@ -1092,12 +1128,16 @@ body:not([fullscreen])
   min-width: min(80vw, 360px);
   margin: 0 auto;
 }
+.card-video[skeleton] {
+  pointer-events: none!important;
+}
 
 .card-video-thumbnail {
   min-width: min(80vw, 400px);
   padding-bottom: 56.25%;
   width: 100%;
   min-width: 100%;
+  max-width: 100%;
   position: relative;
   overflow: hidden;
   border-radius: 16px;
@@ -1293,26 +1333,7 @@ body:not([fullscreen])
 .page-watch-container{
   aspect-ratio: 1.7777777777777;
 }
-.header-center {
-  display: flex;
-  align-items: center;
-}
-.header-center ul {
-  display: flex;
-  align-items: center;
-}
-.header-center ul a {
-  @apply px-[55px] text-[14px] h-[56px] flex items-center relative
-}
-.header-center ul .current a::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 1px;
-  background: white;
-  height: 2px;
-}
+
 .card-user{
   width: 200px;
   background: #fff1;
@@ -1341,4 +1362,101 @@ body:not([fullscreen])
 }
 .page-content-video-list-grid.channels{
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.modal-menu-user{
+  border-radius: 25px;
+  background:rgb(var(--background-rgb));
+  z-index: 1200;
+}
+
+.modal-menu-user{
+  position: fixed;
+  right: 20px;
+  top: 54px;
+  width: 260px;
+  box-sizing: border-box;
+  box-shadow: #9993 0px 0px 5px  5px;
+  padding: 10px 0px;
+}
+
+.profile-menu-item.back{
+  justify-content: space-between;
+  font-weight:500;
+  border-bottom: 2px solid #8883;
+}
+.profile-menu-item:hover,
+.profile-menu-item:focus{
+  background: #8882;
+}
+.profile-menu-item{
+  padding: 0px 14px;
+  height: 40px;
+  display: flex;
+  justify-content: start;
+  flex-direction:row;
+  @apply items-center;
+  font-size: 12px;
+  max-width: calc(100%  );
+  width: 100%;
+}
+.profile-menu-item-icon{
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  
+}
+.profile-menu-item-icon.iconMore{
+  margin-left: auto;
+  
+  
+}
+.guide-section-title{
+  margin: 6px 12px 4px;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  @apply line-clamp-1;
+}
+.guide-section-item-content{
+  display: flex;
+  width: 100%;
+  @apply items-center;
+  padding:0 24px;
+  height: 48px;
+}
+.guide-section-item-icon{
+  margin-right: 24px;
+  min-width: 24px;
+}
+.guide-section-item-title{
+  margin: 0px!important;
+  @apply line-clamp-1;
+}
+.banner-player-iframe{
+  height: 100%;
+  width: 100%;
+}
+.video-player{
+  background: #66f7;
+}
+.skip-ads{
+  position: absolute;
+  right: 20px;
+  bottom: 80px;
+  background: #0006;
+  border-radius: 3px;
+  z-index: 156;
+  cursor: pointer;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  padding: 5px 10px;
+}
+.skip-ads span{
+  margin-right: 5px;
+  @apply line-clamp-1;
+}
+.skip-ads svg{
+  width: 16px;
 }

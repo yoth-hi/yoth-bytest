@@ -7,9 +7,7 @@ import Fetch from "../../service/ApiRest";
 import CardChannel from "../../components/cardChannelBox";
 import { useState, useEffect, useLayoutEffect } from "react";
 
-
 export default function (props) {
-  "commentario teste ¿¿ ■□□■□ ??";
   const [data, setData] = useState(null);
   const ApiGet = () =>
     Fetch({
@@ -52,7 +50,14 @@ export default function (props) {
                       "https://yt3.ggpht.com/3Es6M_K4K9qpHGmZu9Jl9C1QpCcNNqznjCzms6Ip1h1KumaIVEpsFinBWoq_ovly27ke2ZaJbQ=s88-c-k-c0x00ffffff-no-rj",
                   }}
                 />
-              ))}
+              )) || (
+                <>
+                  <CardVideo data={{}} skeleton />
+                  <CardVideo data={{}} skeleton />
+                  <CardVideo data={{}} skeleton />
+                  <CardVideo data={{}} skeleton />
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -63,22 +68,35 @@ export default function (props) {
           </div>
           <div>
             <div className="page-content-video-list-grid">
-              {[]?.map?.((t) => (
-                <CardVideo data={t} />
-              ))}
+              {[]?.map?.((t) => <CardVideo data={t} />) || (
+                <>
+                  <CardVideo data={{}} skeleton />
+                  <CardVideo data={{}} skeleton />
+                  <CardVideo data={{}} skeleton />
+                </>
+              )}
             </div>
           </div>
-          {data?.content?. videos?._types?.map(a=>(<div className="page-subscriptions-list">
-            <div className="page-content-title">
-              <Title title={capitalizeFirstLetter(a)} semibold="" large="" />
-              <Button title="Ver mais" />
+          {(data?.content?.videos?._types || ["", "", ""])?.map((a) => (
+            <div className="page-subscriptions-list">
+              <div className="page-content-title">
+                <Title title={capitalizeFirstLetter(a)} semibold="" large="" />
+                <Button title="Ver mais" />
+              </div>
+              <div className="page-content-video-list-grid">
+                {data?.content?.videos?.[a]?.map((t) => (
+                  <CardVideo data={t} />
+                )) || (
+                  <>
+                    <CardVideo data={{}} skeleton />
+                    <CardVideo data={{}} skeleton />
+                    <CardVideo data={{}} skeleton />
+                    <CardVideo data={{}} skeleton />
+                  </>
+                )}
+              </div>
             </div>
-            <div className="page-content-video-list-grid">
-              {data?.content?. videos?.[a]?.map((t) => (
-                <CardVideo data={t} />
-              ))}
-            </div>
-          </div>))}
+          ))}
         </div>
       </div>
     </div>
@@ -87,5 +105,5 @@ export default function (props) {
 
 //page-watch-primary => scroll
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

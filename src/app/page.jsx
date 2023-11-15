@@ -56,7 +56,7 @@ function Banner({data:{id,title}}) {
         <div className="banner-content-inner banner-bg" />
         <div className="banner-content-inner metadata">
           <div className="banner-player">
-        <Iframe type={id}/>
+        <Iframe type={id} className="banner-player-iframe"/>
           </div>
           <h2 className="title">{title}</h2>
           <div className="">6 Mil visualizações</div>
@@ -80,6 +80,6 @@ function Banner({data:{id,title}}) {
 }
 
 const Iframe = function({type, ...rest}){
-  const src=type?.replace(/tw\:(\S+)/,"https://player.twitch.tv/?channel=$1&autoplay=true&parent="+location.host)
+  const src=type?.replace(/tw\:(\S+)/,"https://player.twitch.tv/?channel=$1&autoplay=true&parent="+location.hostname)
   return type&&<iframe allowfullscreen="" src={src} {...rest}/>
 }
