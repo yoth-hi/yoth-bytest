@@ -26,10 +26,10 @@ function Page({ id, platform }: any) {
     sp(!arguments[0]["in"][1][0]);
   });
   useEffect(() => {
-    const el = document.querySelector(".layout-content");
+    const el = document.querySelector(".layout-content") as HTMLElement | null;
     if (p) {
-      el.removeAttribute("full");
-    } else el.setAttribute("full", "");
+      el?.removeAttribute("full");
+    } else el?.setAttribute("full", "");
   }, [p]);
   useLayoutEffect(() => {
     const el = document.body;
