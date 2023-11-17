@@ -3,18 +3,8 @@
 import { usePathname } from "next/navigation";
 import Item from "./item";
 import { useState, useEffect } from "react";
+import { t } from '../../libs/transition';
 
-const t = (a) =>
-  ({
-    Home: "Inicio",
-    Reels: "Reels",
-    Explore: "Explorar",
-    Following: "Seguindo",
-    Lives: "Ao vivo",
-    Gaming: "Jogando",
-    Close: "Fechar",
-    Channels: "Canals",
-  }[a] || a);
 const Home = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

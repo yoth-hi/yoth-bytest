@@ -7,6 +7,8 @@ import Title from "../components/string";
 import Fetch from "./../service/ApiRest";
 import CardCategory from "../components/CardCategory";
 
+import { t } from "../libs/transition";
+
 export default function Home() {
   const [data, setData] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -22,8 +24,8 @@ export default function Home() {
   return (
     <>
       <div className="page-home">
-        <Banner data={data?.content?.banner??{}}/>
-         <Title semibold="" large="" title="Recomendados" />
+        <Banner data={data?.content?.banner ?? {}} />
+        <Title semibold="" large="" title={t("Recommended")} />
         <div className="page-content-video-list-grid">
           {data?.content?.listVideo?.map((a) => (
             <CardVideo data={a} />
@@ -41,36 +43,48 @@ export default function Home() {
     </>
   );
 }
-function Banner({data:{id,title}}) {
+function Banner({ data: { id, title } }) {
   const [index, setIndex] = useState(0);
   const _a = [
-    "https://wallpapercave.com/wp/wp"+parseInt(6208027*Math.random())+".jpg",
-    "https://wallpapercave.com/wp/wp"+parseInt(6208017*Math.random())+".jpg",
-    "https://wallpapercave.com/wp/wp"+parseInt(6208043*Math.random())+".jpg",
-    "https://wallpapercave.com/wp/wp"+parseInt(6208015*Math.random())+".jpg",
-    "https://wallpapercave.com/wp/wp"+parseInt(6238035*Math.random())+".jpg",
-  ]
+    "https://wallpapercave.com/wp/wp" +
+      parseInt(6208027 * Math.random()) +
+      ".jpg",
+    "https://wallpapercave.com/wp/wp" +
+      parseInt(6208017 * Math.random()) +
+      ".jpg",
+    "https://wallpapercave.com/wp/wp" +
+      parseInt(6208043 * Math.random()) +
+      ".jpg",
+    "https://wallpapercave.com/wp/wp" +
+      parseInt(6208015 * Math.random()) +
+      ".jpg",
+    "https://wallpapercave.com/wp/wp" +
+      parseInt(6238035 * Math.random()) +
+      ".jpg",
+  ];
   return (
     <div className="banner-home">
       <div>
         <div className="banner-content-inner banner-bg" />
         <div className="banner-content-inner metadata">
           <div className="banner-player">
-        <Iframe type={id} className="banner-player-iframe"/>
+            <Iframe type={id} className="banner-player-iframe" />
           </div>
           <h2 className="title">{title}</h2>
           <div className="">6 Mil visualizações</div>
         </div>
         <Image
           className="banner-content-inner animate-start-banner"
-          src={_a?.[index]||"https://wallpapercave.com/wp/wp6208017.jpg"}
+          src={_a?.[index]}
         />
         <div className="thumbnail-pagenation">
           {[0, 0, 0, 0, 0]?.map((a, b) => (
-            <button onClick={_=>setIndex(b)} data-index={b} className="thumbnail-pagenation-item">
-              <Image
-                src={_a[b]}
-              />
+            <button
+              onClick={(_) => setIndex(b)}
+              data-index={b}
+              className="thumbnail-pagenation-item"
+            >
+              <Image src={_a[b]} alt={a?.title}/>
             </button>
           ))}
         </div>
@@ -79,7 +93,11 @@ function Banner({data:{id,title}}) {
   );
 }
 
-const Iframe = function({type, ...rest}){
-  const src=type?.replace(/tw\:(\S+)/,"https://player.twitch.tv/?channel=$1&autoplay=true&parent="+location.hostname)
-  return type&&<iframe allowfullscreen="" src={src} {...rest}/>
-}
+const Iframe = function ({ type, ...rest }) {
+  const src = type?.replace(
+    /tw\:(\S+)/,
+    "https://player.twitch.tv/?channel=$1&autoplay=true&parent=" +
+      location.hostname
+  );
+  return type && <iframe allowfullscreen="" src={src} {...rest} />;
+};

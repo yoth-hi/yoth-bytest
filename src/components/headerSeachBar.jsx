@@ -1,9 +1,6 @@
 import SearchIcon from "./icons/SearchIcon";
+import { t } from "../libs/transition";
 export default function () {
-  const Trass = {
-    search: "Pesquisar",
-  };
-  
   const onKeywordUp = function () {};
   const onKeywordChange = function () {};
   return (
@@ -14,7 +11,7 @@ export default function () {
         </div>
         <form action="/results" className=" search-bar-form">
           <input
-            placeholder={Trass.search}
+            placeholder={t("Search")}
             //  onChange={onKeywordChange}
             //  onKeyUp={onKeywordUp}
             autoCapitalize="none"
@@ -24,10 +21,9 @@ export default function () {
             tabIndex="0"
             type="text"
             spellCheck="false"
-            aria-label={Trass.search}
           />
           <div className="submit">
-            <button className="submit-btn">
+            <button className="submit-btn" aria-label={t("Search")}>
               <div className="icon">
                 <SearchIcon />
               </div>

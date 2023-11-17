@@ -3,6 +3,7 @@ import Link from "next/link";
 import Title from "./string";
 import Image from "./image";
 import MainNavigations from "./sidebar/mainNavigations";
+import { t } from "../libs/transition";
 
 const Avatar = function ({ profile, name }) {
   const isLive = Math.random() < 0.2;
@@ -29,24 +30,14 @@ const Avatar = function ({ profile, name }) {
   );
 };
 
-const t = (a) =>
-  ({
-    Home: "Inicio",
-    Reels: "Reels",
-    Explore: "Explorar",
-    Following: "Seguindo",
-    Lives: "Ao vivo",
-    Gaming: "Jogando",
-    Close: "Fechar",
-    Channels: "Canals",
-  }[a] || a);
 export default function () {
   return (
     <div className="sidebar">
-      <div>
+      <div className="guide-section">
         <MainNavigations />
       </div>
-      <div>
+      <div className="guide-section">
+        <div className="guide-section-split-line" />
         <Title
           line-shot=""
           title={t("Explore")}
@@ -77,21 +68,25 @@ export default function () {
                 </g>
               </svg>
             }
+            href="/lives"
           />
         </div>
       </div>
-      <div>
+      <div className="guide-section">
+        <div className="guide-section-split-line" />
         <Title
           line-shot=""
           title={t("Channels")}
           semibold=""
           className="guide-section-title"
         />
-        <div>
-          <Avatar />
-          <Avatar />
-          <Avatar />
-        </div>
+        <div className="guide-section-list">
+          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
+          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
+          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
+          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
+          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
+          </div>
       </div>
       <div className="hover-item"></div>
     </div>
@@ -101,7 +96,7 @@ export default function () {
 const Items = function ({ href = "", newness, icon, title, imageUrl }) {
   return (
     <div>
-      <Link href={href}>
+      <Link href={href} aria-label={title}>
         <div className="guide-section-item-content">
           <div className="guide-section-item-icon">{icon}</div>
           <Image src={imageUrl} />

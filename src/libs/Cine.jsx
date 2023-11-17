@@ -8,6 +8,7 @@ function A({ width, height }) {
   return { context, canvas };
 }
 export default function ({ video }) {
+  const jst = document.querySelectorAll("#cinematic canvas");
   const config = {
     width: 110,
     height: 75,
@@ -16,24 +17,32 @@ export default function ({ video }) {
   const _ = {
     canvas: [A(config), A(config), A(config)],
   };
-  setInterval(() => {
+  const interval = setInterval(() => {
     _.canvas[1]?.context?.clearRect(0, 0, 1000, 1000);
     _.canvas[1]?.context?.drawImage(
       video,
       config.width / 2 - config.res / 2,
       config.height / 2 - config.res / 2,
       config.res,
-      config.res*1.07
+      config.res * 1.07
     );
-    _.canvas[1].canvas.style.opacity=""
+    _.canvas[1].canvas.style.opacity = "";
     _.canvas[1].context.filter = "blur(6px)";
-//    _.canvas[0]?.context?.clearRect(0, 0, 1000, 1000);
-    _.canvas[0]?.context?.drawImage(_.canvas[1]?.canvas,
-    config.width
-    ,config.height);
+    //    _.canvas[0]?.context?.clearRect(0, 0, 1000, 1000);
+    _.canvas[0]?.context?.drawImage(
+      _.canvas[1]?.canvas,
+      config.width,
+      config.height
+    );
   }, 60);
   const a = document.querySelector("#cinematic");
   a?.appendChild?.(_.canvas[0]?.canvas);
   a?.appendChild?.(_.canvas[1]?.canvas);
-  return {};
+  return {
+    clear() {
+      a?.removeChild?.(_.canvas[0]?.canvas);
+      a?.removeChild?.(_.canvas[1]?.canvas);
+      clearInterval(interval);
+    },
+  };
 }

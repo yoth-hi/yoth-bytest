@@ -4,10 +4,10 @@ import Image from "../image";
 export default function ({ href = "",onClick, newness, icon, title, imageUrl }) {
   return (
     <div>
-      <Link onClick={onClick} href={href}>
+      <Link onClick={onClick} href={href} aria-label={title||"button navegation"}>
         <div className="guide-section-item-content">
           <div className="guide-section-item-icon">{icon}</div>
-          <Image src={imageUrl} />
+          <Image src={imageUrl} alt={title} />
           <Title title={title} className="guide-section-item-title" />
           {newness && (
             <div

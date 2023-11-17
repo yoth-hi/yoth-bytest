@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createPortal } from "react-dom";
-const t = (a) => a;
+
+import { t } from "../libs/transition";
 export default function () {
   const [User, onLogin] = useState({
     uuId: 0,
@@ -73,7 +74,7 @@ const Menu = function ({ User }) {
     theme__Select:0,
     theme: [
       {
-        name: t("System"),
+        name: t("System_default"),
         type: "route_reload",
         endpoint: "?theme=0",
         icon: null,
@@ -102,6 +103,7 @@ const Menu = function ({ User }) {
             onClick={() => {
               setQ({ name: null, items: Array_Items_Menu_user });
             }}
+            aria-label={"menu"}
           >
             <div className="profile-menu-item-icon">{"<"}</div>
             <div className="profile-menu-item-text">{t("Theme")}</div>
@@ -110,6 +112,7 @@ const Menu = function ({ User }) {
         )}
         {T.items.map((_) => (
           <BTR
+            aria-label={_.name}
             href={_.endpoint}
             type={_.type || ""}
             onClick={() => {

@@ -6,7 +6,7 @@ import CardVideo from "../../components/CardVideo";
 import Fetch from "../../service/ApiRest";
 import CardChannel from "../../components/cardChannelBox";
 import { useState, useEffect, useLayoutEffect } from "react";
-
+import { t } from "../../libs/transition";
 export default function (props) {
   const [data, setData] = useState(null);
   const ApiGet = () =>
@@ -34,11 +34,11 @@ export default function (props) {
         <div className="page-sub-content">
           <div className="page-content-title">
             <Title
-              title={data?.content?.channels?.title}
+              title={t("Channels_you_followed")}
               semibold=""
               large=""
             />
-            <Button title="Ver mais" />
+            <Button title={t("See_more")} />
           </div>
           <div>
             <div className="channels page-content-video-list-grid">
@@ -63,8 +63,8 @@ export default function (props) {
         </div>
         <div className="page-sub-content">
           <div className="page-content-title">
-            <Title title="Mais recente" semibold="" large="" />
-            <Button title="Ver mais" />
+            <Title title={t("Last")} semibold="" large="" />
+            <Button title={t("See_more")} />
           </div>
           <div>
             <div className="page-content-video-list-grid">
@@ -81,7 +81,7 @@ export default function (props) {
             <div className="page-subscriptions-list">
               <div className="page-content-title">
                 <Title title={capitalizeFirstLetter(a)} semibold="" large="" />
-                <Button title="Ver mais" />
+                <Button title={t("See_more")} />
               </div>
               <div className="page-content-video-list-grid">
                 {data?.content?.videos?.[a]?.map((t) => (

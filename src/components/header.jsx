@@ -4,21 +4,22 @@ import Search from "./headerSeachBar";
 import Button from "./Button";
 import Notification from "./icons/Notification";
 import MenuBtn from "./MenuBtn";
+import { t } from "../libs/transition";
 
 const Btns = function () {
   return (
     <>
-      <Button icon={<Notification />} aria-label={" nad "} />
+      <Button icon={<Notification />} aria-label={t("Notifications")} />
     </>
   );
 };
 
-export default function ({ bg }) {
+export default function () {
   return (
-    <div className={`desktop-header ${bg}`}>
+    <div className={`desktop-header`}>
       <div className="desktop-layout-start">
         <MenuBtn />
-        <Link className="logo" href="/" aria-label="go to homepage">
+        <Link className="logo" href="/" aria-label={t("Go_to_homepage")}>
           Yoth
         </Link>
       </div>

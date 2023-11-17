@@ -4,23 +4,45 @@ import { render } from "react-dom";
 
 import In from "../../libs/Interpolation";
 
-import { useRef,useEffect, useState } from "react";
+import { useRef, useEffect, useLayoutEffect, memo, useState } from "react";
 import BrowseChannelAndNextItem from "./../../components/BrowseChannelAndNextItem";
+import Player from "../../components/player";
 var player = {};
-
-function Page({id, RendOlayer,platform}:any) {
-  
-  const [p, sp] = useState(false);
-  In(window,"_change-player-mode",function(){
-    sp(arguments[0]["in"][1][0])
-  })
+const Layer = memo(({ id, sp, platform }: any) => (
+  <div className="page-watch-container">
+    <div className="page-watch-primary">
+      <div className="page-watch-primary-player">
+        <div id="cinematic" />
+        <div className="page-watch-primary-player-conteiner">
+          <Player {...{ id, platform, sp }} />
+        </div>
+      </div>
+    </div>
+  </div>
+));
+function Page({ id, platform }: any) {
+  const [p, sp] = useState(true);
+  In(window, "_change-player-mode", function () {
+    sp(!arguments[0]["in"][1][0]);
+  });
+  useEffect(() => {
+    const el = document.querySelector(".layout-content");
+    if (p) {
+      el.removeAttribute("full");
+    } else el.setAttribute("full", "");
+  }, [p]);
+  useLayoutEffect(() => {
+    const el = document.body;
+    el.setAttribute("watchpage", "");
+    return () => el.removeAttribute("watchpage");
+  }, []);
   return (
     <>
-      <>{!p&&RendOlayer}</>
+      <>{!p && <Layer {...{ id, sp, platform }} key={65} />}</>
       <div className="page-watch">
         <BrowseChannelAndNextItem
-             Player={p&&RendOlayer}
-             _context={{ id, platform }}
+          Player={p && <Layer {...{ id, sp, platform }} key={65} />}
+          _context={{ id, platform }}
         />
       </div>
     </>
