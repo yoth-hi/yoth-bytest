@@ -12,6 +12,8 @@ const Avatar = function ({ profile, name }) {
       <Link href="/" className="card-avatar-endpoint">
         <div className="card-avatar-contener">
           <Image
+            width="24"
+            height="24"
             classRoot="card-avatar-image"
             src="https://yt3.ggpht.com/PTiLCyqs4-z3-ndytSzw4EcA3fyu5a5IM1dGAxWUah5RlogLLGlDyk_AjgzlkUXnbur-CvML5w=s88-c-k-c0x00ffffff-no-rj"
           />

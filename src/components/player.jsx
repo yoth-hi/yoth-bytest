@@ -229,7 +229,7 @@ export default React.memo(function ({ platform, id, sp }) {
         }}
         ref={video}
       >
-        <source src={data.stream?. list[index_resolution]?.url} type="application/x-mpegURL" />
+        <source src={data.stream?. list?.[index_resolution]?.url} type="application/x-mpegURL" />
       </video>
       <div
         className="player-controls"

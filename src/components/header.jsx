@@ -19,7 +19,7 @@ export default function () {
     <div className={`desktop-header`}>
       <div className="desktop-layout-start">
         <MenuBtn />
-        <Link className="logo" href="/" aria-label={t("Go_to_homepage")}>
+        <Link className="logo" href="/" aria-label={t("Go_to_homepage")+" - "+"yoth"}>
           Yoth
         </Link>
       </div>

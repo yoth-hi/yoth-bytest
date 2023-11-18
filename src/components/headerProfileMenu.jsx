@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createPortal } from "react-dom";
-
+import Image from "./image";
 import { t } from "../libs/transition";
 export default function () {
   const [User, onLogin] = useState({
@@ -19,7 +19,7 @@ export default function () {
         className="header-profile-panel"
       >
         <div className="header-profile-panel-image">
-          <img src="https://yt3.ggpht.com/ytc/APkrFKaZ9ywbCkWpJvI0lDbEL396FOaX3S4pW7KEe98Ui3YRZX6D1FRyqh3qg1Oorrzh=s88-c-k-c0x00ffffff-no-rj" />
+          <Image alt={"image profile"} width="40" height="40px" src="https://yt3.ggpht.com/ytc/APkrFKaZ9ywbCkWpJvI0lDbEL396FOaX3S4pW7KEe98Ui3YRZX6D1FRyqh3qg1Oorrzh=s88-c-k-c0x00ffffff-no-rj" />
         </div>
       </div>
       {IsOpen ? createPortal(<Menu />, document.body) : null}
