@@ -3,7 +3,7 @@ import { getTraslate } from "../_service";
 const getUrlStreamTwichM3u8 = function (p, channel) {
   if (!p) return;
   const { signature, value } = p;
-  return `http://localhost:3000/yothpi/stream?q=${encodeURIComponent(
+  return `https://yoth-hi-github-io.vercel.app/yothpi/stream?q=${encodeURIComponent(
     `http://usher.ttvnw.net/api/channel/hls/${channel}.m3u8?player=twitchweb&&token=${encodeURIComponent(
       value
     )}&sig=${signature}&allow_audio_only=true&allow_source=true&type=any&p=${Math.floor(

@@ -144,7 +144,7 @@ export default React.memo(function ({ platform, id, sp }) {
   //2 = fullscreen
   const play_pouse = function () {
     const vid = video.current;
-    if(start_play)set_start_play(false)
+    if (start_play) set_start_play(false);
     if (!vid) return alert("%% no video ");
     vid.paused ? vid.play() : vid.pause();
   };
@@ -205,7 +205,9 @@ export default React.memo(function ({ platform, id, sp }) {
       className="video-player"
       tabIndex="-1"
     >
-      {start_play && <Image src={data?.videoDetails?.thumbnail} width={"100%"} />}
+      {start_play && (
+        <Image src={data?.videoDetails?.thumbnail} width={"100%"} />
+      )}
       <video
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
@@ -225,7 +227,9 @@ export default React.memo(function ({ platform, id, sp }) {
           play_pouse();
         }}
         ref={video}
-        src={data.stream?.streamM3u8Url}   />
+      >
+        <source src={data.stream?.streamM3u8Url} type="application/x-mpegURL" />
+      </video>
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
