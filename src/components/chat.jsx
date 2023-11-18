@@ -6,25 +6,25 @@ import ParceJsonTwich from "../libs/parceMsgTw";
 import Title from "./string";
 import { useEffect, useState } from "react";
 const Action_b = {
-  ADMIN:
+  moderator:
     "https://static-cdn.jtvnw.net/badges/v1/9ef7e029-4cdf-4d4d-a0d5-e2b3fb2583fe/2",
   VIP: "https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2",
 };
 export default function ({ id }) {
   const points = 0; //state
   const value = 0; //state
+  
   return (
     <div className="chat">
       <div className="chat-header">
         <div className="chat-header-left">
           <Title semibold="" large="" title="Stream chat" />
-
           <div></div>
         </div>
         <div>.</div>
       </div>
       <Msgs channel={id} />
-      {false&&<CardPreview/>}
+      {false && <CardPreview />}
       <div>
         <div className="chat-edit-input">
           <input placeholder="enviar..." className="chat-edit-input-text" />
@@ -46,16 +46,22 @@ const Msg = function (props) {
   if (!props) return;
   const { data } = props;
   const isTimeShown = true;
+  console.log(data)
   return (
     <div className="chat-message">
       <div className="message-content">
         <span
-          className=""
+          className="message-content-user"
           style={{
-            color: data?.color||"#333",
+            color: data?.color || "#333",
           }}
         >
-          <span className="">[begs]</span>
+          <span className="">{data?.badges?.map(a=>(
+              Action_b[a[0]]&&<img style={{width:"16px"}} src={Action_b[a[0]]} alt={a[0]}/>||"☆"
+            )
+          )
+            
+          }</span>
           <span className="username">{data?.["display-name"]}</span>
           <span className="colon">:</span>
         </span>
@@ -65,11 +71,12 @@ const Msg = function (props) {
     </div>
   );
 };
-var ws;
+
 const Actions = {
-  "connect":"Bem vindo ao chat",
-  "1":"Conectando ao chat..."
-}
+  connect: "Bem vindo ao chat",
+  1: "Conectando ao chat...",
+};
+var ws;
 const Msgs = function (props) {
   if (!props) return;
   const [msgs, setMsgs] = useState([]);
@@ -91,23 +98,27 @@ const Msgs = function (props) {
           if (command?.command === "PRIVMSG") {
             addMsg({
               ...tags,
+              badges:Object.entries(tags?.badges),
               text: parameters,
             });
           }
         },
         Status: function (data) {
-          const a= Actions[data];
-          if(a)setStatus(a)
+          const a = Actions[data];
+          if (a) setStatus(a);
           //data  console.log("Msg", ParceJsonTwich(data))
           // setMsgs(0)
         },
       });
   }, []);
-  return (<>
-    <div className="chat-mgs">
-    <span className="chat-mgs-status">{status}</span>
-    {msgs?.map((data) => Action.MSG({ data }))}</div>
-  </>);
+  return (
+    <>
+      <div className="chat-mgs">
+        <span className="chat-mgs-status">{status}</span>
+        {msgs?.map((data) => Action.MSG({ data }))}
+      </div>
+    </>
+  );
 };
 
 const Action = {

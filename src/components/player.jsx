@@ -5,6 +5,7 @@ import tr from "../service/player";
 
 import Slider from "./Slider";
 import Image from "./image";
+import Spin from "./icons/span";
 import Cine from "../libs/Cine";
 import Play from "./icons/play";
 import Pause from "./icons/pause";
@@ -131,9 +132,11 @@ import "video.js/dist/video-js.css";
         </>
       )}*/
 var render_cine = undefined;
+
 var time = 0;
 export default React.memo(function ({ platform, id, sp }) {
   const player = React.useRef(null);
+  const spin = React.useRef(null);
   const video = React.useRef(null);
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
   const [isPlay, toPlay] = React.useState(false);
@@ -148,8 +151,11 @@ export default React.memo(function ({ platform, id, sp }) {
     if (!vid) return alert("%% no video ");
     vid.paused ? vid.play() : vid.pause();
   };
+  const souce = "https://rr2---sn-n02xgoxufvg3-2gbs.googlevideo.com/videoplayback?expire=1700354138&ei=-gNZZezKONump-oPvde32AU&ip=212.102.39.151&id=o-APNfF5elcmhgsqHNQPugMsIg4SALO01EeBCiUJQIWR6Q&itag=22&source=youtube&requiressl=yes&mh=uI&mm=31%2C29&mn=sn-n02xgoxufvg3-2gbs%2Csn-2gb7snez&ms=au%2Crdu&mv=m&mvi=2&pl=24&initcwndbps=2943750&spc=UWF9f43e5RstC4nPpv3cZHhmFSDwXN4&vprv=1&svpuc=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=20167.296&lmt=1634588607032873&mt=1700332401&fvip=1&fexp=24007246&beids=24350018&c=ANDROID&txp=5311224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=ANLwegAwRQIhANSpR77PPYNPYDtM0k1RdAYsdqhZK1QmqwC9Eug7wNyyAiACmX3OPLBjv-vsyLx0dAPB0YMKXQM4GVO3QQUf9BeAVw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AM8Gb2swRgIhANeEt-M_Rcg8-Q14vOlTQRmaDcVJkZcSFF3BvI80k_kYAiEA4zzrIWDMqQQkFDNMzRb-QHlWNWNECfivOAj_Uz8_h18%3D&title=LIVE%20DE%2024%20HORAS%20SEM%20PARAR%20!!!"
   React.useEffect(() => {
-    if (!sp) return;
+    
+
+    if (!sp ) return;
     switch (statusPlayerModeWatch) {
       case 0:
         sp(!1);
@@ -172,6 +178,12 @@ export default React.memo(function ({ platform, id, sp }) {
       if (time < 0) {
         player_controls.style.opacity = 0;
       } else player_controls.style.opacity = 1;
+      if(video.current.readyState===4){
+        spin.current.style.display ="none"
+      }else {
+        spin.current.style.display ="block"
+        time = 100;
+      }
     }, 50);
     return () => clearInterval(interval);
   }, []);
@@ -209,6 +221,7 @@ export default React.memo(function ({ platform, id, sp }) {
       {start_play && (
         <Image src={data?.videoDetails?.thumbnail} width={"100%"} />
       )}
+      <Spin _ref={spin} isSpinning className="loading-player"/>
       <video
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
@@ -228,9 +241,8 @@ export default React.memo(function ({ platform, id, sp }) {
           play_pouse();
         }}
         ref={video}
-      >
-        <source src={data.stream?. list?.[index_resolution]?.url} type="application/x-mpegURL" />
-      </video>
+        src={souce||data.stream?. list?.[index_resolution]?.url} type="application/x-mpegURL" />
+
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}

@@ -721,7 +721,7 @@ z-index: 230;
 .page-watch-info {
   padding-top: 14px;
   padding-left: 20px;
-  max-width: min(3000px, calc(100vw - 40px));
+  max-width: min(2000px, calc(100vw - 40px));
   margin: 0 auto;
   z-index: 298;
   @apply flex relative;
@@ -1501,4 +1501,63 @@ z-index: 230;
   position: absolute;
   inset:0;
   z-index: 200;
+}
+.message-content-user{
+  display: flex;
+  @apply items-center;
+}
+@keyframes OpenModel{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes CloseModel{
+  100%{
+    opacity: 0;
+  }
+  0%{
+    opacity: 1;
+  }
+}
+.btn-login{
+  border-radius:99999px;
+  border: 2px solid #fffe;
+  color: #fffe;
+  padding: 5px 15px;
+  font-size: 13px;
+}
+.to-close{
+  animation: CloseModel .7s ease forwards!important;
+  
+}
+.bg-modal-hover{
+  animation: OpenModel .7s ease forwards;
+  position: fixed;
+  z-index: 3000;
+  inset:0;
+  background: #0006;
+  overflow: hidden;
+  backdrop-filter: blur(60px);
+}
+.modal-login{
+  top:50%;
+  left:50%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  padding: 10px;
+  overflow: hidden;
+  background: rgb(var(--background-rgb));
+  max-width: min(600px,90vw);
+  max-height: min(400px,60vh);
+  width: 100%;
+  border-radius:16px;
+}
+.modal-login-item-login{
+  width:64px;
+  height: 64px;
+  border-radius:50%;
+  overflow: hidden;
 }

@@ -25,6 +25,7 @@ const linguagems = {
     Seed_feedback: "Seed feedback",
     Light: "Light",
     Dark: "Dark",
+    Login: "Login",
     System_default: "System default",
   },
 };
@@ -40,6 +41,7 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 function getLing() {
+  var tom = { en: "en", "en-US": "en" };
   var language = "en";
   try {
     language =
@@ -48,7 +50,7 @@ function getLing() {
   } catch (erro) {
     language = "en";
   }
-  return language;
+  return tom[language] || "en";
 }
 var getCookies = function (key) {
   var pairs = document.cookie.split(";");

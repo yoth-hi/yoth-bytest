@@ -60,7 +60,7 @@ function parsePlaylist(playlist) {
         lines[i - 1].indexOf("RESOLUTION") != -1
           ? lines[i - 1].split("RESOLUTION=")[1].split(",")[0]
           : null,
-      url: lines[i],
+      url: `/yothpi/stream?q=${(encodeURIComponent)(lines[i])}`,
     });
   }
   return parsedPlaylist;

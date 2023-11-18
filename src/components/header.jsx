@@ -15,18 +15,24 @@ const Btns = function () {
 };
 
 export default function () {
+  const user = null;
   return (
     <div className={`desktop-header`}>
       <div className="desktop-layout-start">
         <MenuBtn />
-        <Link className="logo" href="/" aria-label={t("Go_to_homepage")+" - "+"yoth"}>
+        <Link
+          className="logo"
+          href="/"
+          aria-label={t("Go_to_homepage") + " - " + "yoth"}
+        >
           Yoth
         </Link>
       </div>
       <Search />
       <div className="desktop-layout-end">
-        <Btns />
-        <ProfileMenu />
+        {user && <Btns />}
+
+        <ProfileMenu user={user} />
       </div>
     </div>
   );
