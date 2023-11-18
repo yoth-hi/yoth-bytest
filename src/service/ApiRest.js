@@ -51,14 +51,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 
-
-var Fetch = function (a, b) {
+var cache_data = {};
+var Fetch = function (a, b = {}) {
     a = "".concat("", "").concat(a);
+    (b.next=b.next||{}).revalidate=10;
     var req = new Request(a, b);
+    var c = `${a}_${btoa(b.body)}`;
     return new Promise(function (ok, erro) {
+        if(cache_data[c])return ok(...cache_data[c]);
         fetch(req)
             .then(function (e) { return e.json(); })
-            .then(ok)
+            .then(function(...a){
+              cache_data[c]=a;
+              ok(...a);
+            })
             .catch(erro);
     });
 };

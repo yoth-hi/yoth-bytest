@@ -131,21 +131,25 @@ import "video.js/dist/video-js.css";
         </>
       )}*/
 var render_cine = undefined;
+var time = 0;
 export default React.memo(function ({ platform, id, sp }) {
   const player = React.useRef(null);
   const video = React.useRef(null);
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
   const [isPlay, toPlay] = React.useState(false);
-  const [data, setData] = React.useState(false);
+  const [data, setData] = React.useState({});
+  const [start_play, set_start_play] = React.useState(true);
   //0 = normal
   //1 = theater
   //2 = fullscreen
   const play_pouse = function () {
     const vid = video.current;
+    if(start_play)set_start_play(false)
     if (!vid) return alert("%% no video ");
     vid.paused ? vid.play() : vid.pause();
   };
   React.useEffect(() => {
+    if (!sp) return;
     switch (statusPlayerModeWatch) {
       case 0:
         sp(!1);
@@ -162,27 +166,49 @@ export default React.memo(function ({ platform, id, sp }) {
     }
   }, [statusPlayerModeWatch]);
   React.useEffect(() => {
-    if(!video.current)return;
-    render_cine=render_cine||new Cine({ video: video.current });
-    return ()=>{
+    const interval = setInterval(() => {
+      time -= 5;
+      var player_controls = player.current.querySelector(".player-controls");
+      if (time < 0) {
+        player_controls.style.opacity = 0;
+      } else player_controls.style.opacity = 1;
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+  React.useEffect(() => {
+    if (!video.current) return;
+    render_cine = render_cine || new Cine({ video: video.current });
+    return () => {
       render_cine?.clear();
       render_cine = undefined;
-    }
+    };
   }, [video]);
   React.useLayoutEffect(() => {
-/*    Fetch({
-      type:"player",
-      context:{
-        platform, 
-        id
-      }
-    }).then(setData)*/
+    Fetch({
+      type: "player",
+      context: {
+        platform,
+        id,
+      },
+    }).then(setData);
   }, []);
+  const hoverPlayer = function () {
+    time = 200;
+    var player_controls = player.current.querySelector(".player-controls");
+    player_controls.style.opacity = 1;
+  };
   return (
-    <div ref={player} className="video-player" tabIndex="-1">
-      <Image src={null} width={"100%"} />
-      {JSON.stringify(data)}
+    <div
+      ref={player}
+      onTouchMove={hoverPlayer}
+      onMouseMove={hoverPlayer}
+      className="video-player"
+      tabIndex="-1"
+    >
+      {start_play && <Image src={data?.videoDetails?.thumbnail} width={"100%"} />}
       <video
+        onTouchMove={hoverPlayer}
+        onMouseMove={hoverPlayer}
         tabIndex="-1"
         onPlay={() => {
           toPlay(true);
@@ -195,65 +221,88 @@ export default React.memo(function ({ platform, id, sp }) {
         muted=""
         onLoad={() => video.current.play()}
         autoplay=""
-        onClick={() => {play_pouse()}}
+        onClick={() => {
+          play_pouse();
+        }}
         ref={video}
-        src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
-      />
-      <div className="player-top">
-        <div className="player-top-bg" />
-        <div>
-          <h1 className="title">{"title"}</h1>
+        src={data.stream?.streamM3u8Url}   />
+      <div
+        className="player-controls"
+        onTouchMove={hoverPlayer}
+        onMouseMove={hoverPlayer}
+      >
+        <div className="player-top">
+          <div className="player-top-bg" />
+          <div>
+            <h1 className="title">{data.videoDetails?.title}</h1>
+          </div>
         </div>
-      </div>
-      <div className="video-stream" id="twplayer" />
-      <div className="player-bottom-bg" />
-      <div className="skip-ads">
-        <span>Skip ads</span>
-        <NextVideo />
-      </div>
-      <div className="player-bottom">
-        <Slider video={video}/>
-        <div className="player-bottom-buttons">
-          <div className="player-bottom-buttons-flex">
-            <Button className="player-bottom-btn play" onClick={() => {play_pouse()}}>
-              <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%">
-                {isPlay ? (
-                  <path d="M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"></path>
-                ) : (
-                  <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
+        <div className="video-stream" id="twplayer" />
+        <div className="player-bottom-bg" />
+        <div className="skip-ads">
+          <span>Skip ads</span>
+          <NextVideo />
+        </div>
+        {data.videoDetails && (
+          <div className="player-bottom">
+            <Slider video={video} />
+            <div className="player-bottom-buttons">
+              <div className="player-bottom-buttons-flex">
+                <Button
+                  className="player-bottom-btn play"
+                  onClick={() => {
+                    play_pouse();
+                  }}
+                >
+                  <svg
+                    height="100%"
+                    version="1.1"
+                    viewBox="0 0 36 36"
+                    width="100%"
+                  >
+                    {isPlay ? (
+                      <path d="M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"></path>
+                    ) : (
+                      <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
+                    )}
+                  </svg>
+                </Button>
+                <Button className="player-bottom-btn  next-video">
+                  <NextVideo />
+                </Button>
+                <Vol video={video} />
+              </div>
+              <div className="player-bottom-buttons-flex">
+                {statusPlayerModeWatch != 2 && (
+                  <Button
+                    className="player-bottom-btn"
+                    onClick={() => {
+                      setStatusPlayerModeWatch(
+                        statusPlayerModeWatch === 1 ? 0 : 1
+                      );
+                    }}
+                  >
+                    <TheaterMode />
+                  </Button>
                 )}
-              </svg>
-            </Button>
-            <Button className="player-bottom-btn  next-video">
-              <NextVideo />
-            </Button>
-            <Vol video={video} />
+                <Button
+                  className="player-bottom-btn"
+                  onClick={() => {
+                    setStatusPlayerModeWatch(
+                      statusPlayerModeWatch === 2 ? 0 : 2
+                    );
+                  }}
+                >
+                  {statusPlayerModeWatch === 2 ? (
+                    <ExitFullscreen />
+                  ) : (
+                    <Fullscreen />
+                  )}
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="player-bottom-buttons-flex">
-            {statusPlayerModeWatch != 2 && (
-              <Button
-                className="player-bottom-btn"
-                onClick={() => {
-                  setStatusPlayerModeWatch(statusPlayerModeWatch === 1 ? 0 : 1);
-                }}
-              >
-                <TheaterMode />
-              </Button>
-            )}
-            <Button
-              className="player-bottom-btn"
-              onClick={() => {
-                setStatusPlayerModeWatch(statusPlayerModeWatch === 2 ? 0 : 2);
-              }}
-            >
-              {statusPlayerModeWatch === 2 ? (
-                <ExitFullscreen />
-              ) : (
-                <Fullscreen />
-              )}
-            </Button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -342,5 +391,3 @@ function ry(a, b) {
 function t(r, e) {
   r?.(e === 1);
 }
-
-
