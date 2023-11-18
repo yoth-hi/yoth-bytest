@@ -192,6 +192,7 @@ export default React.memo(function ({ platform, id, sp }) {
       },
     }).then(setData);
   }, []);
+  const index_resolution = 3;
   const hoverPlayer = function () {
     time = 200;
     var player_controls = player.current.querySelector(".player-controls");
@@ -228,7 +229,7 @@ export default React.memo(function ({ platform, id, sp }) {
         }}
         ref={video}
       >
-        <source src={data.stream?.streamM3u8Url} type="application/x-mpegURL" />
+        <source src={data.stream?. list[index_resolution]?.url} type="application/x-mpegURL" />
       </video>
       <div
         className="player-controls"

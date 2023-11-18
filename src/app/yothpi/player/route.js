@@ -1,15 +1,22 @@
 import { getTraslate } from "../_service";
+import { getStream } from "./_m3u8_tw";
 
-const getUrlStreamTwichM3u8 = function (p, channel) {
+  // `https://yoth-hi-github-io.vercel.app/yothpi/stream?q=${encodeURIComponent(
+const getUrlStreamTwichM3u8 = async function (p, channel) {
   if (!p) return;
   const { signature, value } = p;
-  return `https://yoth-hi-github-io.vercel.app/yothpi/stream?q=${encodeURIComponent(
-    `http://usher.ttvnw.net/api/channel/hls/${channel}.m3u8?player=twitchweb&&token=${encodeURIComponent(
+  return await fetch(`http://usher.ttvnw.net/api/channel/hls/${channel}.m3u8?player=twitchweb&&token=${encodeURIComponent(
       value
     )}&sig=${signature}&allow_audio_only=true&allow_source=true&type=any&p=${Math.floor(
       Math.random() * 10000
-    )}`
-  )}`;
+    )}`,{
+      method:"GET"
+      })
+      .then(a => a.text())
+      .then(a => {
+        return parsePlaylist(a)
+      })
+  //)}`;
 };
 const twitch = async function (channel, ling = "en") {
   const a = await fetch("https://gql.twitch.tv/gql", {
@@ -43,19 +50,35 @@ const twitch = async function (channel, ling = "en") {
 
   return b;
 };
+function parsePlaylist(playlist) {
+  const parsedPlaylist = [];
+  const lines = playlist.split("\n");
+  for (let i = 4; i < lines.length; i += 3) {
+    parsedPlaylist.push({
+      quality: lines[i - 2].split('NAME="')[1].split('"')[0],
+      resolution:
+        lines[i - 1].indexOf("RESOLUTION") != -1
+          ? lines[i - 1].split("RESOLUTION=")[1].split(",")[0]
+          : null,
+      url: lines[i],
+    });
+  }
+  return parsedPlaylist;
+}
 
 export async function POST(req) {
   const { context } = await req.json();
-  var data, streamM3u8Url;
+  var data,list, streamM3u8Url;
   const ling = context?.lg;
   const ts = getTraslate(ling||"en")
   if (context?.platform === "twitch") {
     const channel = context.id;
     data = await twitch(channel, ling);
-    streamM3u8Url = getUrlStreamTwichM3u8(
+    list = await getUrlStreamTwichM3u8(
       data?.data?.user?.stream?.playbackAccessToken,
       channel
     );
+   // list=getStream(channel,true)
   }
   const us = data?.data?.channel;
   return Response.json({
@@ -65,6 +88,7 @@ export async function POST(req) {
     },
     stream: {
       streamM3u8Url,
+      list
     },
     nextVideosOnEnd: [
       /* ...us?.videos?.map?.(({ title, previewThumbnailURL, id }: any) => ({
