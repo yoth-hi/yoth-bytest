@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "../components/image";
 import CardVideo from "../components/CardVideo";
 
@@ -43,27 +43,15 @@ export default function Home() {
     </>
   );
 }
-function Banner({ data: { id, title } }) {
+function Banner({ data: { list } }) {
   const [index, setIndex] = useState(0);
-  const _a = [
-    "https://wallpapercave.com/wp/wp" +
-      parseInt(6208027 * Math.random()) +
-      ".jpg",
-    "https://wallpapercave.com/wp/wp" +
-      parseInt(6208017 * Math.random()) +
-      ".jpg",
-    "https://wallpapercave.com/wp/wp" +
-      parseInt(6208043 * Math.random()) +
-      ".jpg",
-    "https://wallpapercave.com/wp/wp" +
-      parseInt(6208015 * Math.random()) +
-      ".jpg",
-    "https://wallpapercave.com/wp/wp" +
-      parseInt(6238035 * Math.random()) +
-      ".jpg",
-  ];
+  const [son, setRon] = useState(true);
+  const banner = useRef(null);
+
+  const { id, title } = list?.[index] || {};
+  const _a = [];
   return (
-    <div className="banner-home">
+    <div ref={banner} className={"banner-home" + (son ? " animate" : "")}>
       <div>
         <div className="banner-content-inner banner-bg" />
         <div className="banner-content-inner metadata">
@@ -71,20 +59,26 @@ function Banner({ data: { id, title } }) {
             <Iframe type={id} className="banner-player-iframe" />
           </div>
           <h2 className="title">{title}</h2>
-          <div className="">6 Mil visualizações</div>
+          <div className="views-count">6 Mil visualizações</div>
         </div>
         <Image
           className="banner-content-inner animate-start-banner"
           src={_a?.[index]}
         />
         <div className="thumbnail-pagenation">
-          {[0, 0, 0, 0, 0]?.map((a, b) => (
+          {list?.map((a, b) => (
             <button
-              onClick={(_) => setIndex(b)}
+              onClick={(_) => {
+                setRon(false);
+                setTimeout(() => {
+                  setTimeout(()=>setIndex(b),200)
+                  setRon(true);
+                }, 100);
+              }}
               data-index={b}
               className="thumbnail-pagenation-item"
             >
-              <Image src={_a[b]} alt={a?.title}/>
+              <Image src={_a[b]} alt={a?.title} />
             </button>
           ))}
         </div>

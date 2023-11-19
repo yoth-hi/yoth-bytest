@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { getTraslate, req_btn } from "../_service";
 export async function POST(req) {
   const startTime = Date.now();
-  const data = {};
-  data.content = {};
+  const data = { content: {} };
   try {
     const json = await req.json();
     if (!json || !json.context) {
@@ -66,7 +65,7 @@ export async function POST(req) {
             actorId: us?.login,
             actorImage: us?.profileImageURL,
             thumbnail:
-              size(us?.stream?.previewImageURL, 400,(400/16)*9) ||
+              size(us?.stream?.previewImageURL, 400, (400 / 16) * 9) ||
               us?.offlineImageURL,
             id: us?.id,
             isLive: !!us?.stream,
@@ -80,7 +79,7 @@ export async function POST(req) {
               /(\d{3})/g,
               " $1"
             )} Visualizações`,
-            thumbnail: size(node.previewThumbnailURL, 400,(400/16)*9),
+            thumbnail: size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?vod_tw=${node.id}`,
           }));
           data.content.asesibility = {
@@ -141,7 +140,9 @@ export async function POST(req) {
               title: n?.broadcaster?.broadcastSettings?.title,
               viewsCount: n?.viewsCount,
               endpoint: "/watch?tw=" + n?.broadcaster?.login,
-              thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${n?.broadcaster?.login}-400x${(400/16)*9}.jpg`,
+              thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${
+                n?.broadcaster?.login
+              }-400x${(400 / 16) * 9}.jpg`,
 
               actorImage: `${n?.broadcaster?.profileImageURL}`,
               actorName: `${n?.broadcaster?.displayName}`,
@@ -158,7 +159,6 @@ export async function POST(req) {
             Accept: "application/json",
             "Accept-Language": lg,
             "Content-Type": "application/json",
-            //'Authorization': 'OAuth r8s4dac0uhzifbpu9sjdiwzctle17ff',
             "Device-Id": "",
             "User-Agent":
               "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36",
@@ -280,7 +280,9 @@ export async function POST(req) {
             title: n?.broadcaster?.broadcastSettings?.title,
             viewsCount: n?.viewsCount,
             endpoint: "/watch?tw=" + n?.broadcaster?.login,
-            thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${n?.broadcaster?.login}-400x${(400/16)*9}.jpg`,
+            thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${
+              n?.broadcaster?.login
+            }-400x${(400 / 16) * 9}.jpg`,
 
             actorImage: `${n?.broadcaster?.profileImageURL}`,
             actorName: `${n?.broadcaster?.displayName}`,
@@ -310,10 +312,33 @@ export async function POST(req) {
         );
       });
       data.content.banner = {
-        title: "wouat live, recommended ",
-        id: "tw:wuant",
         viewsCount: "---",
-        list: [],
+        list: [
+          {
+            title: "Wuant and recommended by the site's cio",
+            id: "tw:wuant",
+          },
+          {
+            title: "G0ularte and recommended by the site's cio",
+            id: "tw:g0ularte",
+          },
+          {
+            title: "Cellbit and recommended by the site's cio",
+            id: "tw:cellbit",
+          },
+          {
+            title: "Mount and recommended by the site's cio",
+            id: "tw:mount",
+          },
+          {
+            title: "PaulinhoLOKObr and recommended by the site's cio",
+            id: "tw:paulinholokobr",
+          },
+          {
+            title: "Alanzoka and recommended by the site's cio",
+            id: "tw:alanzoka",
+          },
+        ],
       };
     } else if (type === "following") {
       data.content.channels = {

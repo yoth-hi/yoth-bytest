@@ -1561,3 +1561,48 @@ z-index: 230;
   border-radius:50%;
   overflow: hidden;
 }
+.banner-home.animate .title{
+ animation: banner-home-item-move 1.5s forwards;
+}
+.banner-home.animate .views-count{
+ animation: banner-home-item-move 1.4s forwards .1s ;
+}
+.banner-home.animate .banner-player{
+ animation: banner-home-item-move-iframe 1.45s forwards .05s ;
+}
+@keyframes banner-home-item-move{
+  0%{
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  25%{
+    transform: translate(0,50%);
+    opacity: 0;
+  }
+  50%{
+    transform: translate(0,-50%);
+    opacity: 0;
+  }
+  100%{
+    transform: translate(0,0);
+    opacity: 1;
+  }
+}
+@keyframes banner-home-item-move-iframe{
+  0%{
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  25%{
+    transform: translate(0,10%);
+    opacity: 0;
+  }
+  50%{
+    transform: translate(0,-10%);
+    opacity: 0;
+  }
+  100%{
+    transform: translate(0,0);
+    opacity: 1;
+  }
+}
