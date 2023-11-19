@@ -57,7 +57,7 @@ export default function RootLayout({ children, ...a }) {
       <SettingJson>
         <div id="app-desktop">
           <Miniplayer />
-          <div className="desktop-layout desktop">
+          <div className="desktop-layout">
             <DesktopHeader />
             <Sidebar />
             <div className="layout-content-wrapper">
