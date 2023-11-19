@@ -10,6 +10,9 @@ const Button = function ({ title, className="",icon }) {
     </button>
   );
 };
+export const metadata = {
+  title: "Yoth - direct"
+}
 export default function ({ children }) {
   const [topIndex,setTopIndex]=useState(0);
   return (

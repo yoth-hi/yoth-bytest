@@ -6,7 +6,9 @@ import Banner from "../../components/banner";
 import Title from "../../components/string";
 import Fetch from "../../service/ApiRest";
 import CardCategory from "../../components/CardCategory";
-
+export const metadata = {
+  title: "Yoth - gaming"
+}
 export default function Home() {
   const [data, setData] = useState(null);
   const [loaded, setLoaded] = useState(false);
