@@ -15,7 +15,7 @@ const Btns = function () {
 };
 
 export default function () {
-  const user = null;
+  const user = {} ;
   return (
     <div className={`desktop-header`}>
       <div className="desktop-layout-start">

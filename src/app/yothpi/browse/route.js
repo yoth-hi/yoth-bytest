@@ -11,7 +11,7 @@ export async function POST(req) {
       });
     }
     const {
-      context: { lg, platform, id, type },
+      context: { lg, platform, query,id, type },
     } = json || { context: {} };
 
     const { context } = json || {};
@@ -352,10 +352,39 @@ export async function POST(req) {
         kick: [],
       };
     }
+    else if (type === "page_results"){
+      const a = await fetch('https://gql.twitch.tv/gql', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Accept-Language': 'en-US',
+    'Client-Id': 'r8s4dac0uhzifbpu9sjdiwzctle17ff',
+    'Content-Type': 'application/json',
+    'Device-Id': 'qQkSyxaRxX4Jbu0abiq2QPZLDwm02vOJ',
+    'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36',
+    'Referer': 'https://m.twitch.tv/search?term=wuant&type='
+  },
+  body: JSON.stringify({
+    'query': 'query Search_Query(\n  $noQuery: Boolean!\n  $noQueryFragment: Boolean!\n  $platform: String!\n  $queryFragment: String!\n  $requestID: ID\n  $target: SearchForTarget\n  $userQuery: String!\n) {\n  ...SearchAutocomplete_suggestions_d4heS\n  ...SearchContent_categories\n  ...SearchContent_channels\n  ...SearchContent_overview\n  ...SearchContent_videos\n}\n\nfragment SearchAutocomplete_suggestions_d4heS on Query {\n  searchSuggestions(queryFragment: $queryFragment, requestID: $requestID) @skip(if: $noQueryFragment) {\n    edges {\n      node {\n        id\n        __typename\n        text\n        content {\n          __typename\n          ...SuggestionSearchItem_suggestion\n          ... on SearchSuggestionCategory {\n            id\n            __typename\n          }\n          ... on SearchSuggestionChannel {\n            id\n            __typename\n          }\n        }\n      }\n    }\n    tracking {\n      modelTrackingID\n      responseID\n    }\n  }\n}\n\nfragment SearchCategoryCard_game on Game {\n  name\n  displayName\n  boxArtURL\n  viewersCount\n  slug\n  ...useGameTagListFragment_game\n}\n\nfragment SearchChannelCard_channel on User {\n  id\n  __typename\n  login\n  ...SearchOfflineChannel_channel\n  stream {\n    id\n    __typename\n    ...SearchStreamCard_stream\n  }\n  roles {\n    isPartner\n  }\n}\n\nfragment SearchContent_categories on Query {\n  searchFor(userQuery: $userQuery, platform: $platform, target: $target) @skip(if: $noQuery) {\n    games {\n      cursor\n      items {\n        id\n        __typename\n        ...SearchCategoryCard_game\n      }\n    }\n  }\n}\n\nfragment SearchContent_channels on Query {\n  searchFor(userQuery: $userQuery, platform: $platform, target: $target) @skip(if: $noQuery) {\n    channels {\n      cursor\n      items {\n        id\n        __typename\n        ...SearchChannelCard_channel\n      }\n    }\n  }\n}\n\nfragment SearchContent_overview on Query {\n  ...SearchContent_categories\n  ...SearchContent_channels\n  searchFor(userQuery: $userQuery, platform: $platform, target: $target) @skip(if: $noQuery) {\n    relatedLiveChannels {\n      ...SearchRelatedLiveChannels_channels\n    }\n    channels {\n      cursor\n      items {\n        id\n        __typename\n        ...SearchChannelCard_channel\n      }\n    }\n    games {\n      cursor\n      items {\n        id\n        __typename\n        ...SearchCategoryCard_game\n      }\n    }\n    videos {\n      cursor\n      items {\n        id\n        __typename\n        ...SearchVideoCard_video\n      }\n    }\n  }\n}\n\nfragment SearchContent_videos on Query {\n  searchFor(userQuery: $userQuery, platform: $platform, target: $target) @skip(if: $noQuery) {\n    videos {\n      cursor\n      items {\n        id\n        __typename\n        ...SearchVideoCard_video\n      }\n    }\n  }\n}\n\nfragment SearchOfflineChannel_channel on User {\n  displayName\n  followers {\n    totalCount\n  }\n  lastBroadcast {\n    startedAt\n    id\n    __typename\n  }\n  login\n  profileImageURL(width: 150)\n}\n\nfragment SearchRelatedLiveChannels_channels on SearchForResultRelatedLiveChannels {\n  items {\n    id\n    __typename\n    stream {\n      id\n      __typename\n      viewersCount\n      previewImageURL\n      game {\n        id\n        __typename\n        name\n        displayName\n      }\n      broadcaster {\n        id\n        __typename\n        login\n        displayName\n        roles {\n          isPartner\n        }\n      }\n    }\n  }\n}\n\nfragment SearchStreamCard_stream on Stream {\n  broadcaster {\n    displayName\n    login\n    broadcastSettings {\n      title\n      id\n      __typename\n    }\n    id\n    __typename\n  }\n  game {\n    displayName\n    name\n    id\n    __typename\n  }\n  id\n  __typename\n  previewImageURL\n  viewersCount\n}\n\nfragment SearchVideoCard_video on Video {\n  publishedAt\n  owner {\n    id\n    __typename\n    displayName\n    login\n    roles {\n      isPartner\n    }\n  }\n  id\n  __typename\n  game {\n    id\n    __typename\n    name\n    displayName\n  }\n  lengthSeconds\n  previewThumbnailURL\n  title\n  viewCount\n}\n\nfragment SuggestionSearchItem_suggestion on SearchSuggestionContent {\n  __isSearchSuggestionContent: __typename\n  __typename\n  ... on SearchSuggestionChannel {\n    id\n    __typename\n    isVerified\n    login\n    profileImageURL(width: 50)\n    user {\n      id\n      __typename\n      stream {\n        id\n        __typename\n        game {\n          id\n          __typename\n        }\n      }\n    }\n  }\n  ... on SearchSuggestionCategory {\n    id\n    __typename\n    boxArtURL\n    game {\n      name\n      slug\n      id\n      __typename\n    }\n  }\n}\n\nfragment useGameTagListFragment_game on Game {\n  gameTags: tags(limit: 10, tagType: CONTENT) {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useTagLinkFragment_tag on Tag {\n  id\n  __typename\n  tagName\n  localizedDescription\n  localizedName\n}\n',
+    'variables': {
+      'noQuery': false,
+      'noQueryFragment': true,
+      'platform': 'mobile_web',
+      'queryFragment': '',
+      'requestID': null,
+      'target': null,
+      'userQuery': query
+    }
+  })
+});
+      const b = await a.json();
+      data. content . list =  b?.data?.searchFor?.channels?.items;
+      
+    }
   } catch (error) {
     return new NextResponse(error, { status: 403 });
   }
-  data.time = Date.now() - startTime;
+  data.time = `${(Date.now() - startTime)/1000}ms`;
   return Response.json(data);
 }
 function size(a = "", b, c) {

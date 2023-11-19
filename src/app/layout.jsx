@@ -52,7 +52,7 @@ export default function RootLayout({ children, ...a }) {
     ? { className: "dark" }
     : { className: "light" };
   return (
-    <html lang={ling} {...head_props}>
+    <html lang={ling} {...head_props} style={{fontSize:"14px"}}>
       <body className={inter.className}>
       <SettingJson>
         <div id="app-desktop">

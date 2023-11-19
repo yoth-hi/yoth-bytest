@@ -133,55 +133,84 @@ import "video.js/dist/video-js.css";
       )}*/
 var render_cine = undefined;
 
-var time = 0;
+var time = 0,
+  r = 0,
+  temp = false;
 export default React.memo(function ({ platform, id, sp }) {
   const player = React.useRef(null);
   const spin = React.useRef(null);
   const video = React.useRef(null);
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
-  const [isPlay, toPlay] = React.useState(false);
-  const [data, setData] = React.useState({});
-  const [start_play, set_start_play] = React.useState(true);
   //0 = normal
   //1 = theater
   //2 = fullscreen
+  const [isPlay, toPlay] = React.useState(false);
+  const [data, setData] = React.useState({});
+  const [start_play, set_start_play] = React.useState(true);
+  const [a, b] = React.useState(null); // a = isModeAd, b = setModeAd, item = {stream:{url},config:{time:0}}
   const play_pouse = function () {
     const vid = video.current;
     if (start_play) set_start_play(false);
     if (!vid) return alert("%% no video ");
     vid.paused ? vid.play() : vid.pause();
   };
-  const souce = "https://rr2---sn-n02xgoxufvg3-2gbs.googlevideo.com/videoplayback?expire=1700354138&ei=-gNZZezKONump-oPvde32AU&ip=212.102.39.151&id=o-APNfF5elcmhgsqHNQPugMsIg4SALO01EeBCiUJQIWR6Q&itag=22&source=youtube&requiressl=yes&mh=uI&mm=31%2C29&mn=sn-n02xgoxufvg3-2gbs%2Csn-2gb7snez&ms=au%2Crdu&mv=m&mvi=2&pl=24&initcwndbps=2943750&spc=UWF9f43e5RstC4nPpv3cZHhmFSDwXN4&vprv=1&svpuc=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=20167.296&lmt=1634588607032873&mt=1700332401&fvip=1&fexp=24007246&beids=24350018&c=ANDROID&txp=5311224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=ANLwegAwRQIhANSpR77PPYNPYDtM0k1RdAYsdqhZK1QmqwC9Eug7wNyyAiACmX3OPLBjv-vsyLx0dAPB0YMKXQM4GVO3QQUf9BeAVw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AM8Gb2swRgIhANeEt-M_Rcg8-Q14vOlTQRmaDcVJkZcSFF3BvI80k_kYAiEA4zzrIWDMqQQkFDNMzRb-QHlWNWNECfivOAj_Uz8_h18%3D&title=LIVE%20DE%2024%20HORAS%20SEM%20PARAR%20!!!"
+  const souce =
+    a?.stream?.action?.src ||
+    "https://rr5---sn-5hnednsz.googlevideo.com/videoplayback?expire=1700437437&ei=XUlaZdHpGpe36dsP7-Om4A4&ip=37.46.113.162&id=o-AJFxNvKlpI9NygaQa81B4lic_UTrCDe8bOPcFKWAztdg&itag=22&source=youtube&requiressl=yes&mh=6s&mm=31%2C29&mn=sn-5hnednsz%2Csn-5hne6ns6&ms=au%2Crdu&mv=m&mvi=5&pl=24&initcwndbps=397500&spc=UWF9f-uHlW6ZRPFuA4XYFz9pv5mgNxk&vprv=1&svpuc=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=253.143&lmt=1699333533284311&mt=1700415447&fvip=3&fexp=24007246&beids=24350018&c=ANDROID&txp=5532434&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=ANLwegAwRAIgfF-TS5J9sB4GIUmYu1FdwUSEX4k5pHvEjaRDAI7lLZACIHGOnTs-8h-msSoaUosyOk2wuYUsrJCPylDb1s798gEG&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AM8Gb2swRAIgdFsOV1M7obuTDP0VkHOI3rMw8lSTSfpup7cVNU99HSsCIE4N2Mov53TRGRpRI5CHJuAMAblqemBVJ33GqgGkpmkM&title=Rogue%20-%20Empires%20%5BMonstercat%20Official%20Music%20Video%5D";
+  const handleScroll = (e) => {
+    var t = document.body;
+    if((e.target). scrollTop > 20) {
+       t.setAttribute("scrollwatch","")
+    } else {
+       t.removeAttribute("scrollwatch")
+      
+    }
+  };
   React.useEffect(() => {
+    const adt = document.querySelector ("#app-desktop");
     
-
-    if (!sp ) return;
+    if (!sp) return;
+    adt .addEventListener("scroll",handleScroll )
     switch (statusPlayerModeWatch) {
       case 0:
-        sp(!1);
+        if (temp === !1) sp((temp = !1));
+        fullscreen(false);
         break;
       case 1:
-        sp(!0);
+        fullscreen(false);
+        if (temp === !0) sp((temp = !0));
         break;
       case 2:
-        sp(!1);
+        if (temp === !1) sp((temp = !1));
+        fullscreen(true);
         break;
 
       default:
         null;
     }
+    return ()=> adt .removeEventListener("scroll",handleScroll )
   }, [statusPlayerModeWatch]);
   React.useEffect(() => {
     const interval = setInterval(() => {
+      var y;
+      if ((y = data.ads)) {
+        [...y].forEach((k) => {
+          if (k.time === parseInt(r)) {
+            b(k);
+          }
+        });
+      }
+      if (!isNaN(video.current.currentTime) && !video.current.paused) r++;
+
       time -= 5;
       var player_controls = player.current.querySelector(".player-controls");
       if (time < 0) {
         player_controls.style.opacity = 0;
       } else player_controls.style.opacity = 1;
-      if(video.current.readyState===4){
-        spin.current.style.display ="none"
-      }else {
-        spin.current.style.display ="block"
+      if (video.current.readyState === 4) {
+        spin.current.style.display = "none";
+      } else {
+        spin.current.style.display = "block";
         time = 100;
       }
     }, 50);
@@ -221,7 +250,7 @@ export default React.memo(function ({ platform, id, sp }) {
       {start_play && (
         <Image src={data?.videoDetails?.thumbnail} width={"100%"} />
       )}
-      <Spin _ref={spin} isSpinning className="loading-player"/>
+      <Spin _ref={spin} isSpinning className="loading-player" />
       <video
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
@@ -241,7 +270,9 @@ export default React.memo(function ({ platform, id, sp }) {
           play_pouse();
         }}
         ref={video}
-        src={souce||data.stream?. list?.[index_resolution]?.url} type="application/x-mpegURL" />
+        src={souce || data.stream?.list?.[index_resolution]?.url}
+        type="application/x-mpegURL"
+      />
 
       <div
         className="player-controls"
@@ -256,10 +287,12 @@ export default React.memo(function ({ platform, id, sp }) {
         </div>
         <div className="video-stream" id="twplayer" />
         <div className="player-bottom-bg" />
-        <div className="skip-ads">
-          <span>Skip ads</span>
-          <NextVideo />
-        </div>
+        {a && (
+          <div className="skip-ads">
+            <span>Skip ads</span>
+            <NextVideo />
+          </div>
+        )}
         {data.videoDetails && (
           <div className="player-bottom">
             <Slider video={video} />
@@ -407,4 +440,39 @@ function ry(a, b) {
 }
 function t(r, e) {
   r?.(e === 1);
+}
+function fullscreen(a) {
+  var isInFullScreen =
+    (document.fullscreenElement && document.fullscreenElement !== null) ||
+    (document.webkitFullscreenElement &&
+      document.webkitFullscreenElement !== null) ||
+    (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+    (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+  var docElm = document.documentElement;
+  var body = document.body;
+  const is = a ?? !isInFullScreen;
+  if (is) {
+    if (docElm.requestFullscreen) {
+      docElm.requestFullscreen();
+    } else if (docElm.mozRequestFullScreen) {
+      docElm.mozRequestFullScreen();
+    } else if (docElm.webkitRequestFullScreen) {
+      docElm.webkitRequestFullScreen();
+    } else if (docElm.msRequestFullscreen) {
+      docElm.msRequestFullscreen();
+    }
+    body.setAttribute("fullscreen", "");
+  } else {
+    if (docElm.exitFullscreen) {
+      docElm.exitFullscreen();
+    } else if (docElm.webkitExitFullscreen) {
+      docElm.webkitExitFullscreen();
+    } else if (docElm.mozCancelFullScreen) {
+      docElm.mozCancelFullScreen();
+    } else if (docElm.msExitFullscreen) {
+      docElm.msExitFullscreen();
+    }
+    body.removeAttribute("fullscreen");
+  }
 }

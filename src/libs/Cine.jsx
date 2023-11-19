@@ -24,7 +24,7 @@ export default function ({ video }) {
       config.width / 2 - config.res / 2,
       config.height / 2 - config.res / 2,
       config.res,
-      config.res * 1.07
+      config.res * 1.0
     );
     _.canvas[1].canvas.style.opacity = "";
     _.canvas[1].context.filter = "blur(6px)";
@@ -34,7 +34,7 @@ export default function ({ video }) {
       config.width,
       config.height
     );
-  }, 60);
+  }, 16);
   const a = document.querySelector("#cinematic");
   a?.appendChild?.(_.canvas[0]?.canvas);
   a?.appendChild?.(_.canvas[1]?.canvas);
