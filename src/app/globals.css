@@ -1139,6 +1139,7 @@ body:not([fullscreen])
   position: relative;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   grid-gap: 10px 7px;
+  margin: 0 14px;
 }
 .page-home,
 .page-sub-content {
