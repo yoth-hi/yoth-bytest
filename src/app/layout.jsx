@@ -23,7 +23,7 @@ export default function RootLayout({ children, ...a }) {
 
   var _,
     t,
-    theme = referer?.searchParams.get("theme");
+    theme = Number(referer?.searchParams.get("theme"));
   switch (theme) {
     case 0:
       t = true;
@@ -38,7 +38,7 @@ export default function RootLayout({ children, ...a }) {
       _ = false;
   }
   const darkHeader = true;
-  const dark = _;
+  const dark = true//_;
   const hideHeaderBorderBottom = true;
   const rerenderAfterLogin = true;
   const ling =
@@ -46,11 +46,9 @@ export default function RootLayout({ children, ...a }) {
     parseLanguagePreferences(headersList.get("accept-language"))[0]?.code;
   const loggedUID = 83583758364;
   const bg = {};
-  const head_props = t
-    ? {}
-    : dark
-    ? { className: "dark" }
-    : { className: "light" };
+  const head_props =  dark
+    ? { dark: "" }
+    : { light: "" };
   return (
     <html lang={ling} {...head_props} style={{fontSize:"14px"}}>
       <body className={inter.className}>

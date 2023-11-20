@@ -11,6 +11,7 @@ import { t } from "../libs/transition";
 
 export default function Home() {
   const [data, setData] = useState(null);
+  
   const [loaded, setLoaded] = useState(false);
   const getdata = function () {
     Fetch({
@@ -18,9 +19,26 @@ export default function Home() {
       context: {
         type: "home_page",
       },
-    }).then(setData);
+    }).then((_data)=>{
+      if(data){
+      const new_data = _data || {content:{}};
+      new_data.content.listVideo = [_data?.content?.listVideo,...data?.content?.listVideo ];
+      setData(new_data)
+        
+      }else {
+        
+      setData(_data)
+      }
+    });
   };
   useState(getdata, [loaded]);
+  useState(()=>{
+    const _func = function(){
+      console.log(this)
+    }
+    var a;(a=document.querySelector("#app-desktop"))?.addEventListener("scroll",_func)
+    return ()=>  a?.removeEventListener("scroll",_func);
+  }, []);
   return (
     <>
       <div className="page-home">
