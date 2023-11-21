@@ -2,7 +2,7 @@
 
 
 const nextConfig = {
-  async headers() {
+/*  async headers() {
     return [
       {
         source: '/:path*',
@@ -27,10 +27,10 @@ const nextConfig = {
             key: "Pragma",
             value: "public",
           },
-        ],
+       ],
       },
     ]
-  },
+  },*/
 };
 
 module.exports = nextConfig;

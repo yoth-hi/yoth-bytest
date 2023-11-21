@@ -345,12 +345,17 @@ body:not([watchpage]) .sidebar {
 .card-avatar {
   @apply mt-[10px] mx-[10px] relative;
 }
+
 .card-avatar-endpoint {
-  background: #fff1;
   height: 40px;
   overflow: hidden;
   display: block;
   border-radius: 8px;
+  transition: background .15s;
+  background: #0000;
+}
+.card-avatar-endpoint:hover{
+  background: #fff1;
 }
 .card-avatar-image {
   width: 24px !important;
@@ -1436,7 +1441,6 @@ body:not([fullscreen])
   padding: 0px 14px;
   height: 40px;
   display: flex;
-  justify-content: start;
   flex-direction: row;
   @apply items-center;
   font-size: 12px;
@@ -1666,7 +1670,7 @@ body:not([fullscreen])
 }
 .channel-content-metadata {
   display: flex;
-  align-items: start;
+  
   justify-content: center;
   flex-direction: column;
   flex: 1;
