@@ -73,6 +73,7 @@ img {
   overflow: scroll;
   overflow-x: hidden;
   max-width: 100vw;
+  min-height: 100%;
   width: 100%;
   height: 100%;
 }
