@@ -172,7 +172,7 @@ export default React.memo(function ({ platform, id, sp }) {
     adt .addEventListener("scroll",handleScroll )
     switch (statusPlayerModeWatch) {
       case 0:
-        if (temp === !1) sp((temp = !1));
+        if (temp === !0) sp((temp = !1));
         fullscreen(false);
         break;
       case 1:

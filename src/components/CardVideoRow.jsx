@@ -1,5 +1,6 @@
 import Image from "./image";
 import Link from "next/link";
+import { t, formate } from "../libs/transition";
 export default function ({data:{title,endpoint,actorName,viewsCount,thumbnail}}) {
   return (
     <div className="card-video-row">
@@ -17,7 +18,7 @@ export default function ({data:{title,endpoint,actorName,viewsCount,thumbnail}})
         </Link>
         <div>
           <div className="card-video-row-channel-name">{actorName}</div>
-          <div className="card-video-row-matadata">{viewsCount} há -- </div>
+          <div className="card-video-row-matadata">{formate(viewsCount,"Views")} - há -- </div>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import getCodeLanguage from "./getCodeLanguage";
 const linguagems = {
   en: {
     See_more: "See more",
@@ -16,6 +17,7 @@ const linguagems = {
     Close: "Close",
     Channel: "Channel",
     Channels: "Channels",
+    Send: "Send",
     Search: "Search",
     Your_channel: "Your channel",
     Theme: "Theme",
@@ -26,13 +28,26 @@ const linguagems = {
     Light: "Light",
     Dark: "Dark",
     Login: "Login",
+    Chat: "Chat",
     System_default: "System default",
+    Others: "Others",
+    "*_Views": "* Views",
+    "*_K_Views": "*K Views",
+    "*_M_Views": "*M Views",
+    "*_B_Views": "*B Views",
+    "*_T_Views": "*T Views",
   },
 };
-export const t = function (label, values = {}) {
+export const t = function (label, values = []) {
+  var values_index = 0;
   const linguagem = getLing(); // en, pt, pt-bt, ja, ...
   const labelValue = capitalize(label);
-  return linguagems[linguagem]?.[labelValue] || "%?";
+  const text_string = linguagems[linguagem]?.[labelValue] || "%?";
+  return text_string.replace(/(\*)/g, function () {
+    const _string = values[values_index];
+    values_index++;
+    return _string;
+  });
 };
 
 export default linguagems;
@@ -48,7 +63,7 @@ function getLing() {
       getCookies("language") ||
       navigator.language?.replace(/^(\S+)-\S+$/, "$1");
   } catch (erro) {
-    language = "en";
+    language = getCodeLanguage();
   }
   return tom[language] || "en";
 }
@@ -60,4 +75,21 @@ var getCookies = function (key) {
     cookies[(pair[0] + "").trim()] = unescape(pair.slice(1).join("="));
   }
   return key ? cookies[key] : cookies;
+};
+export const formate = (value, type) => {
+  var _return;
+  switch (type) {
+    case "Views":
+      var _str_tras = "";
+      if (value < 1e3) _str_tras = "*_Views", value=parseInt((value)*100)/100;
+      else if (value < 1e6) _str_tras = "*_K_Views", value=parseInt((value/1e3)*100)/100;
+      else if (value < 1e9) _str_tras = "*_M_Views", value=parseInt((value/1e6)*100)/100;
+      else if (value < 1e12) _str_tras = "*_B_Views", value=parseInt((value/1e9)*100)/100;
+      else _str_tras = "*_T_Views", value=parseInt((value/1e12)*100)/100;
+      _return = t(_str_tras,[value])
+      break;
+    default:
+      break;
+  }
+  return _return;
 };

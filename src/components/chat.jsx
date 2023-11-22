@@ -4,6 +4,7 @@ import CardPreview from "./cardPreview";
 import Ws from "../service/WebSocket";
 import ParceJsonTwich from "../libs/parceMsgTw";
 import Title from "./string";
+import { t } from "../libs/transition";
 import { useEffect, useState } from "react";
 const Action_b = {
   moderator:
@@ -18,8 +19,8 @@ export default function ({ id }) {
     <div className="chat">
       <div className="chat-header">
         <div className="chat-header-left">
-          <Title semibold="" large="" title="Stream chat" />
-          <div></div>
+          <Title semibold="" large="" title={t("Chat")} />
+          <div>{""}</div>
         </div>
         <div>.</div>
       </div>
@@ -27,7 +28,7 @@ export default function ({ id }) {
       {false && <CardPreview />}
       <div>
         <div className="chat-edit-input">
-          <input placeholder="enviar..." className="chat-edit-input-text" />
+          <input placeholder={t("send")+"..."} className="chat-edit-input-text" />
           <button className="chat-edit-input-emots">
             <Emoji />
           </button>
@@ -35,7 +36,7 @@ export default function ({ id }) {
         <div className="chat-edit-buttons">
           <div>{points} </div>
           <div>
-            <button className="chat-btn-send">Send</button>
+            <button className="chat-btn-send">{t("send")}</button>
           </div>
         </div>
       </div>

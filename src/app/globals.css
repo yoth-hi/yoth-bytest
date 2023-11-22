@@ -661,7 +661,7 @@ body:not([fullscreen])
 .chat {
   z-index: 9999;
   position: relative;
-  @apply rounded-[16px] border border-black/30 dark:border-white/30;
+  @apply rounded-[16px] mt-[20px] border border-black/30 dark:border-white/30;
 }
 .card-preview-channel {
   position: absolute;
@@ -1152,7 +1152,10 @@ body:not([fullscreen])
   max-height: 300px;
   background: rgba(var(--foreground-rgb),.2);
   overflow: hidden;
+  padding: 5px 10px;
   border-radius:5px;
+  pointer-events: auto;
+  cursor: pointer;
 }
 .chat-mgs-status {
   margin: 12px 16px 0px;
@@ -1686,4 +1689,10 @@ body:not([fullscreen])
 }
 .page-home > .core-string{
   @apply mx-[32px]
+}
+
+.page-sub{
+  margin:auto;
+  padding: 0px 20px;
+  max-width: 2500px;
 }

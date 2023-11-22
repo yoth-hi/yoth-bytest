@@ -1,4 +1,5 @@
-"use client";
+
+
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -52,17 +53,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 var cache_data = {};
-var Fetch = function (a, b = {}) {
-    a = "".concat("", "").concat(a);
-    (b.next=b.next||{}).revalidate=10;
+var Fetch = function (a="", b = {}) {
+    try {
+      const { headers } = require("next/headers");
+      const headersList = headers();
+      a = `http://${headersList.get("host")}${a}`
+    } catch (error) {
+      a = `${location.origin}${a}`
+      
+    }
+    
+    
+    
+    
     var req = new Request(a, b);
-    var c = `${a}_${btoa(b.body)}`;
+    
     return new Promise(function (ok, erro) {
-        if(cache_data[c])return ok(...cache_data[c]);
+        
         fetch(req)
             .then(function (e) { return e.json(); })
             .then(function(...a){
-              cache_data[c]=a;
+              
               ok(...a);
             })
             .catch(erro);

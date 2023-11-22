@@ -75,10 +75,7 @@ export async function POST(req) {
           data.content.listVideo = us?.videos?.edges?.map(({ node }) => ({
             title: node.title,
             actorName: us?.displayName,
-            viewsCount: `${String(node?.viewCount || 0).replace(
-              /(\d{3})/g,
-              " $1"
-            )} Visualizações`,
+            viewsCount:(node?.viewCount || 0),
             thumbnail: size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?vod_tw=${node.id}`,
           }));
@@ -98,7 +95,7 @@ export async function POST(req) {
               label: `${String(us?.followers?.totalCount || 0).replace(
                 /(\d{3})/g,
                 " $1"
-              )} Subscriber`,
+              )}`,
               number: us?.followers?.totalCount || 0,
             },
           };
@@ -382,6 +379,7 @@ export async function POST(req) {
       
     }
   } catch (error) {
+    console.error("[ LOG REQUEST BROUSER ERROR ]", error)
     return new NextResponse(error, { status: 403 });
   }
   data.time = `${(Date.now() - startTime)/1000}ms`;
