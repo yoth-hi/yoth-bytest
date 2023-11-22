@@ -5,12 +5,13 @@ import Script from "next/script";
 import DesktopHeader from "../components/header";
 import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
-import SettingJson from '../context/Provider';
+import SettingJson from "../context/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Yoth",
-  description: "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!",
+  description:
+    "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!",
 };
 
 export default function RootLayout({ children, ...a }) {
@@ -38,7 +39,7 @@ export default function RootLayout({ children, ...a }) {
       _ = false;
   }
   const darkHeader = true;
-  const dark = true//_;
+  const dark = true; //_;
   const hideHeaderBorderBottom = true;
   const rerenderAfterLogin = true;
   const ling =
@@ -46,13 +47,10 @@ export default function RootLayout({ children, ...a }) {
     parseLanguagePreferences(headersList.get("accept-language"))[0]?.code;
   const loggedUID = 83583758364;
   const bg = {};
-  const head_props =  dark
-    ? { dark: "" }
-    : { light: "" };
+  const head_props = dark ? { dark: "" } : { light: "" };
   return (
-    <html lang={ling} {...head_props} style={{fontSize:"14px"}}>
+    <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
       <body className={inter.className}>
-      <SettingJson>
         <div id="app-desktop">
           <Miniplayer />
           <div className="desktop-layout">
@@ -63,7 +61,6 @@ export default function RootLayout({ children, ...a }) {
             </div>
           </div>
         </div>
-      </SettingJson>
       </body>
     </html>
   );

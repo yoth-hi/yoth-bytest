@@ -10,6 +10,7 @@ export const metadata = {
   title: "Yoth - following"
 }
 export default async function (props) {
+  
   const data = await Fetch({
     type: "browse",
     context: {

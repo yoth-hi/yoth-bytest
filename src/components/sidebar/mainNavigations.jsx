@@ -78,7 +78,8 @@ const Reels = () => (
 export default function () {
   const urls = ["/", "/reels", "/explore", "/following"];
   const pathname = usePathname();
-  const [url, onChangeUrl] = useState(location.pathname);
+  
+  const [url, onChangeUrl] = useState(pathname);
   useEffect(() => {
     console.log(urls.includes(location.pathname));
     if (urls.includes(location.pathname)) onChangeUrl(location.pathname);
@@ -95,21 +96,25 @@ export default function () {
         title={t("Home")}
         icon={url === "/" ? <Home_active /> : <Home />}
         href="/"
+        className={"item-side-bar "+(url==="/"?"active":"")}
       />
       <Item
         title={t("Reels")}
         icon={url === "/reels" ? <Reels /> : <Reels />}
         href="/reels"
+        className={"item-side-bar "+(url==="/reels"?"active":"")}
       />
       <Item
         title={t("Explore")}
         icon={url === "/explore" ? <Explore_active /> : <Explore />}
         href="/explore"
+        className={"item-side-bar "+(url==="/explore"?"active":"")}
       />
       <Item
         title={t("Following")}
         icon={url === "/following" ? <Heart_active /> : <Heart />}
         href="/following"
+        className={"item-side-bar "+(url==="/following"?"active":"")}
       />
     </div>
   );

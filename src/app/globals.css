@@ -354,8 +354,18 @@ body:not([watchpage]) .sidebar {
   transition: background .15s;
   background: #0000;
 }
+.item-side-bar{
+  margin: 0 5px;
+  border-radius:5px;
+  overflow: hidden;
+}
+.item-side-bar:hover,
 .card-avatar-endpoint:hover{
   background: #fff1;
+}
+.item-side-bar.active,
+.card-avitem-side-bar.active{
+  background: #fff2;
 }
 .card-avatar-image {
   width: 24px !important;

@@ -52,7 +52,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 
-var cache_data = {};
 var Fetch = function (a="", b = {}) {
     try {
       const { headers } = require("next/headers");
@@ -60,23 +59,19 @@ var Fetch = function (a="", b = {}) {
       a = `http://${headersList.get("host")}${a}`
     } catch (error) {
       a = `${location.origin}${a}`
-      
     }
-    
-    
-    
-    
+    b={
+      ...b,
+      cache:"no-store",
+    }
     var req = new Request(a, b);
-    
     return new Promise(function (ok, erro) {
-        
         fetch(req)
             .then(function (e) { return e.json(); })
-            .then(function(...a){
-              
-              ok(...a);
-            })
-            .catch(erro);
+            .then(ok)
+            .catch((a)=>{
+              ok({"erro":a});
+            });
     });
 };
 var MyComponent = function (props) { return __awaiter(void 0, void 0, void 0, function () {

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Title from "../string";
 import Image from "../image";
-export default function ({ href = "",onClick, newness, icon, title, imageUrl }) {
+export default function ({ href = "", className ,onClick, newness, icon, title, imageUrl }) {
   return (
-    <div>
+    <div className={className||""}>
       <Link onClick={onClick} href={href} aria-label={title||"button navegation"}>
         <div className="guide-section-item-content">
           <div className="guide-section-item-icon">{icon}</div>

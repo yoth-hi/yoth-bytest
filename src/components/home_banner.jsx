@@ -50,7 +50,15 @@ const Iframe = function ({ type, ...rest }) {
   const src = type?.replace(
     /tw\:(\S+)/,
     "https://player.twitch.tv/?channel=$1&autoplay=true&parent=" +
-      location.hostname
+      (() => {
+        var y;
+        try {
+          y = location.hostname;
+        } catch (e) {
+          y = "localhost";
+        }
+        return y
+      })()
   );
   return type && <iframe allowfullscreen="" src={src} {...rest} />;
 };
