@@ -4,7 +4,13 @@ export async function POST(req) {
   const startTime = Date.now();
   const data = { content: {} };
   try {
-    const json = await req.json();
+    var json;
+    try {
+      
+    json=await req.json();
+    } catch (error) {
+      json={}
+    }
     if (!json || !json.context) {
       return new NextResponse(`the '${JSON.stringify(json)}' not is valid`, {
         status: 403,

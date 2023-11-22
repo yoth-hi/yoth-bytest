@@ -67,7 +67,7 @@ var Fetch = function (a="", b = {}) {
     var req = new Request(a, b);
     return new Promise(function (ok, erro) {
         fetch(req)
-            .then(function (e) { return e.json(); })
+            .then(()=>e.json())
             .then(ok)
             .catch((a)=>{
               ok({"erro":a});
