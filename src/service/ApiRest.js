@@ -56,7 +56,7 @@ var Fetch = function (a="", b = {}) {
     try {
       const { headers } = require("next/headers");
       const headersList = headers();
-      a = `http://${headersList.get("host")}${a}`
+      a = `https://yoth-hi.vercel.app${a}`
     } catch (error) {
       a = `${location.origin}${a}`
     }
