@@ -13,10 +13,10 @@ export default function Banner({ data: { list } }) {
     <div ref={banner} className={"banner-home" + (son ? " animate" : "")}>
       <div>
         <div className="banner-content-inner banner-bg" />
+        <div className="banner-player">
+          <Iframe type={id} className="banner-player-iframe" />
+        </div>
         <div className="banner-content-inner metadata">
-          <div className="banner-player">
-            <Iframe type={id} className="banner-player-iframe" />
-          </div>
           <h2 className="title">{title}</h2>
           <div className="views-count">6 Mil visualizações</div>
         </div>
@@ -57,7 +57,7 @@ const Iframe = function ({ type, ...rest }) {
         } catch (e) {
           y = "localhost";
         }
-        return y
+        return y;
       })()
   );
   return type && <iframe allowfullscreen="" src={src} {...rest} />;

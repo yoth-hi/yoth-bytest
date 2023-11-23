@@ -155,7 +155,7 @@ export default React.memo(function ({ platform, id, sp }) {
     vid.paused ? vid.play() : vid.pause();
   };
   const souce =
-    a?.stream?.action?.src ||"https://rr2---sn-2puupm-2pue.googlevideo.com/videoplayback?expire=1700552052&ei=FAlcZdr-K-LJi9oPsLy6oAE&ip=173.239.217.160&id=o-ACUPhuYPpX2CjQembYwOA-sY1gCQ8-BtStC54FxcbEOw&itag=22&source=youtube&requiressl=yes&mh=cq&mm=31%2C29&mn=sn-2puupm-2pue%2Csn-vgqsrn67&ms=au%2Crdu&mv=m&mvi=2&pl=24&initcwndbps=1185000&spc=UWF9f4BE-7LNG-15K7P1RCjW36Q6GVw&vprv=1&svpuc=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=1725.544&lmt=1700491286373818&mt=1700530171&fvip=2&fexp=24007246&c=ANDROID&txp=3308224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=ANLwegAwRgIhAJchm2FIiRtYNueDSBD9ws2WRzx2vjGhuuq3TnonqfRsAiEApB64CsHwLUENx01QSGkL9Z0dEuYHh9geBFtC-iVU32g%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AM8Gb2swRgIhALpYlkVjBCQ4RBf_CQJMng_HEQntFf88yNvNrhMY6py3AiEAxlv1nH69Wx5KvjPjDs7DDzRfBlJhbzzXQ_uzknEwWZs%3D&title=CRIEI%20UMA%20CIDADE%20DE%2010.000%20PESSOAS%20S%C3%93%20PRA%20DESTRUIR%20ELA%20COM%20DESASTRES%20NATURAIS!"
+    a?.stream?.action?.src ||"https://rr5---sn-j5caxvoq5-2utd.googlevideo.com/videoplayback?expire=1700706567&ei=p2ReZYzsOaqF0_wPmvK52AU&ip=190.218.188.98&id=o-AJDCFHopuzrvtah-pBXKoOvltt164M0Nx7-zIhco-Ado&itag=22&source=youtube&requiressl=yes&mh=eY&mm=31%2C29&mn=sn-j5caxvoq5-2utd%2Csn-hp57kn6r&ms=au%2Crdu&mv=m&mvi=5&pl=23&initcwndbps=1308750&spc=UWF9f2qdBvV6k0XjcApA0PTDuaBrbus&vprv=1&svpuc=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=8011.720&lmt=1700580890625126&mt=1700684692&fvip=1&fexp=24007246&c=ANDROID&txp=6308224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=ANLwegAwRQIhAM0184_DBVE55Ez4dW27rN5URdZN2tQlyuzIOEOlANNuAiAyGVw_TUicpBop8Oq9-oGKWYLDNS1hjapROITEgKv5LQ%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AM8Gb2swRQIgLsfV0JR7OALgFCC9dFC5MJRXS3gXo5HD8PHzkicYg8oCIQDLh04Bhy_sB4wzpP_EUyF1ZcCD6glXNB6l50c4RbimDw%3D%3D&title=ARUAN%20REAGE%3A%20FUI%20DE%20REPSOL%20PARA%20O%20ATACAMA%20NO%20CHILE%20%F0%9F%98%B2%20(RENATO%20GARCIA)%20-%20Cortes%20do%20Aruan"
     const handleScroll = (e) => {
     var t = document.body;
     if((e.target). scrollTop > 20) {
@@ -284,8 +284,7 @@ export default React.memo(function ({ platform, id, sp }) {
             <h1 className="title">{data.videoDetails?.title}</h1>
           </div>
         </div>
-        <div className="video-stream" id="twplayer" />
-        <div className="player-bottom-bg" />
+    <div className="player-bottom-bg" />
         {a && (
           <div className="skip-ads">
             <span>Skip ads</span>
@@ -338,7 +337,7 @@ export default React.memo(function ({ platform, id, sp }) {
                   className="player-bottom-btn"
                   onClick={() => {
                     setStatusPlayerModeWatch(
-                      statusPlayerModeWatch === 2 ? 0 : 2
+                      statusPlayerModeWatch === 2 ? 1 : 2
                     );
                   }}
                 >

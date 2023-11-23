@@ -21,11 +21,13 @@ const Layer = memo(({ id, sp, platform }: any) => (
   </div>
 ));
 function Page({ id, platform }: any) {
+  var h ={};
   const [p, sp] = useState(true);
-  In(window, "_change-player-mode", function () {
+  In(h, "_change-player-mode", function () {
     sp(!arguments[0]["in"][1][0]);
   });
   useEffect(() => {
+    window._t_=h;
     const el = document.querySelector(".layout-content") as HTMLElement | null;
     if (p) {
       el?.removeAttribute("full");

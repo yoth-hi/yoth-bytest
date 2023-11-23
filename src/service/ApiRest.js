@@ -53,12 +53,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 var Fetch = function (a="", b = {}) {
+    var _j = true;
     try {
       const { headers } = require("next/headers");
       const headersList = headers();
+        _j=false
       a = `https://yoth-hi.vercel.app${a}`
     } catch (error) {
       a = `${location.origin}${a}`
+
     }
     b={
       ...b,
@@ -66,11 +69,12 @@ var Fetch = function (a="", b = {}) {
     }
     var req = new Request(a, b);
     return new Promise(function (ok, erro) {
-        fetch(req)
-            .then(()=>e.json())
+        (_j?fetch(req):fetch(a,b))
+            .then((e)=>e.json())
             .then(ok)
             .catch((a)=>{
               ok({"erro":a});
+
             });
     });
 };
@@ -83,7 +87,7 @@ var MyComponent = function (props) { return __awaiter(void 0, void 0, void 0, fu
     return __generator(this, function (_a) {
         try{
         lg = navigator.language;
-          
+
         }catch(a){
           lg="en"
         }

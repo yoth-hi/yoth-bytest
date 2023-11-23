@@ -24,7 +24,7 @@ const Home_active = () => (
   >
     <path d="M200-160v-420l280-211.539L760-580v420H552.308v-255.385H407.692V-160H200Z" />
   </svg>
-);
+);/*
 const Explore = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ const Explore_active = () => (
   >
     <path d="m260-260 300-140 140-300-300 140-140 300Zm220-180q-17 0-28.5-11.5T440-480q0-17 11.5-28.5T480-520q17 0 28.5 11.5T520-480q0 17-11.5 28.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
   </svg>
-);
+);*/
 const Heart = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -104,12 +104,12 @@ export default function () {
         href="/reels"
         className={"item-side-bar "+(url==="/reels"?"active":"")}
       />
-      <Item
+    {/*  <Item
         title={t("Explore")}
         icon={url === "/explore" ? <Explore_active /> : <Explore />}
         href="/explore"
         className={"item-side-bar "+(url==="/explore"?"active":"")}
-      />
+      />*/}
       <Item
         title={t("Following")}
         icon={url === "/following" ? <Heart_active /> : <Heart />}

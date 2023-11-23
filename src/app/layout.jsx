@@ -51,16 +51,18 @@ export default function RootLayout({ children, ...a }) {
   return (
     <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
       <body className={inter.className}>
-        <div id="app-desktop">
-          <Miniplayer />
-          <div className="desktop-layout">
-            <DesktopHeader />
-            <Sidebar />
-            <div className="layout-content-wrapper">
-              <div className="layout-content">{children}</div>
+        <SettingJson>
+          <div id="app-desktop">
+            <Miniplayer />
+            <div className="desktop-layout">
+              <DesktopHeader />
+              <Sidebar />
+              <div className="layout-content-wrapper">
+                <div className="layout-content">{children}</div>
+              </div>
             </div>
           </div>
-        </div>
+        </SettingJson>
       </body>
     </html>
   );
