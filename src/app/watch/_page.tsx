@@ -27,7 +27,7 @@ function Page({ id, platform }: any) {
     sp(!arguments[0]["in"][1][0]);
   });
   useEffect(() => {
-    window._t_=h;
+    
     const el = document.querySelector(".layout-content") as HTMLElement | null;
     if (p) {
       el?.removeAttribute("full");
