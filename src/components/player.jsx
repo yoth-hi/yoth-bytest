@@ -247,7 +247,7 @@ export default React.memo(function ({ platform, id, sp }) {
       tabIndex="-1"
     >
       {start_play && (
-        <Image src={data?.videoDetails?.thumbnail} width={"100%"} />
+        <Image src={platform ==="youtube"?("https://i.ytimg.com/vi/"+id+"/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q"): data?.videoDetails?.thumbnail} width={"100%"} />
       )}
       <Spin _ref={spin} isSpinning className="loading-player" />
       <video
