@@ -424,6 +424,9 @@ body[scrollwatch] .desktop-header {
 .layout-content:not([full]) .page-watch-container {
   max-width: 1500px;
 }
+body[fullscreen] .layout-content[full] .page-watch-container {
+  height: calc(100vh - calc(var(--header-height) + 140));
+}
 .page-watch-container {
   @apply mt-[20px] justify-center flex mx-[auto];
 }
@@ -1389,7 +1392,8 @@ body:not([fullscreen])
   border-radius: 14px;
   inset: 0;
 }
-.page-watch-container {
+.layout-content:not([full])
+  .page-watch-container {
   aspect-ratio: 1.7777777777777;
 }
 

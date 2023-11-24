@@ -38,12 +38,13 @@ function Page({ id, platform }: any) {
     el.setAttribute("watchpage", "");
     return () => el.removeAttribute("watchpage");
   }, []);
+  const T = <Layer {...{ id, sp, platform }} key={65} />
   return (
     <>
-      <>{!p && <Layer {...{ id, sp, platform }} key={65} />}</>
+      <>{!p && T}</>
       <div className="page-watch">
         <BrowseChannelAndNextItem
-          Player={p && <Layer {...{ id, sp, platform }} key={65} />}
+          Player={p && T }
           _context={{ id, platform }}
         />
       </div>

@@ -168,6 +168,7 @@ export default React.memo(function ({ platform, id, sp }) {
   const [start_play, set_start_play] = React.useState(true);
   const [a, b] = React.useState(null); // a = isModeAd, b = setModeAd, item = {stream:{url},config:{time:0}}
   const [c, d] = React.useState(0); // index resolutions
+  const [temp_, s] = React.useState(false);
   const play_pouse = function () {
     const vid = video.current;
     if (start_play) set_start_play(false);
@@ -194,15 +195,15 @@ export default React.memo(function ({ platform, id, sp }) {
     adt.addEventListener("scroll", handleScroll);
     switch (statusPlayerModeWatch) {
       case 0:
-        if (temp === !0) sp((temp = !1));
+        if (temp_) sp((temp = !1));
         fullscreen(false);
         break;
       case 1:
         fullscreen(false);
-        if (temp === !1) sp((temp = !0));
+        if (temp_) sp((temp = !0));
         break;
       case 2:
-        if (temp === !0) sp((temp = !1));
+        if (temp_) sp((temp = !1));
         fullscreen(true);
         break;
 
@@ -221,16 +222,19 @@ export default React.memo(function ({ platform, id, sp }) {
           }
         });
       }
-      if (!isNaN(video.current.currentTime) && !video.current.paused) r++;
-
+      if (isNaN(video.current.currentTime) || !video.current.paused) r++;
+const vid = video.current;
       time -= 5;
       var player_controls = player.current.querySelector(".player-controls");
       if (time < 0) {
         player_controls.style.opacity = 0;
       } else player_controls.style.opacity = 1;
-      if (video.current.readyState === 4) {
+        if (video.current.readyState === 4) {
         spin.current.style.display = "none";
+        
+        vid.play()
       } else {
+        vid.pause();
         spin.current.style.display = "block";
         time = 100;
       }
@@ -253,6 +257,7 @@ export default React.memo(function ({ platform, id, sp }) {
         id,
       },
     }).then(setData);
+    s(true)
   }, []);
 
   const hoverPlayer = function () {
@@ -322,64 +327,74 @@ export default React.memo(function ({ platform, id, sp }) {
           </div>
         )}
         {data.videoDetails && (
-          <div className="player-bottom">
-            <Slider video={video} />
-            <div className="player-bottom-buttons">
-              <div className="player-bottom-buttons-flex">
-                <Button
-                  className="player-bottom-btn play"
-                  onClick={() => {
-                    play_pouse();
-                  }}
-                >
-                  <svg
-                    height="100%"
-                    version="1.1"
-                    viewBox="0 0 36 36"
-                    width="100%"
-                  >
-                    {isPlay ? (
-                      <path d="M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"></path>
-                    ) : (
-                      <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
-                    )}
-                  </svg>
-                </Button>
-                <Button className="player-bottom-btn  next-video">
-                  <NextVideo />
-                </Button>
-                <Vol video={video} />
+          <>
+            {!data?.videoDetails?.tw_isOffline && (
+              <div className="player-top">
+                <div className="player-top-bg" />
+                <div>
+                  <h1 className="title">{data?.videoDetails?.title}</h1>
+                </div>
               </div>
-              <div className="player-bottom-buttons-flex">
-                {statusPlayerModeWatch != 2 && (
+            )}
+            <div className="player-bottom">
+              <Slider video={video} />
+              <div className="player-bottom-buttons">
+                <div className="player-bottom-buttons-flex">
+                  <Button
+                    className="player-bottom-btn play"
+                    onClick={() => {
+                      play_pouse();
+                    }}
+                  >
+                    <svg
+                      height="100%"
+                      version="1.1"
+                      viewBox="0 0 36 36"
+                      width="100%"
+                    >
+                      {isPlay ? (
+                        <path d="M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"></path>
+                      ) : (
+                        <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
+                      )}
+                    </svg>
+                  </Button>
+                  <Button className="player-bottom-btn  next-video">
+                    <NextVideo />
+                  </Button>
+                  <Vol video={video} />
+                </div>
+                <div className="player-bottom-buttons-flex">
+                  {statusPlayerModeWatch != 2 && (
+                    <Button
+                      className="player-bottom-btn"
+                      onClick={() => {
+                        setStatusPlayerModeWatch(
+                          statusPlayerModeWatch === 1 ? 0 : 1
+                        );
+                      }}
+                    >
+                      <TheaterMode />
+                    </Button>
+                  )}
                   <Button
                     className="player-bottom-btn"
                     onClick={() => {
                       setStatusPlayerModeWatch(
-                        statusPlayerModeWatch === 1 ? 0 : 1
+                        statusPlayerModeWatch === 2 ? 1 : 2
                       );
                     }}
                   >
-                    <TheaterMode />
+                    {statusPlayerModeWatch === 2 ? (
+                      <ExitFullscreen />
+                    ) : (
+                      <Fullscreen />
+                    )}
                   </Button>
-                )}
-                <Button
-                  className="player-bottom-btn"
-                  onClick={() => {
-                    setStatusPlayerModeWatch(
-                      statusPlayerModeWatch === 2 ? 1 : 2
-                    );
-                  }}
-                >
-                  {statusPlayerModeWatch === 2 ? (
-                    <ExitFullscreen />
-                  ) : (
-                    <Fullscreen />
-                  )}
-                </Button>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>
