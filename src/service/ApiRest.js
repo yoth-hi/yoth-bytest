@@ -1,5 +1,3 @@
-
-
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -49,58 +47,53 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-var Fetch = function (a="", b = {}) {
+var Fetch = function (a, b) {
+    if (a === void 0) { a = ""; }
+    if (b === void 0) { b = {}; }
     var _j = true;
     try {
-      const { headers } = require("next/headers");
-      const headersList = headers();
-        _j=false
-      a = `https://yoth-hi.vercel.app${a}`
-    } catch (error) {
-      a = `${location.origin}${a}`
-
+        var headers = require("next/headers").headers;
+        var headersList = headers();
+        _j = false;
+        a = "https://yoth-hi.vercel.app".concat(a);
     }
-    b={
-      ...b,
-      cache:"no-store",
+    catch (error) {
+        a = "".concat(location.origin).concat(a);
     }
+    b = __assign(__assign({}, b), { cache: "no-store" });
     var req = new Request(a, b);
     return new Promise(function (ok, erro) {
-        (_j?fetch(req):fetch(a,b))
-            .then((e)=>e.json())
+        (_j ? fetch(req) : fetch(a, b))
+            .then(function (e) { return e.json(); })
             .then(ok)
-            .catch((a)=>{
-              ok({"erro":a});
-
-            });
+            .catch(function (a) {
+            ok({ "erro": a });
+        });
     });
 };
-var MyComponent = function (props) { return __awaiter(void 0, void 0, void 0, function () {
-    var lg, body;
-    const headers={
-      "Authentication":"auto null",
-      "Accept-Encoding":"*;q=0.3",
-    }
+var ApiRest = function (props) { return __awaiter(void 0, void 0, void 0, function () {
+    var lg, headers, body;
     return __generator(this, function (_a) {
-        try{
-        lg = navigator.language;
-
-        }catch(a){
-          lg="en"
+        try {
+            lg = navigator.language;
         }
+        catch (a) {
+            lg = "en";
+        }
+        headers = {
+            "Authentication": "auto null",
+            "Accept-Encoding": "gzip",
+        };
         body = __assign(__assign({}, props), { context: __assign(__assign({}, props.context), { lg: lg }) });
         switch (props.type) {
             case "player":
-                return [2 /*return*/, Fetch("/yothpi/player", { method: "POST", body: JSON.stringify(body), headers  })];
+                return [2 /*return*/, Fetch("/yothpi/player", { method: "POST", body: JSON.stringify(body), headers: headers })];
             case "browse":
-                return [2 /*return*/, Fetch("/yothpi/browse", { method: "POST", body: JSON.stringify(body), headers  })];
+                return [2 /*return*/, Fetch("/yothpi/browse", { method: "POST", body: JSON.stringify(body), headers: headers })];
             default:
                 break;
         }
         return [2 /*return*/];
     });
 }); };
-exports.default = MyComponent;
+exports.default = ApiRest;

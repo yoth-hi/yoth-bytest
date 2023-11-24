@@ -21,6 +21,25 @@ import Button from "./button_root";
 import React from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+function bz(a) {
+  if (!a) return;
+  a = a.split("");
+  a = cz(a, 61);
+  a = cz(a, 5);
+  a = a.reverse();
+  a = a.slice(2);
+  a = cz(a, 69);
+  a = a.slice(2);
+  a = a.reverse();
+  return a.join("");
+}
+
+function cz(a, b) {
+  var c = a[0];
+  a[0] = a[b % a.length];
+  a[b] = c;
+  return a;
+}
 /*      {!data?.videoDetails?.tw_isOffline && (
         <div className="player-top">
           <div className="player-top-bg" />
@@ -148,6 +167,7 @@ export default React.memo(function ({ platform, id, sp }) {
   const [data, setData] = React.useState({});
   const [start_play, set_start_play] = React.useState(true);
   const [a, b] = React.useState(null); // a = isModeAd, b = setModeAd, item = {stream:{url},config:{time:0}}
+  const [c, d] = React.useState(0); // index resolutions
   const play_pouse = function () {
     const vid = video.current;
     if (start_play) set_start_play(false);
@@ -155,21 +175,23 @@ export default React.memo(function ({ platform, id, sp }) {
     vid.paused ? vid.play() : vid.pause();
   };
   const souce =
-    a?.stream?.action?.src ||"https://rr5---sn-j5caxvoq5-2utd.googlevideo.com/videoplayback?expire=1700706567&ei=p2ReZYzsOaqF0_wPmvK52AU&ip=190.218.188.98&id=o-AJDCFHopuzrvtah-pBXKoOvltt164M0Nx7-zIhco-Ado&itag=22&source=youtube&requiressl=yes&mh=eY&mm=31%2C29&mn=sn-j5caxvoq5-2utd%2Csn-hp57kn6r&ms=au%2Crdu&mv=m&mvi=5&pl=23&initcwndbps=1308750&spc=UWF9f2qdBvV6k0XjcApA0PTDuaBrbus&vprv=1&svpuc=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=8011.720&lmt=1700580890625126&mt=1700684692&fvip=1&fexp=24007246&c=ANDROID&txp=6308224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=ANLwegAwRQIhAM0184_DBVE55Ez4dW27rN5URdZN2tQlyuzIOEOlANNuAiAyGVw_TUicpBop8Oq9-oGKWYLDNS1hjapROITEgKv5LQ%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AM8Gb2swRQIgLsfV0JR7OALgFCC9dFC5MJRXS3gXo5HD8PHzkicYg8oCIQDLh04Bhy_sB4wzpP_EUyF1ZcCD6glXNB6l50c4RbimDw%3D%3D&title=ARUAN%20REAGE%3A%20FUI%20DE%20REPSOL%20PARA%20O%20ATACAMA%20NO%20CHILE%20%F0%9F%98%B2%20(RENATO%20GARCIA)%20-%20Cortes%20do%20Aruan"
-    const handleScroll = (e) => {
+    a?.stream?.action?.src ||
+    bz(data?.stream?.[c]?.signatureCipher) ||
+    data?.stream?.[c]?.url;
+  const souce_type = a?.stream?.action?.mimeType || data?.stream?.[c]?.mimeType;
+  const handleScroll = (e) => {
     var t = document.body;
-    if((e.target). scrollTop > 20) {
-       t.setAttribute("scrollwatch","")
+    if (e.target.scrollTop > 20) {
+      t.setAttribute("scrollwatch", "" + e.target.scrollTop);
     } else {
-       t.removeAttribute("scrollwatch")
-      
+      t.removeAttribute("scrollwatch");
     }
   };
   React.useEffect(() => {
-    const adt = document.querySelector ("#app-desktop");
-    
+    const adt = document.querySelector("#app-desktop");
+
     if (!sp) return;
-    adt .addEventListener("scroll",handleScroll )
+    adt.addEventListener("scroll", handleScroll);
     switch (statusPlayerModeWatch) {
       case 0:
         if (temp === !0) sp((temp = !1));
@@ -177,17 +199,17 @@ export default React.memo(function ({ platform, id, sp }) {
         break;
       case 1:
         fullscreen(false);
-        if (temp === !0) sp((temp = !0));
+        if (temp === !1) sp((temp = !0));
         break;
       case 2:
-        if (temp === !1) sp((temp = !1));
+        if (temp === !0) sp((temp = !1));
         fullscreen(true);
         break;
 
       default:
         null;
     }
-    return ()=> adt .removeEventListener("scroll",handleScroll )
+    return () => adt.removeEventListener("scroll", handleScroll);
   }, [statusPlayerModeWatch]);
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -232,7 +254,7 @@ export default React.memo(function ({ platform, id, sp }) {
       },
     }).then(setData);
   }, []);
-  const index_resolution = 3;
+
   const hoverPlayer = function () {
     time = 200;
     var player_controls = player.current.querySelector(".player-controls");
@@ -247,7 +269,16 @@ export default React.memo(function ({ platform, id, sp }) {
       tabIndex="-1"
     >
       {start_play && (
-        <Image src={platform ==="youtube"?("https://i.ytimg.com/vi/"+id+"/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q"): data?.videoDetails?.thumbnail} width={"100%"} />
+        <Image
+          src={
+            platform === "youtube"
+              ? "https://i.ytimg.com/vi/" +
+                id +
+                "/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q"
+              : data?.videoDetails?.thumbnail
+          }
+          width={"100%"}
+        />
       )}
       <Spin _ref={spin} isSpinning className="loading-player" />
       <video
@@ -269,10 +300,9 @@ export default React.memo(function ({ platform, id, sp }) {
           play_pouse();
         }}
         ref={video}
-        src={souce || data.stream?.list?.[index_resolution]?.url}
-        type="application/x-mpegURL"
+        src={souce}
+        type={souce_type}
       />
-
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
@@ -284,7 +314,7 @@ export default React.memo(function ({ platform, id, sp }) {
             <h1 className="title">{data.videoDetails?.title}</h1>
           </div>
         </div>
-    <div className="player-bottom-bg" />
+        <div className="player-bottom-bg" />
         {a && (
           <div className="skip-ads">
             <span>Skip ads</span>
