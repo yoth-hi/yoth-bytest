@@ -20,7 +20,7 @@ export default function ({ text }) {
 
 // # utils.js
 function parceLink(a="",b=""){
-  return b.replace(/https?\:\/\/([\w\.]+)(\/\S+)?/g,function(a,b,c,d,e){
+  return b.replace(/https?\:\/\/([\w\.]+)(\/?[\S\?\=]+)?/g,function(a,b,c,d,e){
     console.table([a,b,c,d,e])
     return`<a target="_blank" class="description-link" aria-label="${b}" href="${a}">${a}</a>`
   })

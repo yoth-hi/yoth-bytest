@@ -292,7 +292,7 @@ export default React.memo(function ({ platform, id, sp }) {
       },
     }).then(setData);
     s(true);
-  }, []);
+  }, [id]);
 
   const hoverPlayer = function () {
     time = 200;

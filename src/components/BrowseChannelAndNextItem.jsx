@@ -11,24 +11,9 @@ import Fetch from "./../service/ApiRest";
 import Share from "./icons/share";
 
 var t = {};
-const BrowseChannelAndNextItem = function ({ Player,_context }) {
-  const [data, setData] = useState({});
+const BrowseChannelAndNextItem = function ({ data,Player,_context }) {
   const { videoDetails,content }= data;
   const { platform, id }= _context;
-  const getdata = function () {
-    return Fetch({
-      type: "browse",
-      context: {
-        type: "player_page",
-        platform,
-        id,
-      },
-    });
-  };
-  useState(() => {
-    const _data = (t[platform+id] = t[platform+id] || getdata);
-    _data().then(setData);
-  }, []);
   return (
     <div className="page-watch-info">
       <div className="page-watch-info-conteiner">

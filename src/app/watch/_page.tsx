@@ -20,7 +20,7 @@ const Layer = memo(({ id, sp, platform }: any) => (
     </div>
   </div>
 ));
-function Page({ id, platform }: any) {
+function Page({ id, platform,data }: any) {
   var h ={};
   const [p, sp] = useState(true);
   In(h, "_change-player-mode", function () {
@@ -45,6 +45,7 @@ function Page({ id, platform }: any) {
       <div className="page-watch">
         <BrowseChannelAndNextItem
           Player={p && T }
+          data={data}
           _context={{ id, platform }}
         />
       </div>

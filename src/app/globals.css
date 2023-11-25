@@ -1121,6 +1121,11 @@ body:not([fullscreen])
 .skeleton-image-square,
 .skeleton-text {
   display: inline-block;
+}
+.button-skeleton,
+.skeleton-image-video,
+.skeleton-image-square,.card-video-thumbnail,
+.skeleton-text {
   background: #eee2;
 }
 .button-skeleton {
@@ -1196,7 +1201,7 @@ body:not([fullscreen])
 .card-video[skeleton] {
   pointer-events: none !important;
 }
-
+.skeleton-image-video,
 .card-video-thumbnail {
   min-width: min(80vw, 316px);
   padding-bottom: 56.25%;
@@ -1206,6 +1211,7 @@ body:not([fullscreen])
   position: relative;
   overflow: hidden;
   border-radius: 16px;
+  
 }
 .card-video-profile {
   width: 64px;
@@ -1318,10 +1324,6 @@ body:not([fullscreen])
 .page-subscriptions-list {
   margin-top: 5px;
   border-top: 1px solid #888;
-}
-.skeleton-image-video {
-  aspect-ratio: 15/9;
-  display: block;
 }
 .skeleton-image-square:not([size]) {
   width: 64px;

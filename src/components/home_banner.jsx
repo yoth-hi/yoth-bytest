@@ -60,5 +60,5 @@ const Iframe = function ({ type, ...rest }) {
         return y;
       })()
   );
-  return type && <iframe allowfullscreen="" src={src} {...rest} />;
+  return type && <iframe title={"Twitch - "+type.replace("tw:","")} allowfullscreen="" src={src} {...rest} />;
 };

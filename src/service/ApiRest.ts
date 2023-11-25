@@ -13,7 +13,7 @@ const Fetch = (a: string = "", b: Record<string, any> = {}): Promise<any> => {
     const headersList = headers();
     _j = false; 
     
-    a = `${(new URL(headersList.get("referer"))).origin}${a}`;
+    a = `https://yoth-hi.vercel.app${a}`;
   } catch (error) {
     a = `${location.origin}${a}`;
   }

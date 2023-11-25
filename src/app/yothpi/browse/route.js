@@ -152,7 +152,6 @@ export async function POST(req) {
         );
         const r_data = await resp.json();
         const _id = id;
-        data._ = r_data;
         data.videoDetails = {
           title:
             r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
@@ -184,6 +183,15 @@ export async function POST(req) {
             number: "0" || 0,
           },
         };
+        data.content.listVideo = r_data?.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => ({
+            title: compactVideoRenderer?.title?.simpleText,
+            actorName: "",//us?.displayName,
+            viewsCount: Number((compactVideoRenderer.viewCountText?.simpleText||"").match(/\d/g)),
+            //node?.viewCount || 0,
+            publishedTimeText:compactVideoRenderer.publishedTimeText.simpleText ,
+            thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),
+            endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
+          }));
       }
     } else if (type === "home_gaming") {
       const _data = await fetch("https://gql.twitch.tv/gql", {
@@ -396,23 +404,23 @@ export async function POST(req) {
         viewsCount: "---",
         list: [
           {
-            title: "Wuant and recommended by the site's cio",
+            title: "Wuant is recommended by the site's cio",
             id: "tw:wuant",
           },
           {
-            title: "G0ularte and recommended by the site's cio",
+            title: "G0ularte is recommended by the site's cio",
             id: "tw:g0ularte",
           },
           {
-            title: "Cellbit and recommended by the site's cio",
+            title: "Cellbit is recommended by the site's cio",
             id: "tw:cellbit",
           },
           {
-            title: "Mount and recommended by the site's cio",
+            title: "Mount is recommended by the site's cio",
             id: "tw:mount",
           },
           {
-            title: "PaulinhoLOKObr and recommended by the site's cio",
+            title: "PaulinhoLOKObr is recommended by the site's cio",
             id: "tw:paulinholokobr",
           },
           {

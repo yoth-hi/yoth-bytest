@@ -7,7 +7,7 @@ export default function ({ data, skeleton }) {
     <div skeleton={skeleton?"":undefined} className="card-video">
       <Link href={endpoint || "/"} aria-label={title||""}>
         <div className={thumbnail?"card-video-thumbnail":"skeleton-image-video"}>
-          <Image classRoot="card-thumbnail" src={thumbnail} aria-label={title} />
+          <Image loadingSkeleton="thumbnail" classRoot="card-thumbnail" src={thumbnail} aria-label={title} />
         </div>
       </Link>
       <div className="card-video-details">
