@@ -24,7 +24,7 @@ const linguagems = {
     Logout: "Logout",
     Language: "Language",
     Settings: "Settings",
-    Seed_feedback: "Seed feedback",
+    Send_feedback: "Send feedback",
     Light: "Light",
     Dark: "Dark",
     Login: "Login",

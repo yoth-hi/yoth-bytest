@@ -70,7 +70,7 @@ const Menu = function ({ User }) {
       icon: null,
     },
     {
-      name: t("Seed_feedback"),
+      name: t("Send_feedback"),
       type: "modal",
       madal: "FeedBack",
       icon: null,

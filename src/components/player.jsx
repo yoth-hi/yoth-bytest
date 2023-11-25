@@ -21,7 +21,25 @@ import Button from "./button_root";
 import React from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-function bz(a) {
+
+// var mw=
+// {
+//     p7:function(a)
+//     {
+//       a.reverse()
+//     },
+//     UX:function(a,b)
+//     {
+//       a.splice(0,b)
+//     },
+//     qM:function(a,b)
+//     {
+//       var c=a[0];
+//       a[0]=a[b%a.length];
+//       a[b%a.length]=c
+//     }
+// };
+function _t(a) {
   if (!a) return;
   a = a.split("");
   a = cz(a, 61);
@@ -40,6 +58,25 @@ function cz(a, b) {
   a[b] = c;
   return a;
 }
+var bz =function(a)
+{
+  if(!a) return;
+  a=a.split("&");
+  var _1 = ""
+  var _2 = "";
+  var _3 = []//[...a];
+  a.forEach((a)=>{
+    
+    _3.push(a.split("="))
+  });
+  _1 = decodeURIComponent(_3[2][1]);
+  _2 = (_3[0][1]);
+  _1 = _1  + "&alr=yes&sig=" + _t(_2)
+  console.log(_3.reverse().join("&"))
+  return _1
+  // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
+};
+
 /*      {!data?.videoDetails?.tw_isOffline && (
         <div className="player-top">
           <div className="player-top-bg" />
@@ -223,18 +260,15 @@ export default React.memo(function ({ platform, id, sp }) {
         });
       }
       if (isNaN(video.current.currentTime) || !video.current.paused) r++;
-const vid = video.current;
+      const vid = video.current;
       time -= 5;
       var player_controls = player.current.querySelector(".player-controls");
       if (time < 0) {
         player_controls.style.opacity = 0;
       } else player_controls.style.opacity = 1;
-        if (video.current.readyState === 4) {
+      if (video.current.readyState === 4 || video.current.readyState === 3) {
         spin.current.style.display = "none";
-        
-        vid.play()
       } else {
-        vid.pause();
         spin.current.style.display = "block";
         time = 100;
       }
@@ -257,7 +291,7 @@ const vid = video.current;
         id,
       },
     }).then(setData);
-    s(true)
+    s(true);
   }, []);
 
   const hoverPlayer = function () {
