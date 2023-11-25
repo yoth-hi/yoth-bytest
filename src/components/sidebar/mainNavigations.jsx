@@ -101,8 +101,9 @@ export default function () {
       <Item
         title={t("Reels")}
         icon={url === "/reels" ? <Reels /> : <Reels />}
-        href="/reels"
-        className={"item-side-bar "+(url==="/reels"?"active":"")}
+        x-href="/reels"
+        href="?page-inative=#reels"
+        className={"item-side-bar inative "+(url==="/reels"?"active":"")}
       />
     {/*  <Item
         title={t("Explore")}

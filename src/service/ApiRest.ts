@@ -11,8 +11,9 @@ const Fetch = (a: string = "", b: Record<string, any> = {}): Promise<any> => {
   try {
     const { headers } = require("next/headers");
     const headersList = headers();
-    _j = false;
-    a = `https://yoth-hi.vercel.app${a}`;
+    _j = false; 
+    
+    a = `${(new URL(headersList.get("referer"))).origin}${a}`;
   } catch (error) {
     a = `${location.origin}${a}`;
   }

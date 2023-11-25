@@ -8,10 +8,15 @@ import Miniplayer from "../components/Miniplayer";
 import SettingJson from "../context/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
+const description = "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!"
+
 export const metadata = {
   title: "Yoth",
-  description:
-    "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!",
+  description,
+  openGraph: {
+    title: 'Yoth',
+    description,
+  },
 };
 
 export default function RootLayout({ children, ...a }) {
@@ -76,3 +81,4 @@ function parseLanguagePreferences(preferences) {
 
   return languageArray;
 }
+export const revalidate = 0;

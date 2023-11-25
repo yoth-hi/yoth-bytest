@@ -1713,3 +1713,9 @@ body:not([fullscreen])
   font-weight: 500;
   cursor: pointer;
 } 
+.inative{
+  opacity: .6!important;
+  pointer-events: none!important;
+  cursor: default!important;
+  background: #0000!important;
+}
