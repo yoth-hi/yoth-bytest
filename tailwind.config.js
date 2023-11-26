@@ -14,6 +14,6 @@ var config = {
             },
         },
     },
-    plugins: ["styled-jsx/babel"],
+    plugins: [],
 };
 exports.default = config;

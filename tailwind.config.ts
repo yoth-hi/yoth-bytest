@@ -16,6 +16,6 @@ const config: Config = {
       },
     },
   },
-  plugins: ["styled-jsx/babel"],
+  plugins: [],
 }
 export default config
