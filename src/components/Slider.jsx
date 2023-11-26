@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 export default function ({ video }) {
   const [progressPlay, setProgressPlay] = useState(0);
-  const [progressHover, setProgressHover] = useState(0);
+  const [progressHover, setProgressHover] = useState(-1);
   const root = useRef(null);
   const handleMove = (event) => {
     // Extracting x and y coordinates
@@ -14,6 +14,18 @@ export default function ({ video }) {
     // Your logic using x and y
     const value = (x - Rect.x) / Rect.width;
     setProgressHover(value);
+  };
+  const handleLeave = (event) => {
+    setProgressHover(-1);
+  };
+  const handleUp = (event) => {
+    const t = progressHover;
+    var vid;
+    setProgressPlay(t);
+    if ((vid = video.current)) {
+      vid.currentTime = t * vid.duration;
+    }
+    setProgressHover(-1);
   };
   useEffect(() => {
     var vid;
@@ -31,6 +43,10 @@ export default function ({ video }) {
       <div
         onTouchMove={handleMove}
         onMouseMove={handleMove}
+        onTouchLeave={handleLeave}
+        onMouseLeave={handleLeave}
+        onTouchEnd={handleUp}
+        onMouseUp={handleUp}
         ref={root}
         className="player-prosses-content"
       >
@@ -51,10 +67,10 @@ export default function ({ video }) {
             })`,
           }}
         ></div>
-        <div
+      {/*  <div
           className="player-prosses-dot"
           style={{ marginLeft: `${progressPlay * 100}%` }}
-        ></div>
+        ></div>*/}
       </div>
     </>
   );

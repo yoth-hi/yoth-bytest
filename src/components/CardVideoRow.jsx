@@ -1,24 +1,27 @@
 import Image from "./image";
 import Link from "next/link";
 import { t, formate } from "../libs/transition";
-export default function ({data:{title,endpoint,actorName,viewsCount,thumbnail}}) {
+export default function (props) {
+  if (!props) return;
+  const { data } = props;
+  if (!data) return;
+  const { title, endpoint, actorName, viewsCount, thumbnail } = data;
   return (
     <div className="card-video-row">
-        <Link href={endpoint}>
-      <div className="card-video-row-thumbnail"  >
-        <Image
-          classRoot="card-thumbnail"
-          src={thumbnail}
-        />
-      </div>
-        </Link>
+      <Link href={endpoint}>
+        <div className="card-video-row-thumbnail">
+          <Image classRoot="card-thumbnail" src={thumbnail} />
+        </div>
+      </Link>
       <div>
         <Link href={endpoint}>
           <h3 className="card-video-row-title">{title}</h3>
         </Link>
         <div>
           <div className="card-video-row-channel-name">{actorName}</div>
-          <div className="card-video-row-matadata">{formate(viewsCount,"Views")} - há -- </div>
+          <div className="card-video-row-matadata">
+            {formate(viewsCount, "Views")} - há --{" "}
+          </div>
         </div>
       </div>
     </div>

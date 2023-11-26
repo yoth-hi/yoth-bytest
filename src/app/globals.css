@@ -997,7 +997,7 @@ body:not([fullscreen])
 }
 .btn-cog-subtitle {
   color: #fff;
-  background: #999;
+  background: #741dff;
   opacity: 0.5;
   position: absolute;
   top: 2px;

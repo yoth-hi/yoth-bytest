@@ -13,7 +13,7 @@ const Fetch = (a: string = "", b: Record<string, any> = {}): Promise<any> => {
     const headersList = headers();
     _j = false; 
     
-    a = `https://yoth-hi.vercel.app${a}`;
+    a = `http://localhost:3000${a}`;
   } catch (error) {
     a = `${location.origin}${a}`;
   }
@@ -39,13 +39,14 @@ interface ApiRestProps {
 
 const ApiRest: FC<ApiRestProps> = async (props) => {
   let lg: string;
+  let auto: string = "auto :)";
   try {
     lg = navigator.language;
   } catch (a) {
     lg = "en";
   }
   const headers = {
-    "Authentication": "auto null",
+    "Authentication": auto,
     "Accept-Encoding": "gzip",
   };
   const body = {

@@ -7,7 +7,7 @@ import Fetch from "../../service/ApiRest";
 import CardChannel from "../../components/cardChannelBox";
 import { t } from "../../libs/transition";
 export const metadata = {
-  title: "Yoth - following"
+  title: "Following"
 }
 export default async function (props) {
   

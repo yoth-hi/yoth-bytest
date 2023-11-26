@@ -58,22 +58,20 @@ function cz(a, b) {
   a[b] = c;
   return a;
 }
-var bz =function(a)
-{
-  if(!a) return;
-  a=a.split("&");
-  var _1 = ""
+var bz = function (a) {
+  if (!a) return;
+  a = a.split("&");
+  var _1 = "";
   var _2 = "";
-  var _3 = []//[...a];
-  a.forEach((a)=>{
-    
-    _3.push(a.split("="))
+  var _3 = []; //[...a];
+  a.forEach((a) => {
+    _3.push(a.split("="));
   });
   _1 = decodeURIComponent(_3[2][1]);
-  _2 = (_3[0][1]);
-  _1 = _1  + "&alr=yes&sig=" + _t(_2)
-  console.log(_3.reverse().join("&"))
-  return _1
+  _2 = _3[0][1];
+  _1 = _1 + "&alr=yes&sig=" + _t(_2);
+  console.log(_3.reverse().join("&"));
+  return _1;
   // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
 };
 
@@ -101,8 +99,8 @@ var bz =function(a)
         <>
           <CogMenu
             resolutions={resolutions}
-            setCogMenuType={setCogMenuType}
-            cogMenutype={cogMenutype}
+            seth={seth}
+            h={h}
           />
           <div className="player-bottom-bg" />
           <div className="player-bottom">
@@ -164,7 +162,7 @@ var bz =function(a)
                 </Button>
                 <Button
                   className="player-bottom-btn"
-                  onClick={() => setCogMenuType(cogMenutype === 0 ? 1 : 0)}
+                  onClick={() => seth(h === 0 ? 1 : 0)}
                 >
                   <Settings />
                 </Button>
@@ -205,6 +203,7 @@ export default React.memo(function ({ platform, id, sp }) {
   const [start_play, set_start_play] = React.useState(true);
   const [a, b] = React.useState(null); // a = isModeAd, b = setModeAd, item = {stream:{url},config:{time:0}}
   const [c, d] = React.useState(0); // index resolutions
+  const [h, seth] = React.useState(0);
   const [temp_, s] = React.useState(false);
   const play_pouse = function () {
     const vid = video.current;
@@ -217,6 +216,7 @@ export default React.memo(function ({ platform, id, sp }) {
     bz(data?.stream?.[c]?.signatureCipher) ||
     data?.stream?.[c]?.url;
   const souce_type = a?.stream?.action?.mimeType || data?.stream?.[c]?.mimeType;
+  const resolutions = Object.values(data?.stream || {});
   const handleScroll = (e) => {
     var t = document.body;
     if (e.target.scrollTop > 20) {
@@ -233,21 +233,24 @@ export default React.memo(function ({ platform, id, sp }) {
     switch (statusPlayerModeWatch) {
       case 0:
         if (temp_) sp((temp = !1));
-        fullscreen(false);
+        fullscreen(false);adt.scrollTop = 0;
         break;
       case 1:
-        fullscreen(false);
+        fullscreen(false);adt.scrollTop = 0;
         if (temp_) sp((temp = !0));
         break;
       case 2:
         if (temp_) sp((temp = !1));
-        fullscreen(true);
+        fullscreen(true);adt.scrollTop = 0;
         break;
 
       default:
         null;
     }
-    return () => adt.removeEventListener("scroll", handleScroll);
+    return () =>{
+      adt.scrollTop = 0;
+      adt.removeEventListener("scroll", handleScroll);
+    }
   }, [statusPlayerModeWatch]);
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -261,7 +264,7 @@ export default React.memo(function ({ platform, id, sp }) {
       }
       if (isNaN(video.current.currentTime) || !video.current.paused) r++;
       const vid = video.current;
-      time -= 5;
+      if(!video.current .paused)time -= 5;
       var player_controls = player.current.querySelector(".player-controls");
       if (time < 0) {
         player_controls.style.opacity = 0;
@@ -353,6 +356,7 @@ export default React.memo(function ({ platform, id, sp }) {
             <h1 className="title">{data.videoDetails?.title}</h1>
           </div>
         </div>
+        <CogMenu resolutions={resolutions} seth={seth} h={h} />
         <div className="player-bottom-bg" />
         {a && (
           <div className="skip-ads">
@@ -399,6 +403,12 @@ export default React.memo(function ({ platform, id, sp }) {
                   <Vol video={video} />
                 </div>
                 <div className="player-bottom-buttons-flex">
+                <Button
+                  className="player-bottom-btn"
+                  onClick={() => seth(h === 0 ? 1 : 0)}
+                >
+                  <Settings />
+                </Button>
                   {statusPlayerModeWatch != 2 && (
                     <Button
                       className="player-bottom-btn"
@@ -442,16 +452,22 @@ const Iframe = function ({ type, ...rest }) {
   );
   return type && <iframe allowfullscreen="" src={src} {...rest} />;
 };
-const CogMenu = function ({ setCogMenuType, resolutions, cogMenutype }) {
+const CogMenu = function ({ seth, resolutions, h }) {
+  resolutions = resolutions.map(({ qualityLabel }) => {
+    return {
+      title: qualityLabel,
+      onClick: () => null,
+    };
+  });
   const controles = [
     {
       type: "menu",
-      onClick: () => setCogMenuType(2),
+      onClick: () => seth(2),
       icon: null,
       title: "Quality",
       items: [
         {
-          onClick: () => setCogMenuType(1),
+          onClick: () => seth(1),
           title: "< Voutar",
         },
         ...resolutions,
@@ -459,55 +475,84 @@ const CogMenu = function ({ setCogMenuType, resolutions, cogMenutype }) {
     },
     {
       type: "menu",
-      onClick: () => setCogMenuType(2),
+      onClick: () => seth(3),
       icon: null,
       title: "Speed",
       items: [
         {
-          onClick: () => setCogMenuType(1),
+          onClick: () => seth(1),
           title: "< Voutar",
         },
-        {},
+        {
+          onClick: () => seth(1),
+          title: "0.25x",
+        },
+        {
+          onClick: () => seth(1),
+          title: "0.5x",
+        },
+        {
+          onClick: () => seth(1),
+          title: "0.75x",
+        },
+        {
+          onClick: () => seth(1),
+          title: "normal",
+        },
+        {
+          onClick: () => seth(1),
+          title: "1.25x",
+        },
+        {
+          onClick: () => seth(1),
+          title: "1.5x",
+        },
+        {
+          onClick: () => seth(1),
+          title: "1.75x",
+        },
+        {
+          onClick: () => seth(1),
+          title: "2x",
+        },
       ],
     },
   ];
   return (
     <div
-      className={
-        "settings-player" + (cogMenutype == 0 ? " settings-player-hidden" : "")
-      }
+      className={"settings-player" + (h == 0 ? " settings-player-hidden" : "")}
       style={{
         height:
-          (cogMenutype == 1
+          (h == 1
             ? controles.length
-            : controles[cogMenutype - 2]?.items?.length > 5
+            : controles[h - 2]?.items?.length > 5
             ? 5
-            : controles[cogMenutype - 2]?.items?.length) *
+            : controles[h - 2]?.items?.length) *
             32 +
           18 +
           "px",
       }}
     >
       <div className="settings-player-content">
-        {cogMenutype == 1
+        {h == 1
           ? controles.map((props) => <ButtonCog {...props} />)
-          : controles[cogMenutype - 2]?.items?.map((props) => (
-              <ButtonCog {...props} set_={setCogMenuType} />
+          : controles[h - 2]?.items?.map((props) => (
+              <ButtonCog {...props} set_={seth} />
             ))}
       </div>
     </div>
   );
 };
 
-const ButtonCog = function ({ set_, title, onClick }) {
+const ButtonCog = function ({ set_, g, h, title, onClick }) {
   return (
     <div onClick={() => onClick(() => set_(0))} className="btn-cog">
       <div className="btn-cog-icon"></div>
       <div className="btn-cog-text">
         {title}
-        <div className="btn-cog-subtitle">h2</div>
+        {h && <div className="btn-cog-subtitle">h2</div>}
       </div>
-      <div className="btn-cog-default">f</div>
+      {g && <div className="btn-cog-default">f</div>}
     </div>
   );
 };

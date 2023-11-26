@@ -1,30 +1,28 @@
-"use client";
-import { useState } from "react";
 import Image from "../../components/image";
 import CardVideo from "../../components/CardVideo";
 import Banner from "../../components/banner";
 import Title from "../../components/string";
 import Fetch from "../../service/ApiRest";
 import CardCategory from "../../components/CardCategory";
+export const metadata = {
+  title: "Gaming"
+}
 
-export default function Home() {
-  const [data, setData] = useState(null);
-  const [loaded, setLoaded] = useState(false);
-  const getdata = function () {try{
-    Fetch({
-      type: "browse", 
-      context: {
-        type: "home_gaming",
-      },
-    }).then(setData);}catch(a){}
-  };
-  useState(getdata, [loaded]);
+export default async function Home() {
+  const data = await Fetch({
+    type: "browse",
+    context: {
+      type: "home_gaming",
+    },
+  });
+
   return (
     <>
       <div className="page-home">
         <Banner />
         <Title semibold="" large="" title="Gamers" />
         <div className="row-list">
+          {/*   <CardCategory />
           <CardCategory />
           <CardCategory />
           <CardCategory />
@@ -40,8 +38,8 @@ export default function Home() {
           <CardCategory />
           <CardCategory />
           <CardCategory />
-          <CardCategory />
-        </div>
+  */}
+        </div>{JSON.stringify(data)}
         <div className="page-content-video">
           <Title semibold="" large="" title="Recommended for you" />
           <div className="page-content-video-list-grid">

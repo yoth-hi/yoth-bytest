@@ -154,15 +154,12 @@ export async function POST(req) {
         const _id = id;
         data.videoDetails = {
           title:
-            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
-              .playerOverlayVideoDetailsRenderer?.title?.simpleText,
+            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.title?.simpleText,
           description:
-            r_data?.contents.twoColumnWatchNextResults.results.results
-              ?.contents[1].videoSecondaryInfoRenderer.attributedDescription
-              .content,
+            r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.attributedDescription?.content,
           actorName:
-            r_data?.playerOverlays.playerOverlayRenderer.videoDetails
-              .playerOverlayVideoDetailsRenderer.subtitle.runs[0].text, //"" ,
+            r_data?.playerOverlays.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
           actorId: "",
           actorImage: "",
           thumbnail: `https://i.ytimg.com/vi/${_id}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,
@@ -171,7 +168,7 @@ export async function POST(req) {
         };
         data.content.cardChannel = {
           name: r_data?.playerOverlays.playerOverlayRenderer.videoDetails
-            .playerOverlayVideoDetailsRenderer.subtitle.runs[0].text,
+            .playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
           endpoint: "/yt@" + "null",
           profileImage: "",
           onSubscrive: {
@@ -183,15 +180,15 @@ export async function POST(req) {
             number: "0" || 0,
           },
         };
-        data.content.listVideo = r_data?.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => ({
+        data.content.listVideo = r_data?.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
             title: compactVideoRenderer?.title?.simpleText,
             actorName: "",//us?.displayName,
-            viewsCount: Number((compactVideoRenderer.viewCountText?.simpleText||"").match(/\d/g)),
+            viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)),
             //node?.viewCount || 0,
-            publishedTimeText:compactVideoRenderer.publishedTimeText.simpleText ,
+            publishedTimeText:compactVideoRenderer?.publishedTimeText?.simpleText ,
             thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
-          }));
+          })));
       }
     } else if (type === "home_gaming") {
       const _data = await fetch("https://gql.twitch.tv/gql", {

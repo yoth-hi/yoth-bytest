@@ -8,17 +8,37 @@ import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
 import SettingJson from "../context/Provider";
 const inter = Inter({ subsets: ["latin"] });
-
-const description = "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!"
+const host = "http://localhost:3000"; //"https://yoth-hi.vercel.app";
+const description =
+  "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!";
 export const viewport = {
-  themeColor: 'black',
-}
+  themeColor: "black",
+};
 export const metadata = {
-  title: "Yoth",
+  title: {
+    template: "%s - Yoth",
+    default: "Yoth",
+  },
   description,
   openGraph: {
-    title: 'Yoth',
+    title: "Yoth",
     description,
+  },
+  referrer: "origin-when-cross-origin",
+  keywords: ["Video", "Share", "Streamers", "Watch"],
+  appLinks: {
+    web: {
+      url: host,
+    },
+  },
+  metadataBase: new URL(host),
+  alternates: {
+    canonical: "/",
+    languages: {
+      pt: "?ling=pt",
+      "pt-br": "?ling=pt-br",
+      en: "?ling=en",
+    },
   },
 };
 
@@ -56,12 +76,11 @@ export default function RootLayout({ children, ...a }) {
   const loggedUID = 83583758364;
   const bg = {};
   const head_props = dark ? { dark: "" } : { light: "" };
-  
+
   const data = {
-    users:_Users
-    
+    users: _Users,
   };
-  
+
   return (
     <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
       <body className={inter.className}>
@@ -70,7 +89,7 @@ export default function RootLayout({ children, ...a }) {
             <Miniplayer />
             <div className="desktop-layout">
               <DesktopHeader />
-              <Sidebar data={data}/>
+              <Sidebar data={data} />
               <div className="layout-content-wrapper">
                 <div className="layout-content">{children}</div>
               </div>

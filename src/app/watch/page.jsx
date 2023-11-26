@@ -3,6 +3,9 @@ import Player from "../../components/player";
 import Fetch from "../../service/ApiRest";
 import { redirect } from "next/navigation";
 import Head from "next/head";
+const F = async function(a){
+  return await Fetch(a);
+}
 var _data = {};
 export async function generateMetadata(props) {
   const {
@@ -10,7 +13,7 @@ export async function generateMetadata(props) {
   } = props;
   const platform = tw ? "twitch" : v ? "youtube" : null;
   const id = tw || v;
-  const data = await Fetch({
+  const data = await F({
     type: "browse",
     context: {
       type: "player_page",
@@ -20,10 +23,10 @@ export async function generateMetadata(props) {
   });
 
   return {
-    title: data?.videoDetails?.title + " - " + platform + " - Yoth",
+    title: data?.videoDetails?.title,
     description: data?.videoDetails?.description,
     openGraph: {
-      title: data?.videoDetails?.title + " - " + platform + " - Yoth",
+      title: data?.videoDetails?.title,
       description: data?.videoDetails?.description,
       images: [data?.videoDetails?.thumbnail],
     },
@@ -38,7 +41,7 @@ export default async function Root(props) {
   if (!id) {
     return redirect("/");
   }
-  const data = await Fetch({
+  const data = await F({
     type: "browse",
     context: {
       type: "player_page",

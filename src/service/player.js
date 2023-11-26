@@ -9,6 +9,10 @@ var aaa = function (a) {
       } else c.onDone();
     } else c.onError(Error("null"));
   };
+  this.Y = {
+    method:"POST",
+    body: new Uint8Array([0,120])
+  }
   this.D = window.AbortController ? new AbortController : void 0;
   this.start(a)
 };
