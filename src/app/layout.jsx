@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import Script from "next/script";
+import _Users from "../service/GetUsers.js";
 import DesktopHeader from "../components/header";
 import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
@@ -9,7 +10,9 @@ import SettingJson from "../context/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 const description = "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!"
-
+export const viewport = {
+  themeColor: 'black',
+}
 export const metadata = {
   title: "Yoth",
   description,
@@ -53,6 +56,12 @@ export default function RootLayout({ children, ...a }) {
   const loggedUID = 83583758364;
   const bg = {};
   const head_props = dark ? { dark: "" } : { light: "" };
+  
+  const data = {
+    users:_Users
+    
+  };
+  
   return (
     <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
       <body className={inter.className}>
@@ -61,7 +70,7 @@ export default function RootLayout({ children, ...a }) {
             <Miniplayer />
             <div className="desktop-layout">
               <DesktopHeader />
-              <Sidebar />
+              <Sidebar data={data}/>
               <div className="layout-content-wrapper">
                 <div className="layout-content">{children}</div>
               </div>

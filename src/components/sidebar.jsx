@@ -32,7 +32,7 @@ const Avatar = function ({ profile, name }) {
   );
 };
 
-export default function () {
+export default function ({ data: { users } }) {
   return (
     <div className="sidebar">
       <div className="guide-section">
@@ -83,14 +83,53 @@ export default function () {
           className="guide-section-title"
         />
         <div className="guide-section-list">
-          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
-          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
-          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
-          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
-          <Avatar /><Avatar /><Avatar /><Avatar /><Avatar /><Avatar />
-          </div>
+          {users ? (
+            <>
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+              <Avatar />
+            </>
+          ) : (
+            <div>
+              <div>
+                <button>Login</button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <div className="hover-item"></div>
+      {/*  <div className="guide-section">
+        <div className="guide-section-split-line" />
+        <Link href="/about" aria-label="About"> About</Link>
+      </div>*/}
     </div>
   );
 }

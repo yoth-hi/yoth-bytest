@@ -8,7 +8,7 @@ export default function ({ classRoot, loadingSkeleton, alt, src, ...rest }) {
     setStated(true);
   }, []);
   return (
-    <div rounded={rest.rounded} className={["core-image", classRoot].join(" ")}>
+    <div rounded={rest.rounded} className={["core-image", classRoot].join(" ")+(loaded?"":" "+loadingSkeleton)}>
       {Stated
         ? src && (
             <img

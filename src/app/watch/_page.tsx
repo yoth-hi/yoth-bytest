@@ -20,14 +20,13 @@ const Layer = memo(({ id, sp, platform }: any) => (
     </div>
   </div>
 ));
-function Page({ id, platform,data }: any) {
-  var h ={};
+function Page({ id, platform, data }: any) {
+  var h = {};
   const [p, sp] = useState(true);
   In(h, "_change-player-mode", function () {
     sp(!arguments[0]["in"][1][0]);
   });
   useEffect(() => {
-    
     const el = document.querySelector(".layout-content") as HTMLElement | null;
     if (p) {
       el?.removeAttribute("full");
@@ -38,13 +37,18 @@ function Page({ id, platform,data }: any) {
     el.setAttribute("watchpage", "");
     return () => el.removeAttribute("watchpage");
   }, []);
-  const T = <Layer {...{ id, sp, platform }} key={65} />
+  const T = <Layer {...{ id, sp, platform }} key={65} />;
   return (
     <>
+      <style global jsx>{`
+        html[dark] body  {
+          background: #000 !important;
+        }
+      `}</style>
       <>{!p && T}</>
       <div className="page-watch">
         <BrowseChannelAndNextItem
-          Player={p && T }
+          Player={p && T}
           data={data}
           _context={{ id, platform }}
         />
