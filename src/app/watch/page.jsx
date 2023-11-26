@@ -19,12 +19,12 @@ export async function generateMetadata(props) {
         platform,
         id,
       },
-    }))).then((a) => {
-    setTimeout(() => {
-      _data[`${platform}_${id}`] = undefined;
-    }, 5000);
-    return a;
-  });
+    }).then((a) => {
+      setTimeout(() => {
+        _data[`${platform}_${id}`] = undefined;
+      }, 5000);
+      return a;
+    })));
 
   return {
     title: _data?.videoDetails?.title + " - " + platform + "- Yoth",
@@ -54,12 +54,12 @@ export default async function Root(props) {
         platform,
         id,
       },
-    }))).then((a) => {
-    setTimeout(() => {
-      _data[`${platform}_${id}`] = undefined;
-    }, 5000);
-    return a;
-  });
+    }).then((a) => {
+      setTimeout(() => {
+        _data[`${platform}_${id}`] = undefined;
+      }, 5000);
+      return a;
+    })));
   const newProps = {
     ...props,
     id,
