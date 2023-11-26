@@ -20,12 +20,12 @@ export async function generateMetadata(props) {
   });
 
   return {
-    title: _data?.videoDetails?.title + " - " + platform + "- Yoth",
-    description: _data?.videoDetails?.description,
+    title: data?.videoDetails?.title + " - " + platform + " - Yoth",
+    description: data?.videoDetails?.description,
     openGraph: {
-      title: _data?.videoDetails?.title + " - " + platform + "- Yoth",
-      description: _data?.videoDetails?.description,
-      images: [_data?.videoDetails?.thumbnail],
+      title: data?.videoDetails?.title + " - " + platform + " - Yoth",
+      description: data?.videoDetails?.description,
+      images: [data?.videoDetails?.thumbnail],
     },
   };
 }
