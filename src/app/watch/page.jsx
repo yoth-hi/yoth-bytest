@@ -3,15 +3,15 @@ import Player from "../../components/player";
 import Fetch from "../../service/ApiRest";
 import { redirect } from "next/navigation";
 import Head from "next/head";
-var _data = null;
+var _data = {};
 export async function generateMetadata(props) {
   const {
     searchParams: { tw, v },
   } = props;
   const platform = tw ? "twitch" : v ? "youtube" : null;
   const id = tw || v;
-  const data = (_data =
-    _data ||
+  const data = (_data[`${platform}_${id}`] =
+    _data[`${platform}_${id}`] ||
     (await Fetch({
       type: "browse",
       context: {
@@ -19,8 +19,13 @@ export async function generateMetadata(props) {
         platform,
         id,
       },
-    })));
-  
+    }))).then((a) => {
+    setTimeout(() => {
+      _data[`${platform}_${id}`] = undefined;
+    }, 5000);
+    return a;
+  });
+
   return {
     title: _data?.videoDetails?.title + " - " + platform + "- Yoth",
     description: _data?.videoDetails?.description,
@@ -40,8 +45,8 @@ export default async function Root(props) {
   if (!id) {
     return redirect("/");
   }
-  const data = (_data =
-    _data ||
+  const data = (_data[`${platform}_${id}`] =
+    _data[`${platform}_${id}`] ||
     (await Fetch({
       type: "browse",
       context: {
@@ -49,7 +54,12 @@ export default async function Root(props) {
         platform,
         id,
       },
-    })));
+    }))).then((a) => {
+    setTimeout(() => {
+      _data[`${platform}_${id}`] = undefined;
+    }, 5000);
+    return a;
+  });
   const newProps = {
     ...props,
     id,
