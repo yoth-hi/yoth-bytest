@@ -10,21 +10,14 @@ export async function generateMetadata(props) {
   } = props;
   const platform = tw ? "twitch" : v ? "youtube" : null;
   const id = tw || v;
-  const data = (_data[`${platform}_${id}`] =
-    _data[`${platform}_${id}`] ||
-    (await Fetch({
-      type: "browse",
-      context: {
-        type: "player_page",
-        platform,
-        id,
-      },
-    }).then((a) => {
-      setTimeout(() => {
-        _data[`${platform}_${id}`] = undefined;
-      }, 5000);
-      return a;
-    })));
+  const data = await Fetch({
+    type: "browse",
+    context: {
+      type: "player_page",
+      platform,
+      id,
+    },
+  });
 
   return {
     title: _data?.videoDetails?.title + " - " + platform + "- Yoth",
@@ -45,21 +38,14 @@ export default async function Root(props) {
   if (!id) {
     return redirect("/");
   }
-  const data = (_data[`${platform}_${id}`] =
-    _data[`${platform}_${id}`] ||
-    (await Fetch({
-      type: "browse",
-      context: {
-        type: "player_page",
-        platform,
-        id,
-      },
-    }).then((a) => {
-      setTimeout(() => {
-        _data[`${platform}_${id}`] = undefined;
-      }, 5000);
-      return a;
-    })));
+  const data = await Fetch({
+    type: "browse",
+    context: {
+      type: "player_page",
+      platform,
+      id,
+    },
+  });
   const newProps = {
     ...props,
     id,
