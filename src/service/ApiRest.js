@@ -55,7 +55,7 @@ var Fetch = function (a, b) {
         var headers = require("next/headers").headers;
         var headersList = headers();
         _j = false;
-        a = "http://localhost:3000".concat(a);
+        a = "https://yoth-hi.vercel.app".concat(a);
     }
     catch (error) {
         a = "".concat(location.origin).concat(a);
