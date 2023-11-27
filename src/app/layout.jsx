@@ -8,7 +8,7 @@ import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
 import SettingJson from "../context/Provider";
 const inter = Inter({ subsets: ["latin"] });
-const host = "http://localhost:3000"; //"https://yoth-hi.vercel.app";
+const host = "https://yoth-hi.vercel.app/"; //"https://yoth-hi.vercel.app";
 const description =
   "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!";
 export const viewport = {

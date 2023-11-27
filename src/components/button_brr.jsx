@@ -1,9 +1,11 @@
+import Btn from "./button_root";
 const R = function ({ type, ...rest }) {
   return type == "link" ? <a {...rest} /> : <button {...rest} />;
 };
 const Button = function ({ title, href, target, type, className = "", icon }) {
   return (
-    <R
+    <Btn
+      root={R}
       href={href}
       target={target}
       className={"button-text " + className}
@@ -13,7 +15,7 @@ const Button = function ({ title, href, target, type, className = "", icon }) {
         {icon && <div className="button-text-icon">{icon}</div>}
         <div style={icon ? null : { marginLeft: "14px" }}>{title}</div>
       </div>
-    </R>
+    </Btn>
   );
 };
 export default Button;

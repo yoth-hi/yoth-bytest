@@ -1,5 +1,6 @@
 import Image from "./image";
 import Link from "next/link";
+import Btn from "./button_root";
 import { t, formate } from "../libs/transition";
 export default function (props) {
   if (!props) return;
@@ -7,7 +8,8 @@ export default function (props) {
   if (!data) return;
   const { title, endpoint, actorName, viewsCount, thumbnail } = data;
   return (
-    <div className="card-video-row">
+    <Btn
+      root={"div"} className="card-video-row">
       <Link href={endpoint}>
         <div className="card-video-row-thumbnail">
           <Image classRoot="card-thumbnail" src={thumbnail} />
@@ -24,6 +26,6 @@ export default function (props) {
           </div>
         </div>
       </div>
-    </div>
+    </Btn>
   );
 }

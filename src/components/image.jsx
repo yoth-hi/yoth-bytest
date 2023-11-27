@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-export default function ({ classRoot, loadingSkeleton, alt, src, ...rest }) {
+import { useEffect, memo, useState } from "react";
+export default memo(function ({ classRoot, loadingSkeleton, alt, src, ...rest }) {
   const [loaded, setLoaded] = useState(false);
   const [Stated, setStated] = useState(false);
   //  const _rest = loaded ? { ...rest, loaded: "" } : rest;
@@ -23,4 +23,4 @@ export default function ({ classRoot, loadingSkeleton, alt, src, ...rest }) {
         : ""}
     </div>
   );
-}
+})

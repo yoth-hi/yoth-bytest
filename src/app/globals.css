@@ -889,6 +889,7 @@ body:not([fullscreen])
   padding: 5px 8px;
   margin-left: 5px;
   padding-right: 16px;
+  overflow:hidden;
   background: rgba(var(--background-wp-rgb), 0.1);
 }
 .button-text-container {
@@ -1174,7 +1175,7 @@ body:not([fullscreen])
 .card-video {
   max-width: 360px;
   min-width: min(80vw, 320px);
-  margin: 0 7px;
+  margin: 10px 7px;
 }
 .card-video[skeleton] {
   pointer-events: none !important;
@@ -1753,3 +1754,36 @@ body:not([fullscreen])
 opacity:0;transition:opacity .2s;}
 .live-chat-item-list-renderer:hover .live-chat-text-message-menu-button {
 opacity:1;}
+
+.btn-interaction{
+position:absolute;
+inset:0;
+pointer-events:none;
+display:inline-block;
+margin:-4px;
+z-index:-1;
+}
+.btn-interaction-stroke{
+position:absolute;
+inset:0;
+transition:.2s;
+border: 1px solid rgb(var(--fill-rgb));
+opacity:.2;
+border-radius:4px;
+}
+.btn-interaction-fill{
+position:absolute;
+z-index:-1;
+transition:.16s;
+inset:0;
+opacity:.1;
+background:rgb(var(--fill-rgb));
+border-radius:4px;
+will-change:opacity;
+}
+.button-text .btn-interaction-stroke{
+border-radius:9990px;
+}
+.button-text .btn-interaction{
+margin:1px;
+}
