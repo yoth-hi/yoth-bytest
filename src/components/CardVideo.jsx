@@ -1,7 +1,10 @@
+"use client";
 import Image from "./image";
 import Link from "next/link";
 import Btn from "./button_root";
-export default function ({ data, skeleton }) {
+import { useEffect, memo, useState } from "react";
+
+export default memo(function ({ data, skeleton }) {
   if (!data) return;
   const { title, endpoint, actorImage, actorName, viewsCount, thumbnail } =
     data;
@@ -56,4 +59,4 @@ export default function ({ data, skeleton }) {
       </div>
     </Btn>
   );
-}
+})

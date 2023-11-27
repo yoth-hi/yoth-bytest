@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect, memo,useRef } from "react";
+import React, { useState, useEffect, memo, useRef } from "react";
 
 export default memo(function ({ popout, root, children, ...rest }) {
-  const [isMovein, hover] = useState(false);
-  const [_isMovein, _hover] = useState(false);
+  const fill = useRef(null);
+  const stroke = useRef(null);
   const Button = (a) => {
     var T;
     root == "div" ? (root = (a) => <div {...a} />) : null;
@@ -13,13 +13,13 @@ export default memo(function ({ popout, root, children, ...rest }) {
     return <button {...a} />;
   };
   const hHover = function () {
-    hover(true);
+    fill.current.style.opacity = 0.1;
   };
   const unhHover = function () {
-    _hover(true);
+    stroke.current.style.opacity = 0.2;
     setTimeout(function () {
-      hover(false);
-      _hover(false);
+      fill.current.style.opacity = 0;
+      stroke.current.style.opacity = 0;
     }, 210);
   };
   return (
@@ -35,22 +35,18 @@ export default memo(function ({ popout, root, children, ...rest }) {
       onMouseUp={unhHover}
       className={`${rest.className} popout-active`}
     >
-      {popout && (
-        <div className="btn-popout">
-          <span className="text-string">{popout}</span>
-        </div>
-      )}
-      <div className="btn-interaction">
-        <div
-          className="btn-interaction-stroke"
-          style={{ opacity: _isMovein ? 0.2 : 0 }}
-        ></div>
-        <div
-          className="btn-interaction-fill"
-          style={{ opacity: isMovein ? 0.1 : 0 }}
-        ></div>
-      </div>
       <>{children}</>
+      <>
+        {popout && (
+          <div className="btn-popout">
+            <span className="text-string">{popout}</span>
+          </div>
+        )}
+        <div className="btn-interaction">
+          <div className="btn-interaction-stroke" ref={stroke }></div>
+          <div className="btn-interaction-fill" ref={fill}></div>
+        </div>
+      </>
     </Button>
   );
-})
+});

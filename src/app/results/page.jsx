@@ -3,9 +3,12 @@ import Image from "../../components/image";
 import Title from "../../components/string";
 import Button from "../../components/button_brr";
 import S from "../../components/icons/span";
+
+
 import CardVideo from "../../components/CardVideo";
 import Fetch from "../../service/ApiRest";
 import CardChannel from "../../components/cardChannelBox";
+import A from "../../components/cardChannelRow";
 import { t } from "../../libs/transition";
 import { useLayoutEffect, useState } from "react";
 export default function (props) {
@@ -35,7 +38,7 @@ export default function (props) {
     <div className="page-query">
       <div>
         {data?.content?.list?.map((q) => (
-          <Z q={q} />
+          <A q={q} />
         ))}
         <S />
       </div>
@@ -43,19 +46,4 @@ export default function (props) {
   );
 }
 
-const Z = function () {
-  return (
-    <div>
-      <div>
-        <Image
-          rounded
-          src="https://static-cdn.jtvnw.net/jtv_user_pictures/77589615-7cb0-4179-a1b9-85e2c6850073-profile_image-50x50.png"
-        />
-      </div>
-      <div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  );
-};
+

@@ -22,7 +22,7 @@ export default function ({ video }) {
     const t = progressHover;
     var vid;
     setProgressPlay(t);
-    if ((vid = video.current)) {
+    if(vid.currentTime && (vid = video.current)) {
       vid.currentTime = t * vid.duration;
     }
     setProgressHover(-1);

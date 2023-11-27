@@ -1164,6 +1164,7 @@ body:not([fullscreen])
   grid-gap: 6px 7px;
   margin: 0 14px;
 }
+.page-home{margin-top:16px}
 .page-home,
 .page-sub-content {
   max-width: min(2880px, calc(100vw - var(--sidebar-width)));
@@ -1768,7 +1769,7 @@ position:absolute;
 inset:0;
 transition:.2s;
 border: 1px solid rgb(var(--fill-rgb));
-opacity:.2;
+opacity:0;
 border-radius:4px;
 }
 .btn-interaction-fill{
@@ -1776,7 +1777,7 @@ position:absolute;
 z-index:-1;
 transition:.16s;
 inset:0;
-opacity:.1;
+opacity:0;
 background:rgb(var(--fill-rgb));
 border-radius:4px;
 will-change:opacity;

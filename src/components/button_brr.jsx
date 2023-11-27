@@ -1,4 +1,4 @@
-import Btn from "./button_root";
+"use client";import Btn from "./button_root";
 const R = function ({ type, ...rest }) {
   return type == "link" ? <a {...rest} /> : <button {...rest} />;
 };
