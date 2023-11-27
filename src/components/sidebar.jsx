@@ -1,6 +1,7 @@
 import Button from "./Button";
 import Link from "next/link";
 import Title from "./string";
+import ButtonLogin from "./buttonLogin";
 import Image from "./image";
 import MainNavigations from "./sidebar/mainNavigations";
 import { t } from "../libs/transition";
@@ -117,10 +118,8 @@ export default function ({ data: { users } }) {
               <Avatar />
             </>
           ) : (
-            <div>
-              <div>
-                <button>Login</button>
-              </div>
+            <div className="guide-section-login">
+            <ButtonLogin />
             </div>
           )}
         </div>

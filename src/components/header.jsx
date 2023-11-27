@@ -14,8 +14,8 @@ const Btns = function () {
   );
 };
 
-export default function () {
-  const user = {} ;
+export default function ({data:{users}}) {
+  
   return (
     <div className={`desktop-header`}>
       <div className="desktop-layout-start">
@@ -30,9 +30,9 @@ export default function () {
       </div>
       <Search />
       <div className="desktop-layout-end">
-        {user && <Btns />}
+        {users && <Btns />}
 
-        <ProfileMenu user={user} />
+        <ProfileMenu user={users} />
       </div>
     </div>
   );

@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import Script from "next/script";
 import _Users from "../service/GetUsers.js";
 import DesktopHeader from "../components/header";
+import ProsesLoad from "../components/ProsesLoad";
+import getCodeLanguage from "../libs/getCodeLanguage";
 import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
 import SettingJson from "../context/Provider";
@@ -70,15 +72,12 @@ export default function RootLayout({ children, ...a }) {
   const dark = true; //_;
   const hideHeaderBorderBottom = true;
   const rerenderAfterLogin = true;
-  const ling =
-    referer.searchParams.get("ling") ||
-    parseLanguagePreferences(headersList.get("accept-language"))[0]?.code;
-  const loggedUID = 83583758364;
+  const ling =getCodeLanguage();const loggedUID = 83583758364;
   const bg = {};
   const head_props = dark ? { dark: "" } : { light: "" };
-
+  const users = _Users()
   const data = {
-    users: _Users,
+    users
   };
 
   return (
@@ -86,9 +85,10 @@ export default function RootLayout({ children, ...a }) {
       <body className={inter.className}>
         <SettingJson>
           <div id="app-desktop">
+            <ProsesLoad/>
             <Miniplayer />
             <div className="desktop-layout">
-              <DesktopHeader />
+              <DesktopHeader data={data}  />
               <Sidebar data={data} />
               <div className="layout-content-wrapper">
                 <div className="layout-content">{children}</div>

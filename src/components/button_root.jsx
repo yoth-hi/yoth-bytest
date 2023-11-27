@@ -25,6 +25,8 @@ export default memo(function ({ popout, root, children, ...rest }) {
   return (
     <Button
       {...rest}
+      onTouchStart={hHover}
+      onMouseStart={hHover}
       onTouchMove={hHover}
       onMouseMove={hHover}
       onTouchLeave={unhHover}
@@ -33,7 +35,7 @@ export default memo(function ({ popout, root, children, ...rest }) {
       onMouseCancel={unhHover}
       onTouchEnd={unhHover}
       onMouseUp={unhHover}
-      className={`${rest.className} popout-active`}
+      className={`button-with-interaction ${rest.className} popout-active`}
     >
       <>{children}</>
       <>

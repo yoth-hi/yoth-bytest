@@ -357,7 +357,6 @@ body:not([watchpage]) .sidebar {
   border-radius: 5px;
   overflow: hidden;
 }
-.item-side-bar:hover,
 .card-avatar-endpoint:hover {
   background: #fff1;
 }
@@ -841,6 +840,11 @@ body:not([fullscreen])
 @media (max-width: 1000px) {
   body {
     --sidebar-width: 0px !important;
+  }
+  .thumbnail-pagenation-item{
+  aspect-ratio:1!important;
+  background:#fff;
+  width:5px!important;
   }
   body[exped] .sidebar {
     position: fixed;
@@ -1355,6 +1359,7 @@ body:not([fullscreen])
 .thumbnail-pagenation-item {
   background: #753893;
   width: 80px;
+  transition:.2s;
   aspect-ratio: 1.7777777777777;
   border-radius: 10px;
   position: relative;
@@ -1363,7 +1368,7 @@ body:not([fullscreen])
 }
 .thumbnail-pagenation-item img {
   width: 80px;
-  aspect-ratio: 1.7777777777777;
+  
   border-radius: 10px;
 }
 .banner-player {
@@ -1787,4 +1792,21 @@ border-radius:9990px;
 }
 .button-text .btn-interaction{
 margin:1px;
+}
+.button-with-interaction{
+cursor:default}
+.guide-section-login{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ margin:10px 0;
+}
+.guide-section-login .btn-login{
+width:60%;
+}
+ .btn-login .btn-interaction{
+ margin:-1px;
+}
+ .btn-login .btn-interaction *{
+ border-radius:10000px;
 }

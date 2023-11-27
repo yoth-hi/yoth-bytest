@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import Image from "./image";
 import MenuLogin from "./MenuLogin";
+import ButtonLogin from "./buttonLogin";
 import { t } from "../libs/transition";
 export default function ({ user: User }) {
   const [IsOpen, setOpen] = useState(false);
-  const [IsMenuLogin, setMenuLogin] = useState(false);
+
   return (
     <>
       {User ? (
@@ -27,12 +28,9 @@ export default function ({ user: User }) {
           </div>
         </div>
       ) : (
-        <button onClick={()=>setMenuLogin(true)} className="btn-login" aria-label={t("Login")}>
-          {t("Login")}
-        </button>
+        <ButtonLogin />
       )}
       {IsOpen ? createPortal(<Menu />, document.body) : null}
-      {IsMenuLogin ? createPortal(<MenuLogin close={()=>setMenuLogin(false)} />, document.body) : null}
     </>
   );
   //  <Menu />
