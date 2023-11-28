@@ -20,9 +20,9 @@ export default function ({ video }) {
   };
   const handleUp = (event) => {
     const t = progressHover;
-    var vid;
+    var vid = video.current;
     setProgressPlay(t);
-    if(vid.currentTime && (vid = video.current)) {
+    if (vid && vid.currentTime) {
       vid.currentTime = t * vid.duration;
     }
     setProgressHover(-1);
@@ -67,7 +67,7 @@ export default function ({ video }) {
             })`,
           }}
         ></div>
-      {/*  <div
+        {/*  <div
           className="player-prosses-dot"
           style={{ marginLeft: `${progressPlay * 100}%` }}
         ></div>*/}

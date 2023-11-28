@@ -1810,3 +1810,9 @@ width:60%;
  .btn-login .btn-interaction *{
  border-radius:10000px;
 }
+.page-content-video-list-items-row{
+display:flex}
+.page-content-video-list-items-row .card-video{
+width:100%;
+max-width:3600px;
+}

@@ -189,11 +189,13 @@ var render_cine = undefined;
 
 var time = 0,
   r = 0,
+  M = 0,
   temp = false;
 export default React.memo(function ({ platform, id, sp }) {
   const player = React.useRef(null);
   const spin = React.useRef(null);
   const video = React.useRef(null);
+  
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
   //0 = normal
   //1 = theater
@@ -216,6 +218,7 @@ export default React.memo(function ({ platform, id, sp }) {
     bz(data?.stream?.[c]?.signatureCipher) ||
     data?.stream?.[c]?.url;
   const souce_type = a?.stream?.action?.mimeType || data?.stream?.[c]?.mimeType;
+ // M?.change?.(souce,souce_type)
   const resolutions = Object.values(data?.stream || {});
   const handleScroll = (e) => {
     var t = document.body;
@@ -276,6 +279,8 @@ export default React.memo(function ({ platform, id, sp }) {
         time = 100;
       }
     }, 50);
+     
+    
     return () => clearInterval(interval);
   }, []);
   React.useEffect(() => {
@@ -337,12 +342,12 @@ export default React.memo(function ({ platform, id, sp }) {
         controlsList="nodownload"
         muted=""
         onLoad={() => video.current.play()}
-        autoplay=""
+        autoPlay=""
         onClick={() => {
           play_pouse();
         }}
         ref={video}
-        src={souce}
+        src={souce||M?.src}
         type={souce_type}
       />
       <div

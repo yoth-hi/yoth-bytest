@@ -183,7 +183,7 @@ export async function POST(req) {
         data.content.listVideo = r_data?.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
             title: compactVideoRenderer?.title?.simpleText,
             actorName: "",//us?.displayName,
-            viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)),
+            viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g).join("")),
             //node?.viewCount || 0,
             publishedTimeText:compactVideoRenderer?.publishedTimeText?.simpleText ,
             thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),

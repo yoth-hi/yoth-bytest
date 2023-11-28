@@ -9,12 +9,12 @@ import BrowseChannelAndNextItem from "./../../components/BrowseChannelAndNextIte
 import Player from "../../components/player";
 var player = {};
 const Layer = memo(({ id, sp, platform }: any) => (
-  <div className="page-watch-container">
+  <div className="page-watch-container" key={287}>
     <div className="page-watch-primary">
       <div className="page-watch-primary-player">
         <div id="cinematic" />
         <div className="page-watch-primary-player-conteiner">
-          <Player {...{ id, platform, sp }} />
+          <Player {...{ id, platform, sp }} key={287} />
         </div>
       </div>
     </div>
@@ -41,14 +41,14 @@ function Page({ id, platform, data }: any) {
   return (
     <>
       <style global jsx>{`
-        html[dark] body  {
+        html[dark] body {
           background: #000 !important;
         }
       `}</style>
-      <>{!p && T}</>
+      {!p && T}
       <div className="page-watch">
         <BrowseChannelAndNextItem
-          Player={p && T}
+          Player={p&& T}
           data={data}
           _context={{ id, platform }}
         />

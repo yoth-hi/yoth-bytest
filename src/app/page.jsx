@@ -5,6 +5,7 @@ import Banner from "../components/home_banner";
 import Title from "../components/string";
 import Fetch from "./../service/ApiRest";
 import CardCategory from "../components/CardCategory";
+import P from "./_page";
 
 import { t } from "../libs/transition";
 
@@ -15,7 +16,7 @@ export default async function Home() {
       type: "home_page",
     },
   });
-
+  
   /*  const getdata = function () {
     Fetch({
       type: "browse",
@@ -40,21 +41,7 @@ export default async function Home() {
   return (
     <>
       <div className="page-home">
-        <Banner data={data?.content?.banner ?? {}} />
-        <Title semibold="" large="" title={t("Recommended")} />
-        <div className="page-content-video-list-grid">
-          {data?.content?.listVideo?.map((a) => (
-            <CardVideo data={a} />
-          ))}
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-          <CardVideo data={{}} skeleton />
-        </div>
+      <P data={data}/>
       </div>
     </>
   );
