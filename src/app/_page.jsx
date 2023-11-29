@@ -67,8 +67,9 @@ export default function ({ data }) {
           }).then((a) => {
             var m = b.scrollTop;
              
+             const mm =list||data?.content?.listVideo;
             
-            var l = [...data?.content?.listVideo, ...a?.content?.listVideo];
+            var l = [...mm, ...a?.content?.listVideo];
             l = l.map(
               (a) => (a && (a.key ? null : (a.key = crypto.randomUUID())), a)
             );
