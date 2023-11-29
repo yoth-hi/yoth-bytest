@@ -34,7 +34,7 @@ const getData = async (a = {}) =>
     },
   });
 export default function ({ data }) {
-  const [list, setList] = useState(null);
+  const [list, setList] = useState(data?.content?.listVideo);
   //   const [row, setRow] = useState(parseInt(window.innerWidth / 360));
 
   // useEffect(() => {
@@ -48,37 +48,35 @@ export default function ({ data }) {
   //     });
   //   }, []);
   //  data?.content?.listVideo?
-  var start=0;
+  var start = 0;
   useEffect(() => {
     var sst = true;
     const interval = setInterval(function () {
       const a = document.querySelectorAll(
         ".page-content-video-list-grid .card-video[skeleton]"
       )[0];
-      const b = document.querySelector("#app-desktop")
+      const b = document.querySelector("#app-desktop");
       const { height, y } = a.getBoundingClientRect();
       const e = y - innerHeight;
-      console.log(e)
+      console.log(e);
       if (e < 100) {
         if (sst) {
           sst = false;
           getData({
-            start
+            start,
           }).then((a) => {
             var m = b.scrollTop;
-             
-             const mm =list||data?.content?.listVideo;
-            
-            var l = [...mm, ...a?.content?.listVideo];
+
+            var l = [...list, ...a?.content?.listVideo];
             l = l.map(
               (a) => (a && (a.key ? null : (a.key = crypto.randomUUID())), a)
             );
             setTimeout(() => {
               sst = true;
             }, 300);
-            start=l.length;
+            start = l.length;
             setList(l);
-            setTimeout(()=>b.scrollTop=m,16*3)
+            setTimeout(() => (b.scrollTop = m), 16 * 3);
           });
         }
       }
@@ -115,7 +113,7 @@ export default function ({ data }) {
         {[0, 0, 0, 0]?.map(() => (
           <CardVideo data={{}} skeleton />
         ))}
-        <Spin/>
+        <Spin />
       </div>
     </>
   );
