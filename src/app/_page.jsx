@@ -48,7 +48,8 @@ export default function ({ data }) {
   //     });
   //   }, []);
   //  data?.content?.listVideo?
-  var start = 0, _list = [];
+  var start = 0,
+    _list = [];
   useEffect(() => {
     var sst = true;
     const interval = setInterval(function () {
@@ -66,19 +67,18 @@ export default function ({ data }) {
             start,
           }).then((a) => {
             var m = b.scrollTop;
-          
-            var l = [...list]
-            a?.content?.listVideo?.forEach(a=>{
-              l.push(a)
-            })
-            l = l.map(
-              (a) => (a && (a.key ? null : (a.key = crypto.randomUUID())), a)
-            );
-            setTimeout(() => {
-              sst = true;
-            }, 300);
-            start = l.length;
-            setList(l);
+
+            setList(() => {
+              var l = [...list, ...a?.content?.listVideo];
+              setTimeout(() => {
+                sst = true;
+              }, 300);
+              start = l.length;
+
+              return l.map(
+                (a) => (a && (a.key ? null : (a.key = crypto.randomUUID())), a)
+              );
+            });
             setTimeout(() => (b.scrollTop = m), 16 * 3);
           });
         }
