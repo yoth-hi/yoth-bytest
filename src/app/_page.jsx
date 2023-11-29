@@ -48,8 +48,9 @@ export default function ({ data }) {
   //     });
   //   }, []);
   //  data?.content?.listVideo?
-  var start = 0;
+  var start = 0, _list = [];
   useEffect(() => {
+    if(!_list[0])_list=data?.content?.listVideo;
     var sst = true;
     const interval = setInterval(function () {
       const a = document.querySelectorAll(
@@ -66,8 +67,8 @@ export default function ({ data }) {
             start,
           }).then((a) => {
             var m = b.scrollTop;
-
-            var l = [...list, ...a?.content?.listVideo];
+            var l = [...list].push(...a?.content?.listVideo);
+          _list.push(a?.content?.listVideo)
             l = l.map(
               (a) => (a && (a.key ? null : (a.key = crypto.randomUUID())), a)
             );
@@ -75,7 +76,7 @@ export default function ({ data }) {
               sst = true;
             }, 300);
             start = l.length;
-            setList(l);
+            setList(_list);
             setTimeout(() => (b.scrollTop = m), 16 * 3);
           });
         }
