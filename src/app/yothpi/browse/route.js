@@ -16,7 +16,7 @@ export async function POST(req) {
       });
     }
     const {
-      context: { lg, platform, query, id, type },
+      context: { lg = "en", platform, start=0, query, id, type },
     } = json || { context: {} };
     const auto = "test";
     const { context } = json || {};
@@ -210,10 +210,10 @@ export async function POST(req) {
           variables: {
             requestID: "LmLqsk9ZGlITX4Qz",
             platform: "mobile_web",
-            itemsPerRow: 30,
+            itemsPerRow: 5,
             url: "https://m.twitch.tv/",
             first: 1,
-            after: null,
+            after: start,
           },
         }),
       }).catch(console.error);
@@ -252,7 +252,7 @@ export async function POST(req) {
           body: JSON.stringify({
             context: {
               client: {
-                hl: "pt",
+                hl: lg,
                 gl: "BR",
                 remoteHost: "143.137.158.18",
                 deviceMake: "",
@@ -335,7 +335,7 @@ export async function POST(req) {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Accept-Language": "en", //lg,
+          "Accept-Language": lg, //lg,
           "Client-Id": "r8s4dac0uhzifbpu9sjdiwzctle17ff",
           "Content-Type": "application/json",
           //'Authorization': 'OAuth r8s4dac0uhzifbpu9sjdiwzctle17ff',
@@ -350,7 +350,7 @@ export async function POST(req) {
           variables: {
             requestID: "LmLqsk9ZGlITX4Qz",
             platform: "mobile_web",
-            itemsPerRow: 30,
+            itemsPerRow: 9,
             url: "https://m.twitch.tv/",
             first: 1,
             after: null,

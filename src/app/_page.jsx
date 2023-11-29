@@ -2,6 +2,7 @@
 import CardVideo from "../components/CardVideo";
 import Banner from "../components/home_banner";
 import Title from "../components/string";
+import Spin from "../components/icons/span";
 import Fetch from "./../service/ApiRest";
 import { useState, useEffect } from "react";
 import { t } from "../libs/transition";
@@ -24,8 +25,16 @@ function y(arr, r = 3) {
 
   return resultado;
 }
+const getData = async (a = {}) =>
+  await Fetch({
+    type: "browse",
+    context: {
+      type: "home_page",
+      ...a,
+    },
+  });
 export default function ({ data }) {
-  // const [list, setList] = useState([]);
+  const [list, setList] = useState(null);
   //   const [row, setRow] = useState(parseInt(window.innerWidth / 360));
 
   // useEffect(() => {
@@ -39,6 +48,43 @@ export default function ({ data }) {
   //     });
   //   }, []);
   //  data?.content?.listVideo?
+  var start=0;
+  useEffect(() => {
+    var sst = true;
+    const interval = setInterval(function () {
+      const a = document.querySelectorAll(
+        ".page-content-video-list-grid .card-video[skeleton]"
+      )[0];
+      const b = document.querySelector("#app-desktop")
+      const { height, y } = a.getBoundingClientRect();
+      const e = y - innerHeight;
+      console.log(e)
+      if (e < 100) {
+        if (sst) {
+          sst = false;
+          getData({
+            start
+          }).then((a) => {
+            var m = b.scrollTop;
+             
+            
+            var l = [...data?.content?.listVideo, ...a?.content?.listVideo];
+            l = l.map(
+              (a) => (a && (a.key ? null : (a.key = crypto.randomUUID())), a)
+            );
+            setTimeout(() => {
+              sst = true;
+            }, 300);
+            start=l.length;
+            setList(l);
+            setTimeout(()=>b.scrollTop=m,16*3)
+          });
+        }
+      }
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <Banner data={data?.content?.banner ?? {}} />
@@ -62,9 +108,13 @@ export default function ({ data }) {
       </div>
           */}
       <div className="page-content-video-list-grid">
-        {data?.content?.listVideo?.map((a) => (
-          <CardVideo data={a} />
+        {(list || data?.content?.listVideo)?.map((a) => (
+          <CardVideo data={a} key={a?.key} />
         ))}
+        {[0, 0, 0, 0]?.map(() => (
+          <CardVideo data={{}} skeleton />
+        ))}
+        <Spin/>
       </div>
     </>
   );

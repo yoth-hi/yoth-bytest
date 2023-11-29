@@ -10,18 +10,18 @@ export default memo(function ({ classRoot, loadingSkeleton, alt, src, ...rest })
   }, []);
   return (
     <div rounded={rest.rounded} className={["core-image", classRoot].join(" ")+(loaded?"":" "+loadingSkeleton)}>
-      {Stated
-        ? src && (
+      {/*Stated
+        ?*/ src && (
             <img
               {...rest}
               src={src}
-              style={{ opacity: loaded ? "1" : "0" }}
-              onLoad={(e) => setLoaded(true)}
-              onError={(e) => setLoaded(false)}
+              style={{ opacity: loaded ? "1" : "1" }}
+//               onLoad={(e) => setLoaded(true)}
+//               onError={(e) => setLoaded(false)}
               alt={alt || "image no asesibility"}
             />
-          )
-        : ""}
+          )/*
+        : ""*/}
     </div>
   );
 })
