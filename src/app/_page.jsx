@@ -68,7 +68,7 @@ export default function ({ data }) {
           }).then((a) => {
             var m = b.scrollTop;
 
-            setList(() => {
+            setList((list) => {
               var l = [...list, ...a?.content?.listVideo];
               setTimeout(() => {
                 sst = true;
