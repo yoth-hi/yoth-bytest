@@ -138,7 +138,7 @@ export async function POST(req) {
             referrer: "https://www.youtube.com/watch?v=" + id + "",
             referrerPolicy: "strict-origin-when-cross-origin",
             body:
-              '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
+              '{"context":{"client":{"hl":'+lg+',"gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
               id +
               '","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"CLON_aoGEInorgUQ2cmvBRCvh7AFEJrwrwUQt-r-EhD1-_4SENSSsAUQ3ej-EhD8hbAFEIiHsAUQ0OKvBRDf2K8FEOPYrwUQ6-j-EhC--a8FEMyu_hIQqfevBRCI468FEKuHsAUQnYuwBRDnuq8FENvYrwUQ4divBRDHg7AFEL6KsAUQ9fmvBRDi1K4FENfprwUQ1KGvBRCn968FEOrDrwUQzN-uBRC9tq4FEKy3rwUQuIuuBRDT4a8FEK2HsAUQ6ej-EhDcgrAFELGHsAUQpcL-EhDuoq8FEKuCsAUQ1YiwBRDks_4SEOHyrwUQ-r6vBRC8-a8FEKKBsAUQopKwBRC_968FEOuTrgUQqIGwBRCWlbAFEJT6_hIQpoGwBRD3jrAFEOb9_hIQ65awBRCZkbAFEK7U_hIQyfevBRDbr68FELfvrwUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRZek5EZzFOVE15TkRrd05ERTBNZz09ELON_aoGGLON_aoG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v=' +
               id +
@@ -183,7 +183,7 @@ export async function POST(req) {
         data.content.listVideo = r_data?.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
             title: compactVideoRenderer?.title?.simpleText,
             actorName: "",//us?.displayName,
-            viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g).join("")),
+            viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)?.join("")),
             //node?.viewCount || 0,
             publishedTimeText:compactVideoRenderer?.publishedTimeText?.simpleText ,
             thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),
