@@ -18,7 +18,7 @@ const BrowseChannelAndNextItem = function ({ data,Player,_context }) {
   return (
     <div className="page-watch-info">
       <div className="page-watch-info-conteiner">
-        {Player}
+        <div id="player-video"/>
         <div className="page-watch-info-title">
           <h3 className="title-string">
             {videoDetails?.title || <div className="skeleton-text title" />}
