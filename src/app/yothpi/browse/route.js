@@ -19,7 +19,7 @@ export async function POST(req) {
       context: { lg = "en", platform, start=0, query, id, type },
     } = json || { context: {} };
     const auto = "test";
-    const { context } = json;
+    const { context } = json || {};
 
     const _ = getTraslate(json?.context?.ling || "en");
     if (type === "player_page") {
@@ -112,8 +112,7 @@ export async function POST(req) {
           {
             headers: {
               accept: "*/*",
-              "accept-language":
-                "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
+              "accept-language":lg,
               "content-type": "application/json",
               "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120"',
               "sec-ch-ua-arch": '"x86"',
@@ -138,7 +137,7 @@ export async function POST(req) {
             referrer: "https://www.youtube.com/watch?v=" + id + "",
             referrerPolicy: "strict-origin-when-cross-origin",
             body:
-              '{"context":{"client":{"hl":'+lg+',"gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
+              '{"context":{"client":{"hl":"'+lg+'","gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
               id +
               '","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"CLON_aoGEInorgUQ2cmvBRCvh7AFEJrwrwUQt-r-EhD1-_4SENSSsAUQ3ej-EhD8hbAFEIiHsAUQ0OKvBRDf2K8FEOPYrwUQ6-j-EhC--a8FEMyu_hIQqfevBRCI468FEKuHsAUQnYuwBRDnuq8FENvYrwUQ4divBRDHg7AFEL6KsAUQ9fmvBRDi1K4FENfprwUQ1KGvBRCn968FEOrDrwUQzN-uBRC9tq4FEKy3rwUQuIuuBRDT4a8FEK2HsAUQ6ej-EhDcgrAFELGHsAUQpcL-EhDuoq8FEKuCsAUQ1YiwBRDks_4SEOHyrwUQ-r6vBRC8-a8FEKKBsAUQopKwBRC_968FEOuTrgUQqIGwBRCWlbAFEJT6_hIQpoGwBRD3jrAFEOb9_hIQ65awBRCZkbAFEK7U_hIQyfevBRDbr68FELfvrwUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRZek5EZzFOVE15TkRrd05ERTBNZz09ELON_aoGGLON_aoG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v=' +
               id +
@@ -151,6 +150,7 @@ export async function POST(req) {
           }
         );
         const r_data = await resp.json();
+        
         const _id = id;
         data.videoDetails = {
           title:
@@ -179,7 +179,7 @@ export async function POST(req) {
             number: "0" || 0,
           },
         };
-        data.content.listVideo = r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results?.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
+        data.content.listVideo = r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
             title: compactVideoRenderer?.title?.simpleText,
             actorName: "",//us?.displayName,
             viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)?.join("")),
@@ -251,7 +251,7 @@ export async function POST(req) {
           body: JSON.stringify({
             context: {
               client: {
-                hl: lg,
+                hl: "pt",
                 gl: "BR",
                 remoteHost: "143.137.158.18",
                 deviceMake: "",
@@ -357,6 +357,7 @@ export async function POST(req) {
         }),
       }).catch(console.error);
       const __1data = await _data.json();
+      
       data._ = a;
       var t = __1data?.data?.shelves?.edges[0].node?.content.edges?.map(
         (n) => (
@@ -375,7 +376,7 @@ export async function POST(req) {
         )
       );
       t.push(
-        ...a?.contents?.twoColumnBrowseResultsRenderer?.tabs?.[0]?.tabRenderer?.content?.richGridRenderer?.contents?.map(
+        ...a?.contents?.twoColumnBrowseResultsRenderer.tabs?.[0]?.tabRenderer.content.richGridRenderer?.contents?.map(
           (n) => (
             (n = n.richItemRenderer?.content?.videoRenderer),
             n && {
@@ -441,7 +442,7 @@ export async function POST(req) {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Accept-Language": "en-US",
+          "Accept-Language": lg,
           "Client-Id": "r8s4dac0uhzifbpu9sjdiwzctle17ff",
           "Content-Type": "application/json",
           "Device-Id": "qQkSyxaRxX4Jbu0abiq2QPZLDwm02vOJ",
@@ -466,8 +467,9 @@ export async function POST(req) {
       const b = await a.json();
       data.content.list = b?.data?.searchFor?.channels?.items;
     }
+  console.log(data)
   } catch (error) {
-    console.error("[ [ LOG ERROR ] - REQUEST/BROUSER ]", error);
+    console.error("[ LOG REQUEST BROUSER ERROR ]", error);
     return new NextResponse(error, { status: 403 });
   }
   data.time = `${(Date.now() - startTime) / 1000}ms`;
