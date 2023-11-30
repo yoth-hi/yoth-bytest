@@ -159,7 +159,7 @@ export async function POST(req) {
             r_data?.contents?.twoColumnWatchNextResults?.results?.results
               ?.contents?.[1]?.videoSecondaryInfoRenderer?.attributedDescription?.content,
           actorName:
-            r_data?.playerOverlays.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
+            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
           actorId: "",
           actorImage: "",
           thumbnail: `https://i.ytimg.com/vi/${_id}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,
@@ -167,8 +167,7 @@ export async function POST(req) {
           isLive: false,
         };
         data.content.cardChannel = {
-          name: r_data?.playerOverlays.playerOverlayRenderer.videoDetails
-            .playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
+          name: r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
           endpoint: "/yt@" + "null",
           profileImage: "",
           onSubscrive: {
