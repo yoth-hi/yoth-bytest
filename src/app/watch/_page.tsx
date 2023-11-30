@@ -56,10 +56,10 @@ function Page({ id, platform, data }: any) {
         }
       `}</style>
       <div ref={t}>
-        <div ref={w}>{T}</div>
+        
       </div>
       <div className="page-watch">
-        <BrowseChannelAndNextItem data={data} _context={{ id, platform }} />
+        <BrowseChannelAndNextItem Player={<div ref={w}>{T}</div>} data={data} _context={{ id, platform }} />
       </div>
     </>
   );
