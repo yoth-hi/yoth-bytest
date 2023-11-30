@@ -59,7 +59,6 @@ export default function ({ data }) {
       const b = document.querySelector("#app-desktop");
       const { height, y } = a.getBoundingClientRect();
       const e = y - innerHeight;
-      console.log(e);
       if (e < 100) {
         if (sst) {
           sst = false;

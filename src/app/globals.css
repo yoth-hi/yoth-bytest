@@ -608,7 +608,7 @@ body:not([fullscreen])
 display:none;
 }
 .player-bottom-btn * {
-  transition: 0.3s;
+  transition: 0.3s!important;
 }
 .player-top {
   height: 48px;
