@@ -19,7 +19,7 @@ export async function POST(req) {
       context: { lg = "en", platform, start=0, query, id, type },
     } = json || { context: {} };
     const auto = "test";
-    const { context } = json || {};
+    const { context } = json;
 
     const _ = getTraslate(json?.context?.ling || "en");
     if (type === "player_page") {
@@ -179,7 +179,7 @@ export async function POST(req) {
             number: "0" || 0,
           },
         };
-        data.content.listVideo = r_data?.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
+        data.content.listVideo = r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results?.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
             title: compactVideoRenderer?.title?.simpleText,
             actorName: "",//us?.displayName,
             viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)?.join("")),
@@ -375,7 +375,7 @@ export async function POST(req) {
         )
       );
       t.push(
-        ...a?.contents?.twoColumnBrowseResultsRenderer.tabs?.[0]?.tabRenderer.content.richGridRenderer?.contents?.map(
+        ...a?.contents?.twoColumnBrowseResultsRenderer?.tabs?.[0]?.tabRenderer?.content?.richGridRenderer?.contents?.map(
           (n) => (
             (n = n.richItemRenderer?.content?.videoRenderer),
             n && {
@@ -467,7 +467,7 @@ export async function POST(req) {
       data.content.list = b?.data?.searchFor?.channels?.items;
     }
   } catch (error) {
-    console.error("[ LOG REQUEST BROUSER ERROR ]", error);
+    console.error("[ [ LOG ERROR ] - REQUEST/BROUSER ]", error);
     return new NextResponse(error, { status: 403 });
   }
   data.time = `${(Date.now() - startTime) / 1000}ms`;
