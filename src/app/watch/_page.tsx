@@ -34,10 +34,10 @@ function Page({ id, platform, data }: any) {
 
     if (p) {
       el?.removeAttribute("full");
-      b.appendChild(w.current);
+      b?.appendChild(w.current);
     } else {
       el?.setAttribute("full", "");
-      t.current.appendChild(w.current);
+      t.current?.appendChild(w.current);
     }
   }, [p]);
   useLayoutEffect(() => {

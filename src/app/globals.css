@@ -602,6 +602,10 @@ body:not([fullscreen])
 .player-bottom-btn {
   width: 40px;
   height: 40px;
+  cursor:pointer;
+}
+.player-bottom-btn .btn-interaction{
+display:none;
 }
 .player-bottom-btn * {
   transition: 0.3s;
