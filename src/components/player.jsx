@@ -190,7 +190,7 @@ var time = 0,
   r = 0,
   M = 0,
   temp = false;
-export default React.memo(function ({ platform, id, sp }) {
+export default React.memo(function ({ platform, id, sp, controls = true}) {
   const player = React.useRef(null);
   const spin = React.useRef(null);
   const video = React.useRef(null);
@@ -393,7 +393,7 @@ if(!id)(window.yoth||{}).hasVideo=false;
             <NextVideo />
           </div>
         )}
-        {data.videoDetails && (
+        {data.videoDetails&&controls && (
           <>
             {!data?.videoDetails?.tw_isOffline && (
               <div className="player-top">

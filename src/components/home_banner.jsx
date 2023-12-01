@@ -34,6 +34,7 @@ export default function Banner({ data: { list } }) {
                   setRon(true);
                 }, 100);
               }}
+              aria-label={a.title}
               data-index={b}
               className="thumbnail-pagenation-item"
             >

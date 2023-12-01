@@ -21,6 +21,7 @@ export default function () {
             tabIndex="0"
             type="text"
             spellCheck="false"
+            aria-label={t("Search")}
           />
           <div className="submit">
             <button className="submit-btn" aria-label={t("Search")}>
