@@ -314,7 +314,8 @@ body:not([exped]) .sidebar .card-avatar {
 .miniplayer .miniplayer-player-container {
   width: 100%;
   padding-bottom: 56.25%;
-  background: red;
+  background: black;
+  position:relative;
 }
 .title-items {
   @apply mx-[14px] my-[10px] pb-[3px];
@@ -602,7 +603,7 @@ body:not([fullscreen])
 .player-bottom-btn {
   width: 40px;
   height: 40px;
-  cursor:pointer;
+  cursor:pointer!important;
 }
 .player-bottom-btn .btn-interaction{
 display:none;
@@ -1819,4 +1820,24 @@ display:flex}
 .page-content-video-list-items-row .card-video{
 width:100%;
 max-width:3600px;
+}
+.animation_on_mode_miniplayer{
+  animation: animation_on_mode_miniplayer .4s forwards ease-out;
+}
+@keyframes animation_on_mode_miniplayer {
+0%{
+transform:translate(0%,0px);
+opacity:1;
+}
+100%{
+transform:translate(0%,80%);
+opacity:0;
+}
+}
+.miniplayer .page-watch-primary-player,
+.miniplayer .page-watch-primary-player-conteiner
+{
+aspect-ratio:16/9;
+position:absolute;
+inset:0px;
 }

@@ -3,9 +3,10 @@ import Player from "../../components/player";
 import Fetch from "../../service/ApiRest";
 import { redirect } from "next/navigation";
 import Head from "next/head";
-const F = async function(a){
+import Script from "next/script";
+const F = async function (a) {
   return await Fetch(a);
-}
+};
 var _data = {};
 export async function generateMetadata(props) {
   const {

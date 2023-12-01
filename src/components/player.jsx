@@ -1,8 +1,7 @@
 "use client";
 import Script from "next/script";
-
+import { useRouter } from 'next/navigation'
 import tr from "../service/player";
-
 import Slider from "./Slider";
 import Image from "./image";
 import Spin from "./icons/span";
@@ -195,7 +194,7 @@ export default React.memo(function ({ platform, id, sp }) {
   const player = React.useRef(null);
   const spin = React.useRef(null);
   const video = React.useRef(null);
-
+const router = useRouter()
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
   //0 = normal
   //1 = theater
@@ -291,11 +290,14 @@ export default React.memo(function ({ platform, id, sp }) {
         
       }
     };
-    addEventListener("fullscreenchange", ev);
+      
 
+    addEventListener("fullscreenchange", ev);
+      (window.yoth||{}).hasVideo=true;
     return () => {
-      removeEventListener("fullscreenchange", ev);
+         removeEventListener("fullscreenchange", ev);
       clearInterval(interval);
+              
     };
   }, []);
   React.useEffect(() => {
@@ -313,8 +315,15 @@ export default React.memo(function ({ platform, id, sp }) {
         platform,
         id,
       },
-    }).then(setData);
+    }).then(( ft)=>{
+      (window.yoth)?.setData?.(ft);setData(ft)
+    });
+if(!id)(window.yoth||{}).hasVideo=false;
     s(true);
+    return()=>{
+      
+
+    }
   }, [id]);
 
   const hoverPlayer = function () {
@@ -428,6 +437,22 @@ export default React.memo(function ({ platform, id, sp }) {
                     onClick={() => seth(h === 0 ? 1 : 0)}
                   >
                     <Settings />
+                  </Button>
+                  <Button
+                    className="player-bottom-btn"
+                    onClick={() => {
+                      if(location.pathname==="/watch"){
+                      (window.yoth)?.setMode?.("miniplayer");
+                      document.querySelector(".layout-content")?.classList?.add("animation_on_mode_miniplayer")
+                      router.push("/")
+                        
+                      }else{
+                        
+                      (window.yoth)?.setMode?.("watch");
+                      }
+                    }}
+                  >
+<svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%"><path d="M25,17 L17,17 L17,23 L25,23 L25,17 L25,17 Z M29,25 L29,10.98 C29,9.88 28.1,9 27,9 L9,9 C7.9,9 7,9.88 7,10.98 L7,25 C7,26.1 7.9,27 9,27 L27,27 C28.1,27 29,26.1 29,25 L29,25 Z M27,25.02 L9,25.02 L9,10.97 L27,10.97 L27,25.02 L27,25.02 Z" fill="#fff"></path></svg>
                   </Button>
                   {statusPlayerModeWatch != 2 && (
                     <Button

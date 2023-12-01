@@ -5,6 +5,7 @@ import Script from "next/script";
 import _Users from "../service/GetUsers.js";
 import DesktopHeader from "../components/header";
 import ProsesLoad from "../components/ProsesLoad";
+import Player from "./_Player";
 import getCodeLanguage from "../libs/getCodeLanguage";
 import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
@@ -83,6 +84,7 @@ export default function RootLayout({ children, ...a }) {
   return (
     <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
       <body className={inter.className}>
+        <Player />
         <SettingJson>
           <div id="app-desktop">
             <ProsesLoad/>
@@ -109,4 +111,5 @@ function parseLanguagePreferences(preferences) {
 
   return languageArray;
 }
+
 export const revalidate = 0;

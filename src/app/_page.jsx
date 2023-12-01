@@ -57,6 +57,7 @@ export default function ({ data }) {
         ".page-content-video-list-grid .card-video[skeleton]"
       )[0];
       const b = document.querySelector("#app-desktop");
+      if(!a) return;
       const { height, y } = a.getBoundingClientRect();
       const e = y - innerHeight;
       if (e < 100) {

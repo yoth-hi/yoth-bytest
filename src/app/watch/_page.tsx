@@ -28,26 +28,33 @@ function Page({ id, platform, data }: any) {
   In(h, "_change-player-mode", function () {
     sp(!arguments[0]["in"][1][0]);
   });
+  
   useEffect(() => {
     const el = document.querySelector(".layout-content") as HTMLElement | null;
     const b = document.querySelector("#player-video") as HTMLElement | null;
-
+    var _w = window.yoth;if(_w)_w.sp=sp;
     if (p) {
       el?.removeAttribute("full");
-      b?.appendChild(w.current);
+      _w?.append(w.current);
     } else {
       el?.setAttribute("full", "");
-      t.current?.appendChild(w.current);
+      _w?.append(t.current);
     }
   }, [p]);
   useLayoutEffect(() => {
+    var _w = window.yoth;if(_w)_w.sp=sp;
     const el = document.body;
     el.setAttribute("watchpage", "");
     return () => {
       el.removeAttribute("watchpage");
+      document.querySelector(".layout-content")?.classList?.remove("animation_on_mode_miniplayer");
     };
   }, []);
-  const T = <Layer {...{ id, sp, platform }} key={65} />;
+  useEffect(() => {
+    const a: object = window?.yoth || {};
+    if(id&&platform)a?.setId && a.setId(id, platform);
+    a?.setMode && a.setMode("watch");
+  }, [id, platform]);
   return (
     <>
       <style global jsx>{`
@@ -55,11 +62,13 @@ function Page({ id, platform, data }: any) {
           background: #000 !important;
         }
       `}</style>
-      <div ref={t}>
-        
-      </div>
+      <div ref={t}></div>
       <div className="page-watch">
-        <BrowseChannelAndNextItem Player={<div ref={w}>{T}</div>} data={data} _context={{ id, platform }} />
+        <BrowseChannelAndNextItem
+          Player={<div ref={w}></div>}
+          data={data}
+          _context={{ id, platform }}
+        />
       </div>
     </>
   );

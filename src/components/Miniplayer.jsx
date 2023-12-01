@@ -1,6 +1,6 @@
-export default function () {
+"use client";export default function () {
   return (
-    <div className="miniplayer hidden">
+    <div className="miniplayer">
       <div>
         <div className="miniplayer-player-container"></div>
         <div>

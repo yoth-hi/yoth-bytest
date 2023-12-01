@@ -40,8 +40,11 @@ export default function ({ video }) {
   a?.appendChild?.(_.canvas[1]?.canvas);
   return {
     clear() {
+      try {
       a?.removeChild?.(_.canvas[0]?.canvas);
       a?.removeChild?.(_.canvas[1]?.canvas);
+        /* code */
+      } catch (e) {}
       clearInterval(interval);
     },
   };
