@@ -447,6 +447,7 @@ if(!id)(window.yoth||{}).hasVideo=false;
                       router.push("/")
                         
                       }else{
+                      router.push("/watch?v="+id)
                         
                       (window.yoth)?.setMode?.("watch");
                       }

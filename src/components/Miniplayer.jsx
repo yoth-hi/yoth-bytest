@@ -4,8 +4,8 @@
       <div>
         <div className="miniplayer-player-container"></div>
         <div>
-          <h1>Ush yey yt3 iIuye </h1>
-          <div>..dj .kmcj mjf.j .j.</div>
+          <h1>[[title]]</h1>
+          <div>[[metadata]]</div>
         </div>
       </div>
     </div>
