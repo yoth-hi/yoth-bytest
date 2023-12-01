@@ -1,5 +1,4 @@
 "use client";
-import type { Metadata } from "next";
 import { render } from "react-dom";
 
 import In from "../../libs/Interpolation";
@@ -49,7 +48,7 @@ function Page({ id, platform, data }) {
     };
   }, []);
   useEffect(() => {
-    const a = window?.yoth || {};
+    const a = window.yoth || {};
     if(id&&platform)a?.setId && a.setId(id, platform);
     a?.setMode && a.setMode("watch");
   }, [id, platform]);
