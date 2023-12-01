@@ -8,7 +8,7 @@ import { useRef, useEffect, useLayoutEffect, memo, useState } from "react";
 import BrowseChannelAndNextItem from "./../../components/BrowseChannelAndNextItem";
 import Player from "../../components/player";
 var player = {};
-const Layer = memo(({ id, sp, platform }: any) => (
+const Layer = memo(({ id, sp, platform }) => (
   <div className="page-watch-container" key={287}>
     <div className="page-watch-primary">
       <div className="page-watch-primary-player">
@@ -20,18 +20,16 @@ const Layer = memo(({ id, sp, platform }: any) => (
     </div>
   </div>
 ));
-function Page({ id, platform, data }: any) {
+function Page({ id, platform, data }) {
   var h = {};
   const [p, sp] = useState(true);
-  const w = useRef<any>(null);
-  const t = useRef<any>(null);
-  In(h, "_change-player-mode", function () {
-    sp(!arguments[0]["in"][1][0]);
-  });
+  const w = useRef(null);
+  const t = useRef(null);
+  
   
   useEffect(() => {
-    const el = document.querySelector(".layout-content") as HTMLElement | null;
-    const b = document.querySelector("#player-video") as HTMLElement | null;
+    const el = document.querySelector(".layout-content");
+    const b = document.querySelector("#player-video") ;
     var _w = window.yoth;if(_w)_w.sp=sp;
     if (p) {
       el?.removeAttribute("full");
@@ -51,7 +49,7 @@ function Page({ id, platform, data }: any) {
     };
   }, []);
   useEffect(() => {
-    const a: object = window?.yoth || {};
+    const a = window?.yoth || {};
     if(id&&platform)a?.setId && a.setId(id, platform);
     a?.setMode && a.setMode("watch");
   }, [id, platform]);
