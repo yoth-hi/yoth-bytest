@@ -65,7 +65,6 @@ export default async function Root(props) {
         itemid=""
         itemtype="http://schema.org/VideoObject"
       >
-        <link itemprop="url" href={data?.videoDetails?.thumbnail} />
         <meta itemprop="name" content={data?.videoDetails?.title} />
         <meta
           itemprop="description"
@@ -116,7 +115,7 @@ export default async function Root(props) {
             />
             <meta itemprop="playerType" content="HTML5 Flash" />
           </>
-        ) : null}{" "}
+        ) : null}
         <meta itemprop="width" content="1280" />
         <meta itemprop="height" content="720" />
         {/* <meta itemprop="isFamilyFriendly" content="true"/>
