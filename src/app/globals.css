@@ -660,7 +660,7 @@ text-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
   bottom: 0;
   left: 0;
   right: 0;
-
+  padding-top:50px;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADCCAYAAACIaaiTAAAAAXNSR0IArs4c6QAAARFJREFUOE9lyNdHBQAAhfHb3nvvuu2997jNe29TJJEkkkgSSSSJJJJEEkkiifRH5jsP56Xz8PM5gcC/xfCIWBNHiXiTQIlEk0SJZJNCpZo0SqSbDEpkmixKZJscSuSaPErkmwJKFJoiShSbEkqUmjJKlJsKqtJUUaLa1FAiaGopUWfqKdFgGinRZJop0WJaKdFm2inRYTop0WW6qR7TS4k+00+JATNIiSEzTIkRM0qJMTNOiQkTosSkmaLEtJmhxCzMmTAlIiZKiXmzQIlFs0SJZViBVViDddiATdiCbdiBXdiDfTiAQziCYziBUziDc7iAS7iCa7iBW7iDe3iAR3iCZ3iBV3iDd/iAT/iCb/iB3z+hYCsRlTEd8QAAAABJRU5ErkJggg==);
 }
 .player-top-bg {
