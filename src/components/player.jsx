@@ -293,7 +293,7 @@ const router = useRouter()
       
 
     addEventListener("fullscreenchange", ev);
-      (window.yoth||{}).hasVideo=true;
+
     return () => {
          removeEventListener("fullscreenchange", ev);
       clearInterval(interval);
@@ -318,7 +318,7 @@ const router = useRouter()
     }).then(( ft)=>{
       (window.yoth)?.setData?.(ft);setData(ft)
     });
-if(!id)(window.yoth||{}).hasVideo=false;
+
     s(true);
     return()=>{
       
@@ -426,14 +426,14 @@ if(!id)(window.yoth||{}).hasVideo=false;
                       )}
                     </svg>
                   </Button>
-                  <Button className="player-bottom-btn  next-video">
+                  <Button className="player-bottom-btn  resize-icon-player next-video">
                     <NextVideo />
                   </Button>
                   <Vol video={video} />
                 </div>
                 <div className="player-bottom-buttons-flex">
                   <Button
-                    className="player-bottom-btn"
+                    className="resize-icon-player player-bottom-btn"
                     onClick={() => seth(h === 0 ? 1 : 0)}
                   >
                     <Settings />
@@ -447,7 +447,7 @@ if(!id)(window.yoth||{}).hasVideo=false;
                       router.push("/")
                         
                       }else{
-                      router.push("/watch?v="+id)
+                      router.push("/watch?v="+id);
                         
                       (window.yoth)?.setMode?.("watch");
                       }
@@ -457,8 +457,9 @@ if(!id)(window.yoth||{}).hasVideo=false;
                   </Button>
                   {statusPlayerModeWatch != 2 && (
                     <Button
-                      className="player-bottom-btn"
+                      className="resize-icon-player player-bottom-btn"
                       onClick={() => {
+if(location.pathname!=="/watch"){router.push("/watch?v="+id);(window.yoth)?.setMode?.("watch");}
                         setStatusPlayerModeWatch(
                           statusPlayerModeWatch === 1 ? 0 : 1
                         );
@@ -468,9 +469,10 @@ if(!id)(window.yoth||{}).hasVideo=false;
                     </Button>
                   )}
                   <Button
-                    className="player-bottom-btn"
+                    className="resize-icon-player player-bottom-btn"
                     onClick={() => {
-                      setStatusPlayerModeWatch(
+if(location.pathname!=="/watch"){router.push("/watch?v="+id);(window.yoth)?.setMode?.("watch");};
+             setStatusPlayerModeWatch(
                         statusPlayerModeWatch === 2 ? 1 : 2
                       );
                     }}

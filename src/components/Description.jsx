@@ -1,12 +1,19 @@
-
+"use client";
+import { useState, useRef } from"react";
 export default function ({ text }) {
+  const [ exped, setExped ] = useState(false);
+  const ref = useRef(null)
   if(!text) return;
   text=text
     .replace(/\<|\>/g,"")
     .replace(/\n/g," <br/>")
   text=parceLink("",text)
   return (
-    <div className="description-text">
+    <div onClick={({ target })=>{
+      if(target. nodeName === "DIV"){
+         setExped(!exped);
+      } 
+    }} ref={ref} className={"description-text"+(exped?" exped-description":"")}>
       <div
         className="string-text"
         dangerouslySetInnerHTML={{

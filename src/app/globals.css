@@ -9,17 +9,17 @@ html {
   --background-rgb: 255, 255, 255;
   --header-height: 56px;
   --sidebar-width: 70px;
-  --background-wp-rgb: 255, 255, 255;
   --fill-rgb: 0, 0, 0;
   --hover-btn-bg: #8883;
+  --background-wp-rgb: 0, 0, 0;
 }
 html[dark] {
+  --background-wp-rgb: 255, 255, 255;
   --hover-btn-bg: #fff2;
   background: #0f0f0f;
   --foreground-rgb: 221, 221, 221;
   --background-rgb: 15, 15, 15;
   --fill-rgb: 255, 255, 255;
-  --background-wp-rgb: 0, 0, 0;
 }
 
 .cinematic-canvas {
@@ -118,7 +118,7 @@ img {
   height: 38px;
   margin-right: 1px;
   @apply cursor-pointer w-[64px];
-  background: var(--background-wp-rgb);
+  background: rgba(var(--background-wp-rgb), 0.2);
 }
 .search-bar .container {
   @apply flex shadow overflow-hidden  rounded-full ml-[16px] flex-1 items-center relative;
@@ -519,13 +519,17 @@ body:not([fullscreen])
 }
 .player-bottom {
   height: 48px;
-
+  padding-top:2px;
   position: absolute;
   z-index: 2000;
   bottom: 0px;
   left: 15px;
   right: 15px;
   max-width: 100%;
+}
+.player-bottom,.player-bottom-buttons{
+  
+text-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
 }
 .player-prosses.pplay {
   @apply bg-[#741dff];
@@ -547,8 +551,8 @@ body:not([fullscreen])
   @apply absolute inset-0 origin-top-left;
 }
 .player-prosses-content {
-  height: 8px;
-  padding-top: 4px;
+  height: 5px;
+  padding-top:5px;
   width: 100%;
   @apply relative;
   padding-top: 3px;
@@ -562,7 +566,7 @@ body:not([fullscreen])
   transform: translate(-50%, -9px);
 }
 .player-bottom-buttons {
-  height: 40px;
+  
 }
 .player-bottom-buttons-flex {
   @apply flex items-center;
@@ -598,12 +602,18 @@ body:not([fullscreen])
   border-radius: 50%;
 }
 .player-bottom-buttons {
+  hidden:48px;
+  line-height:48px;
+  text-align:left;
   @apply flex items-center justify-between;
 }
 .player-bottom-btn {
-  width: 40px;
-  height: 40px;
-  cursor: pointer !important;
+  display:inline-block;
+  opacity:.9;
+  overflow:hidden;
+  width:48px;
+  padding: 0px 2px;
+  cursor:pointer;
 }
 .player-bottom-btn .btn-interaction {
   display: none;
@@ -899,7 +909,7 @@ body:not([fullscreen])
   margin-left: 5px;
   padding-right: 16px;
   overflow: hidden;
-  background: rgba(var(--background-wp-rgb), 0.1);
+  background: rgba(var(--background-wp-rgb), 0.2);
 }
 .button-text-container {
   @apply flex items-center;
@@ -1160,6 +1170,9 @@ height:16px;
 }
 .popout-active:hover .btn-popout {
   opacity: 1;
+}
+.description-text:not(.exped-description){
+max-height:120px;
 }
 .description-text {
   background: rgba(var(--foreground-rgb), 0.2);
@@ -1855,4 +1868,6 @@ height:16px;
   position: absolute;
   inset: 0px;
 }
-
+.resize-icon-player svg{
+  transform:scale(.7);
+}

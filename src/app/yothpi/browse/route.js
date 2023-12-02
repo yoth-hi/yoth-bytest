@@ -150,8 +150,8 @@ export async function POST(req) {
           }
         );
         const r_data = await resp.json();
-        
-        const _id = id;
+       // data.i= r_data;
+       const _id = id;
         data.videoDetails = {
           title:
             r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.title?.simpleText,
@@ -161,22 +161,27 @@ export async function POST(req) {
           actorName:
             r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
           actorId: "",
-          actorImage: "",
-          thumbnail: `https://i.ytimg.com/vi/${_id}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,
+          viewCount:r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.viewCount?.videoViewCountRenderer?.viewCount?.simpleText,
+          actorImage: r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
+          thumbnail: `https://i.ytimg.com/vi/${_id}/hq720.jpg`,
           id: _id,
           isLive: false,
         };
+        var f = "--"  
         data.content.cardChannel = {
           name: r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
           endpoint: "/yt@" + "null",
-          profileImage: "",
-          onSubscrive: {
+          profileImage: r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
+           onSubscrive: {
             id: btoa(`SUBSCRIBE_${context?.platform}_${"%null%"}_${auto}`),
             api: 2987,
           },
           subscribers: {
-            label: `${String("0" || 0).replace(/(\d{3})/g, " $1")}`,
-            number: "0" || 0,
+            label: `${String(f || 0).replace(/(\d{3})/g, " $1")}`,
+            number:  f|| 0,
           },
         };
         data.content.listVideo = r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
@@ -329,7 +334,7 @@ export async function POST(req) {
         }
       ).catch(console.error);
       const a = await _T?.json();
-
+      
       const _data = await fetch("https://gql.twitch.tv/gql", {
         method: "POST",
         headers: {
@@ -467,7 +472,7 @@ export async function POST(req) {
       const b = await a.json();
       data.content.list = b?.data?.searchFor?.channels?.items;
     }
-  console.log(data)
+  
   } catch (error) {
     console.error("[ LOG REQUEST BROUSER ERROR ]", error);
     return new NextResponse(error, { status: 403 });
