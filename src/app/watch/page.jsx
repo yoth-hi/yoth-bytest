@@ -31,7 +31,7 @@ export async function generateMetadata(props) {
       title: data?.microformat?.title?.simpleText || data?.videoDetails?.title,
       description:
         data?.microformat?.description?.simpleText ||
-        data?.videoDetails?.description,
+        rd(data?.videoDetails?.description),
       images: [
         platform === "youtube"
           ? "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"
@@ -135,5 +135,8 @@ export default async function Root(props) {
       <Page {...newProps} data={data} key={276} />
     </>
   );
+}
+function rd(a){
+ return a.substring(0, 130);
 }
 export const revalidate = 30;
