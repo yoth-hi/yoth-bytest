@@ -22,8 +22,7 @@ export async function generateMetadata(props) {
       id,
     },
   });
-  console.log("start", data?.microformat, "end");
-  return {
+    return {
     title: data?.microformat?.title?.simpleText || data?.videoDetails?.title,
     description:
       data?.microformat?.description?.simpleText ||
@@ -35,7 +34,7 @@ export async function generateMetadata(props) {
         data?.videoDetails?.description,
       images: [
         data?.videoDetails?.thumbnail,
-        data?.microformat?.thumbnail?.thumbnails?.map(() => a?.url),
+        data?.microformat?.thumbnail?.thumbnails?.map((a) => a?.url),
       ],
     },
   };
@@ -136,4 +135,4 @@ export default async function Root(props) {
     </>
   );
 }
-export const revalidate = 0;
+export const revalidate = 30;
