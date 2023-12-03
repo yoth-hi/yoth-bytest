@@ -1,6 +1,8 @@
 import { getTraslate } from "../_service";
 import { getStream } from "./_m3u8_tw";
 
+import { headers } from "next/headers";
+
 // `https://yoth-hi-github-io.vercel.app/yothpi/stream?q=${encodeURIComponent(
 const getUrlStreamTwichM3u8 = async function (p, channel) {
   if (!p) return;
@@ -26,7 +28,7 @@ const twitch = async function (channel, ling = "en") {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Accept-Encoding": "*;q=0.3",
+    "Accept-Encoding": "gzip",
       "Accept-Language": ling,
       "Client-Id": "r8s4dac0uhzifbpu9sjdiwzctle17ff",
       "Content-Type": "application/json",
@@ -71,8 +73,12 @@ function parsePlaylist(playlist) {
 
 export async function POST(req) {
   const { context } = await req.json();
+  
+  const headersList = headers();
+//  var forwardedIpsStr = req.header('x-forwarded-for');
+  console.log (headersList.get("x-forwarded-for"))
   var data, list, streamM3u8Url;
-  const ling = context?.lg;
+  const ling = context?.lg || "en";
   const ts = getTraslate(ling || "en");
   if (context?.platform === "twitch") {
     const channel = context.id;
@@ -89,8 +95,7 @@ export async function POST(req) {
       {
         headers: {
           accept: "*/*",
-          "accept-language":
-            "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
+          "accept-language":ling,
           "content-type": "application/json",
           "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120"',
           "sec-ch-ua-arch": '"x86"',
@@ -106,16 +111,17 @@ export async function POST(req) {
           "sec-fetch-dest": "empty",
           "sec-fetch-mode": "same-origin",
           "sec-fetch-site": "same-origin",
+          "Accept-Encoding": "gzip",
           "x-client-data": "CIzqygE=",
           "x-goog-visitor-id": "Cgs3Qmxmak1KT250RSjp0f-qBjIICgJCUhICGgA%3D",
           "x-youtube-bootstrap-logged-in": "false",
           "x-youtube-client-name": "1",
           "x-youtube-client-version": "2.20231121.08.00",
         },
-        referrer: "https://www.youtube.com/watch?v=" + context?.id + "",
+        referrer: "https://yoth-hi.vercel.app/watch?v=" + context?.id + "",
         referrerPolicy: "strict-origin-when-cross-origin",
         body:
-          '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSjp0f-qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
+          '{"context":{"client":{"hl":"'+ling+'","gl":"US","remoteHost":"143.137.158.18","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSjp0f-qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://yoth-hi.vercel.app/watch?v=' +
           context?.id +
           '","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"COnR_6oGEJrwrwUQ1YiwBRCrh7AFEIjjrwUQooGwBRCu1P4SEK2HsAUQq4KwBRDrlrAFENDirwUQr4ewBRC--a8FENShrwUQlpWwBRDks_4SEInorgUQ2cmvBRDh2K8FEKf3rwUQvbauBRDh8q8FEO6irwUQ1JKwBRDnuq8FEPq-rwUQ4tSuBRDqw68FEIiHsAUQ1-mvBRC8-a8FEPX7_hIQvoqwBRDp6P4SEKKSsAUQnYuwBRCp968FELfq_hIQ5v3-EhDM364FEMeDsAUQpoGwBRDj2K8FELfvrwUQzK7-EhDrk64FELGHsAUQ26-vBRDb2K8FEPyFsAUQ3IKwBRCogbAFEKXC_hIQv_evBRDd6P4SEOvo_hIQrLevBRD3jrAFEPX5rwUQ39ivBRCU-v4SELiLrgUQ0-GvBRDJ968FEJmRsAUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRneE16SXdPRGMzTlRBNE1UWTRPUT09EOnR_6oGGOnR_6oG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v=' +
           context?.id +
@@ -123,7 +129,7 @@ export async function POST(req) {
           context?.id +
           '","playbackContext":{"contentPlaybackContext":{"currentUrl":"/watch?v=' +
           context?.id +
-          '","vis":0,"splay":false,"autoCaptionsDefaultOn":false,"autonavState":"STATE_NONE","html5Preference":"HTML5_PREF_WANTS","signatureTimestamp":19681,"referer":"https://www.youtube.com/?app=desktop","lactMilliseconds":"-1","watchAmbientModeContext":{"hasShownAmbientMode":true,"watchAmbientModeEnabled":true}}},"racyCheckOk":false,"contentCheckOk":false}',
+          '","vis":0,"splay":false,"autoCaptionsDefaultOn":false,"autonavState":"STATE_NONE","html5Preference":"HTML5_PREF_WANTS","signatureTimestamp":19681,"referer":"https://yoth-hi.vercel.app/","lactMilliseconds":"-1","watchAmbientModeContext":{"hasShownAmbientMode":true,"watchAmbientModeEnabled":true}}},"racyCheckOk":false,"contentCheckOk":false}',
         method: "POST",
         mode: "cors",
         credentials: "include",
