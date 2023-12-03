@@ -1,102 +1,117 @@
-"use client"; /*var aaa = function (a) {
-  var c = this;
-  this.ra = function (a) {
-    if (a) {
-      if (((c.status = a.status), a.ok && a.body && 204 !== c.status)) {
-        c.status = c.status || 242;
-        c.render_body = a.body.getReader();
-        //djt(a)
-      } else c.onDone();
-    } else c.onError(Error("null"));
-  };
-  this.Y = {
-    method:"POST",
-    body: new Uint8Array([0,120])
-  }
-  this.D = window.AbortController ? new AbortController : void 0;
-  this.start(a)
-};
-function f() {
-  aaa.call(this, arguments);
-}
-var t = f.prototype;
-t.start = function (a) {
-  var b = {
-    credentials: "include",
-    cache: "no-store",
-  };
-  Object.assign(b, this.Y);
-  this.D && (b.signal = this.D.signal);
-  a = new Request(a, b);
- var Cpa = (a)=> console.log (a)
-  fetch(a)
-    .then(this.ra, this.onError)
-    .then(void 0, Cpa);
-};
-//export default function (src = "", finished = () => void 0) {}
-*/
-export default function () {
-  const mediaSource = new MediaSource();
-  var a;
-  var t =
-      "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    r;
+"use client";
+var e;
 
-  const start = function () {
-    var signal = window.AbortController ? new AbortController() : void 0;
-    if (!t || !r) return;
-    const sourceBuffer = mediaSource.addSourceBuffer(r);
-    a = new Request(`/yothpi/stream?q=${encodeURIComponent(t)}`, {
+var _ = function (a) {
+  this.t = a;
+};
+e = _.prototype;
+e.getCurrentTime = function () {
+  return this.t.currentTime;
+};
+e.setCurrentTime = function (a) {
+  this.t.currentTime = a;
+};
+e.getDuration = function () {
+  return this.t.duration;
+};
+e.load = function () {
+  var a = this.t.playbackRate;
+  try {
+    this.t.load();
+  } catch (b) {}
+  this.t.playbackRate = a;
+};
+e.pause = function () {
+  this.t.pause();
+};
+e.getVideo = function () {
+  return this.t;
+};
+e.play = function () {
+  var a = this.t.play();
+  if (!a || !a.then) return null;
+  a.then(void 0, function () {});
+  return a;
+};
+e.getReadyState = function () {
+  return this.t.readyState;
+};
+e.getPlaybackRate = function () {
+  try {
+    return 0 <= this.t.playbackRate ? this.t.playbackRate : 1;
+  } catch (a) {
+    return 1;
+  }
+};
+e.setPlaybackRate = function (a) {
+  this.getPlaybackRate() !== a && (this.t.playbackRate = a);
+  return a;
+};
+e.getNetworkState = function () {
+  return this.t.networkState;
+};
+e.setSrc = function (a) {
+  var b = this.getPlaybackRate();
+  this.t.src = a;
+  this.setPlaybackRate(b);
+};
+e.getSrc = function () {
+  return this.t.src;
+};
+e.removeSrc = function () {
+  this.t.removeAttribute("src");
+};
+e.errorCode = function () {
+  return this.t.error ? this.t.error.code : null;
+};
+e.errorMessage = function () {
+  return this.t.error ? this.t.error.message : "";
+};
+e.setAttribute = function (a, b) {
+  this.t.setAttribute(a, b);
+};
+e.removeAttribute = function (a) {
+  this.t.removeAttribute(a);
+};
+e.getVideoPlaybackQuality = function () {
+  if (
+    window.HTMLVideoElement &&
+    this.t instanceof window.HTMLVideoElement &&
+    this.t.getVideoPlaybackQuality
+  )
+    return this.t.getVideoPlaybackQuality();
+  if (this.t) {
+    var a = this.t,
+      b = a.webkitDroppedFrameCount;
+    if ((a = a.webkitDecodedFrameCount))
+      return { droppedVideoFrames: b || 0, totalVideoFrames: a };
+  }
+  return {};
+};
+e.hasAttribute = function (a) {
+  return this.t.hasAttribute(a);
+};
+export default function ({ video }) {
+  const a = new _(video);
+  const play = ()=>a.play();
+  const setSrc = (b) => {
+    var c = {
       credentials: "include",
       cache: "no-store",
-    //  method: "POST",
-      signal: signal.signal,
-      //body: new Uint8Array([120, 0]),
-    });
-    fetch(a)
-      .then((a) => a.body.getReader())
-      .then((reader) => {
-        const stream = new ReadableStream({
-          start(controller) {
-            // The following function handles each data chunk
-            function push() {
-              // "done" is a Boolean and value a "Uint8Array"
-              return reader.read().then(({ done, value }) => {
-                // Is there no more data to read?
-                if (done) {
-                  // Tell the browser that we have finished sending data
-                  controller.close();
-                  return;
-                }
-                console.log(value);
-                // Get the data and send it to the browser via the controller
-                controller.enqueue(value);
-                push();
-              });
-            }
-
-            push();
-          },
-        });
-        return new Response(stream);
-      })
-      .then((response) => response.arrayBuffer())
-      .then((blob) => {
-        sourceBuffer.appendBuffer(data);
-      })
-      .catch((a) => {
-        throw new Error(a);
-      });
+      body: new Uint8Array([120, 0]),
+      method: "POST",
+    };
+    a.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
+    //  fetch(b);
+    play();
   };
-  const src = URL.createObjectURL(mediaSource);
+  const pause = ()=>a.pause();
+  const setPlaybackRate = (b)=>a.setPlaybackRate(b);
   return {
-    change(a, j) {
-      ///     if (a === t) return;
-      // t = a;
-      r = j;
-      start(a);
-    },
-    start,
-    src,
+    setSrc,
+    play,
+    setPlaybackRate,
+    pause,
+    a,
   };
 }

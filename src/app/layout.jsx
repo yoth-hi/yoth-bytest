@@ -15,7 +15,7 @@ const host = "https://yoth-hi.vercel.app/"; //"https://yoth-hi.vercel.app";
 const description =
   "Discover the diversity of digital content on our site, where Twitch live streams, exclusive Kick creations, engaging Instagram moments, vibrant TikTok videos, and fascinating YouTube uploads come together. Explore a world of digital entertainment all in one place!";
 export const viewport = {
-  themeColor: "black",
+  themeColor: "#1dffa2",
 };
 export const metadata = {
   title: {
@@ -43,6 +43,20 @@ export const metadata = {
       en: "?ling=en",
     },
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: { google: "3KsDpUi5VMzz2GKyjbb2QugzgwMlEWBakPUPHvBnXv0" },
 };
 
 export default function RootLayout({ children, ...a }) {
@@ -73,12 +87,13 @@ export default function RootLayout({ children, ...a }) {
   const dark = true; //_;
   const hideHeaderBorderBottom = true;
   const rerenderAfterLogin = true;
-  const ling =getCodeLanguage();const loggedUID = 83583758364;
+  const ling = getCodeLanguage();
+  const loggedUID = 83583758364;
   const bg = {};
   const head_props = dark ? { dark: "" } : { light: "" };
-  const users = _Users()
+  const users = _Users();
   const data = {
-    users
+    users,
   };
 
   return (
@@ -87,10 +102,10 @@ export default function RootLayout({ children, ...a }) {
         <Player />
         <SettingJson>
           <div id="app-desktop">
-            <ProsesLoad/>
+            <ProsesLoad />
             <Miniplayer />
             <div className="desktop-layout">
-              <DesktopHeader data={data}  />
+              <DesktopHeader data={data} />
               <Sidebar data={data} />
               <div className="layout-content-wrapper">
                 <div className="layout-content">{children}</div>
@@ -112,4 +127,4 @@ function parseLanguagePreferences(preferences) {
   return languageArray;
 }
 
-export const revalidate = 0;
+export const revalidate = 60;

@@ -18,6 +18,7 @@ import NextVideo from "./icons/nextVideo";
 import Vol from "./volume";
 import Button from "./button_root";
 import React from "react";
+import {t} from "../libs/transition";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
@@ -68,7 +69,7 @@ var bz = function (a) {
   });
   _1 = decodeURIComponent(_3[2][1]);
   _2 = _3[0][1];
-  _1 = _1 + "&alr=yes&sig=" + _t(_2);
+  _1 = _1 + "&alr=yes&sig=" + (_2);
   console.log(_3.reverse().join("&"));
   return _1;
   // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
@@ -184,7 +185,8 @@ var bz = function (a) {
           </div>
         </>
       )}*/
-var render_cine = undefined;
+var render_cine = undefined,
+    srt = undefined;
 
 var time = 0,
   r = 0,
@@ -201,16 +203,17 @@ const router = useRouter()
   //2 = fullscreen
   const [isPlay, toPlay] = React.useState(false);
   const [data, setData] = React.useState({});
+  const [isErr, setError] = React.useState(false);
   const [start_play, set_start_play] = React.useState(true);
   const [a, b] = React.useState(null); // a = isModeAd, b = setModeAd, item = {stream:{url},config:{time:0}}
-  const [c, d] = React.useState(0); // index resolutions
+  const [c, setResolution] = React.useState(0); // index resolutions
   const [h, seth] = React.useState(0);
   const [temp_, s] = React.useState(false);
   const play_pouse = function () {
     const vid = video.current;
     if (start_play) set_start_play(false);
     if (!vid) return alert("%% no video ");
-    vid.paused ? vid.play() : vid.pause();
+    vid.paused ? srt.play() : srt.pause();
   };
   const souce =
     a?.stream?.action?.src ||
@@ -303,11 +306,17 @@ const router = useRouter()
   React.useEffect(() => {
     if (!video.current) return;
     render_cine = render_cine || new Cine({ video: video.current });
+    srt = srt || new tr({ video: video.current });
     return () => {
       render_cine?.clear();
       render_cine = undefined;
+      srt?.clear?.();
+      srt = undefined;
     };
   }, [video]);
+  React.useEffect(()=>{
+    srt?.setSrc?.(souce || M?.src);
+  },[souce])
   React.useLayoutEffect(() => {
     Fetch({
       type: "player",
@@ -318,7 +327,7 @@ const router = useRouter()
     }).then(( ft)=>{
       (window.yoth)?.setData?.(ft);setData(ft)
     });
-
+    setError(false)
     s(true);
     return()=>{
       
@@ -345,7 +354,7 @@ const router = useRouter()
             platform === "youtube"
               ? "https://i.ytimg.com/vi/" +
                 id +
-                "/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q"
+                "/hq720.jpg"
               : data?.videoDetails?.thumbnail
           }
           width={"100%"}
@@ -356,6 +365,7 @@ const router = useRouter()
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
         tabIndex="-1"
+        onError={()=>souce?setError(true):null}
         onPlay={() => {
           toPlay(true);
         }}
@@ -365,15 +375,17 @@ const router = useRouter()
         className="video-stream"
         controlsList="nodownload"
         muted=""
-        onLoad={() => video.current.play()}
         autoPlay=""
         onClick={() => {
           play_pouse();
         }}
         ref={video}
-        src={souce || M?.src}
         type={souce_type}
+        
       />
+      {isErr&&<div className="player-error">
+      {"Error: "+t("This_video_could_not_be_loaded")+" | code:" +srt?.a?.errorCode()}
+   </div>}
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
@@ -385,7 +397,7 @@ const router = useRouter()
             <h1 className="title">{data.videoDetails?.title}</h1>
           </div>
         </div>
-        <CogMenu resolutions={resolutions} seth={seth} h={h} />
+        <CogMenu resolutions={resolutions} setResolution={setResolution} seth={seth} h={h} />
         <div className="player-bottom-bg" />
         {a && (
           <div className="skip-ads">
@@ -500,11 +512,14 @@ const Iframe = function ({ type, ...rest }) {
   );
   return type && <iframe allowfullscreen="" src={src} {...rest} />;
 };
-const CogMenu = function ({ seth, resolutions, h }) {
-  resolutions = resolutions.map(({ qualityLabel }) => {
+const CogMenu = function ({ seth,setResolution, resolutions, h }) {
+  const setPlaybackRate = function(a){
+    srt?.setPlaybackRate(a)
+  }
+  resolutions = resolutions.map(({ qualityLabel,},a ) => {
     return {
       title: qualityLabel,
-      onClick: () => null,
+      onClick: () => setResolution(a),
     };
   });
   const controles = [
@@ -516,7 +531,7 @@ const CogMenu = function ({ seth, resolutions, h }) {
       items: [
         {
           onClick: () => seth(1),
-          title: "< Voutar",
+          title: "< Back",
         },
         ...resolutions,
       ],
@@ -528,39 +543,39 @@ const CogMenu = function ({ seth, resolutions, h }) {
       title: "Speed",
       items: [
         {
-          onClick: () => seth(1),
-          title: "< Voutar",
+          onClick: () => (seth(1)),
+          title: "< Back",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(0.25), seth(1)),
           title: "0.25x",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(0.5), seth(1)),
           title: "0.5x",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(0.75), seth(1)),
           title: "0.75x",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(1), seth(1)),
           title: "normal",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(1.25), seth(1)),
           title: "1.25x",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(1.5), seth(1)),
           title: "1.5x",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(1.75), seth(1)),
           title: "1.75x",
         },
         {
-          onClick: () => seth(1),
+          onClick: () => (setPlaybackRate(2), seth(1)),
           title: "2x",
         },
       ],
@@ -608,9 +623,7 @@ function ry(a, b) {
   b.apply(arguments, this);
   a.apply(arguments, this);
 }
-function t(r, e) {
-  r?.(e === 1);
-}
+
 function fullscreen(a) {
   var isInFullScreen =
     (document.fullscreenElement && document.fullscreenElement !== null) ||

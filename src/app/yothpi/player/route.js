@@ -112,9 +112,18 @@ export async function POST(req) {
           "x-youtube-client-name": "1",
           "x-youtube-client-version": "2.20231121.08.00",
         },
-        referrer: "https://www.youtube.com/watch?v="+context?.id+"",
+        referrer: "https://www.youtube.com/watch?v=" + context?.id + "",
         referrerPolicy: "strict-origin-when-cross-origin",
-        body: '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSjp0f-qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v='+context?.id+'","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"COnR_6oGEJrwrwUQ1YiwBRCrh7AFEIjjrwUQooGwBRCu1P4SEK2HsAUQq4KwBRDrlrAFENDirwUQr4ewBRC--a8FENShrwUQlpWwBRDks_4SEInorgUQ2cmvBRDh2K8FEKf3rwUQvbauBRDh8q8FEO6irwUQ1JKwBRDnuq8FEPq-rwUQ4tSuBRDqw68FEIiHsAUQ1-mvBRC8-a8FEPX7_hIQvoqwBRDp6P4SEKKSsAUQnYuwBRCp968FELfq_hIQ5v3-EhDM364FEMeDsAUQpoGwBRDj2K8FELfvrwUQzK7-EhDrk64FELGHsAUQ26-vBRDb2K8FEPyFsAUQ3IKwBRCogbAFEKXC_hIQv_evBRDd6P4SEOvo_hIQrLevBRD3jrAFEPX5rwUQ39ivBRCU-v4SELiLrgUQ0-GvBRDJ968FEJmRsAUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRneE16SXdPRGMzTlRBNE1UWTRPUT09EOnR_6oGGOnR_6oG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v='+context?.id+'","pwaInstallabilityStatus":"PWA_INSTALLABILITY_STATUS_UNKNOWN","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CLYBENwwIhMInczUvavbggMVj7uVAh3w8ArjMgpnLWhpZ2gtcmVjWg9GRXdoYXRfdG9fd2F0Y2iaAQYQjh4YngE="},"adSignalsInfo":{"params":[{"key":"dt","value":"1700784363567"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"2"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"1726"},{"key":"biw","value":"1782"},{"key":"brdim","value":"0,0,0,0,412,0,412,399,1782,1726"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"videoId":"'+context?.id+'","playbackContext":{"contentPlaybackContext":{"currentUrl":"/watch?v='+context?.id+'","vis":0,"splay":false,"autoCaptionsDefaultOn":false,"autonavState":"STATE_NONE","html5Preference":"HTML5_PREF_WANTS","signatureTimestamp":19681,"referer":"https://www.youtube.com/?app=desktop","lactMilliseconds":"-1","watchAmbientModeContext":{"hasShownAmbientMode":true,"watchAmbientModeEnabled":true}}},"racyCheckOk":false,"contentCheckOk":false}',
+        body:
+          '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSjp0f-qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
+          context?.id +
+          '","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"COnR_6oGEJrwrwUQ1YiwBRCrh7AFEIjjrwUQooGwBRCu1P4SEK2HsAUQq4KwBRDrlrAFENDirwUQr4ewBRC--a8FENShrwUQlpWwBRDks_4SEInorgUQ2cmvBRDh2K8FEKf3rwUQvbauBRDh8q8FEO6irwUQ1JKwBRDnuq8FEPq-rwUQ4tSuBRDqw68FEIiHsAUQ1-mvBRC8-a8FEPX7_hIQvoqwBRDp6P4SEKKSsAUQnYuwBRCp968FELfq_hIQ5v3-EhDM364FEMeDsAUQpoGwBRDj2K8FELfvrwUQzK7-EhDrk64FELGHsAUQ26-vBRDb2K8FEPyFsAUQ3IKwBRCogbAFEKXC_hIQv_evBRDd6P4SEOvo_hIQrLevBRD3jrAFEPX5rwUQ39ivBRCU-v4SELiLrgUQ0-GvBRDJ968FEJmRsAUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRneE16SXdPRGMzTlRBNE1UWTRPUT09EOnR_6oGGOnR_6oG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v=' +
+          context?.id +
+          '","pwaInstallabilityStatus":"PWA_INSTALLABILITY_STATUS_UNKNOWN","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CLYBENwwIhMInczUvavbggMVj7uVAh3w8ArjMgpnLWhpZ2gtcmVjWg9GRXdoYXRfdG9fd2F0Y2iaAQYQjh4YngE="},"adSignalsInfo":{"params":[{"key":"dt","value":"1700784363567"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"2"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"1726"},{"key":"biw","value":"1782"},{"key":"brdim","value":"0,0,0,0,412,0,412,399,1782,1726"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"videoId":"' +
+          context?.id +
+          '","playbackContext":{"contentPlaybackContext":{"currentUrl":"/watch?v=' +
+          context?.id +
+          '","vis":0,"splay":false,"autoCaptionsDefaultOn":false,"autonavState":"STATE_NONE","html5Preference":"HTML5_PREF_WANTS","signatureTimestamp":19681,"referer":"https://www.youtube.com/?app=desktop","lactMilliseconds":"-1","watchAmbientModeContext":{"hasShownAmbientMode":true,"watchAmbientModeEnabled":true}}},"racyCheckOk":false,"contentCheckOk":false}',
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -122,7 +131,12 @@ export async function POST(req) {
     );
     data = await res.json();
     //list=data?.streamingData?.adaptiveFormats;
-    list=data?.streamingData?.formats;
+    list = data?.streamingData?.formats || [
+      {
+        url: data?.streamingData?.hlsManifestUrl,
+      },
+      ...data?.streamingData?.adaptiveFormats,
+    ];
   }
   const us = data?.data?.channel;
   const t = data?.videoDetails;
@@ -136,13 +150,10 @@ export async function POST(req) {
         streamM3u8Url,
         ...list,
       },
-      nextVideosOnEnd: [
-        /* ...us?.videos?.map?.(({ title, previewThumbnailURL, id }: any) => ({
-        title, thumbnail: previewThumbnailURL, id, type: "twitch", actorName: us?.login,
-        actorId: us?.login, description: us?.description,
-        actorImage: us?.profileImageURL
-      }))*/
-      ],
+      screenEnd: {
+        // list:(data.endscreen?.endscreenRenderer)
+      },
+      nextVideosOnEnd: [],
       videoDetails: {
         title: (us?.broadcastSettings || t)?.title,
         description: us?.description,
@@ -167,4 +178,4 @@ export async function POST(req) {
     }
   );
 }
-export const revalidate = 60
+export const revalidate = 60;

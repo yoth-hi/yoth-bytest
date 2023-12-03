@@ -116,8 +116,8 @@ export default function ({ data }) {
         {[0, 0, 0, 0]?.map(() => (
           <CardVideo data={{}} skeleton />
         ))}
-        <Spin />
       </div>
+      <Spin />
     </>
   );
 }

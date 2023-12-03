@@ -91,7 +91,7 @@ export default function () {
   //[3] => "/following
 
   return (
-    <div>
+    <div className='gs-mains'>
       <Item
         title={t("Home")}
         icon={url === "/" ? <Home_active /> : <Home />}
