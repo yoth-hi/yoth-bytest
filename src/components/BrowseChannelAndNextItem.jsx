@@ -6,15 +6,25 @@ import Title from "./string";
 import AvtCh from "./cardChannel";
 import CardVideo from "./CardVideoRow";
 import Button from "./button_brr";
-import { useState } from "react";
+import {useEffect, useState } from "react";
 import Fetch from "./../service/ApiRest";
 import Share from "./icons/share";
-import {t} from "../libs/transition";
-
-
-const BrowseChannelAndNextItem = function ({ data,Player,_context }) {
-  const { videoDetails,content }= data;
-  const { platform, id }= _context;
+import { t } from "../libs/transition";
+var j = {};
+const BrowseChannelAndNextItem = function ({ Player, _context }) {
+  const { platform, id } = _context;
+  const [data, setData] = useState({});
+  useEffect(() => {
+    Fetch({
+      type: "browse",
+      context: {
+        type: "player_page",
+        platform,
+        id,
+      },
+    }).then(setData);
+  }, [_context.id]);
+  const { videoDetails, content } = data;
   return (
     <div className="page-watch-info">
       <div className="page-watch-info-conteiner">
@@ -56,9 +66,17 @@ const BrowseChannelAndNextItem = function ({ data,Player,_context }) {
               </div>
               <Button title="Share" icon={<Share />} />
               <Button
-                title={platform==="youtube"?content?.asesibility?.Go_to_Youtube:content?.asesibility?.Go_to_Twitch}
+                title={
+                  platform === "youtube"
+                    ? content?.asesibility?.Go_to_Youtube
+                    : content?.asesibility?.Go_to_Twitch
+                }
                 type="link"
-                href={(platform==="youtube"?("https://youtube.com/watch?v="):"https://twitch.tv/" )+ id}
+                href={
+                  (platform === "youtube"
+                    ? "https://youtube.com/watch?v="
+                    : "https://twitch.tv/") + id
+                }
                 target="_blank"
                 icon={
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -87,7 +105,7 @@ const BrowseChannelAndNextItem = function ({ data,Player,_context }) {
         )}
         <div className="page-watch-next">
           {data?.content?.listVideo && (
-            <Title semibold="" large="" title={t("Others")}/>
+            <Title semibold="" large="" title={t("Others")} />
           )}
           {data?.content?.listVideo?.map((a) => (
             <CardVideo data={a} />

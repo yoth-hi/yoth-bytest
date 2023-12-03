@@ -1,6 +1,6 @@
 "use client";
 import Script from "next/script";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import tr from "../service/player";
 import Slider from "./Slider";
 import Image from "./image";
@@ -18,7 +18,7 @@ import NextVideo from "./icons/nextVideo";
 import Vol from "./volume";
 import Button from "./button_root";
 import React from "react";
-import {t} from "../libs/transition";
+import { t } from "../libs/transition";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
@@ -69,7 +69,7 @@ var bz = function (a) {
   });
   _1 = decodeURIComponent(_3[2][1]);
   _2 = _3[0][1];
-  _1 = _1 + "&alr=yes&sig=" + (_2);
+  _1 = _1 + "&alr=yes&sig=" + _2;
   console.log(_3.reverse().join("&"));
   return _1;
   // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
@@ -186,17 +186,17 @@ var bz = function (a) {
         </>
       )}*/
 var render_cine = undefined,
-    srt = undefined;
+  srt = undefined;
 
 var time = 0,
   r = 0,
   M = 0,
   temp = false;
-export default React.memo(function ({ platform, id, sp, controls = true}) {
+export default React.memo(function ({ platform, id, sp, controls = true }) {
   const player = React.useRef(null);
   const spin = React.useRef(null);
   const video = React.useRef(null);
-const router = useRouter()
+  const router = useRouter();
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
   //0 = normal
   //1 = theater
@@ -287,20 +287,15 @@ const router = useRouter()
     const ev = (event) => {
       if (document.fullscreenElement) {
         // exitFullscreen is only available on the Document object.
-        
-        
       } else {
-        
       }
     };
-      
 
     addEventListener("fullscreenchange", ev);
 
     return () => {
-         removeEventListener("fullscreenchange", ev);
+      removeEventListener("fullscreenchange", ev);
       clearInterval(interval);
-              
     };
   }, []);
   React.useEffect(() => {
@@ -314,9 +309,9 @@ const router = useRouter()
       srt = undefined;
     };
   }, [video]);
-  React.useEffect(()=>{
+  React.useEffect(() => {
     srt?.setSrc?.(souce || M?.src);
-  },[souce])
+  }, [souce]);
   React.useLayoutEffect(() => {
     Fetch({
       type: "player",
@@ -324,15 +319,14 @@ const router = useRouter()
         platform,
         id,
       },
-    }).then(( ft)=>{
-      (window.yoth)?.setData?.(ft);setData(ft)
+    }).then((ft) => {
+      window.yoth?.setData?.(ft);
+      setData(ft);
     });
-    setError(false)
-    s(true);
-    return()=>{
-      
 
-    }
+    setError(false);
+    s(true);
+    return () => {};
   }, [id]);
 
   const hoverPlayer = function () {
@@ -352,9 +346,7 @@ const router = useRouter()
         <Image
           src={
             platform === "youtube"
-              ? "https://i.ytimg.com/vi/" +
-                id +
-                "/hq720.jpg"
+              ? "https://i.ytimg.com/vi/" + id + "/hq720.jpg"
               : data?.videoDetails?.thumbnail
           }
           width={"100%"}
@@ -365,7 +357,7 @@ const router = useRouter()
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
         tabIndex="-1"
-        onError={()=>souce?setError(true):null}
+        onError={() => (souce ? setError(true) : null)}
         onPlay={() => {
           toPlay(true);
         }}
@@ -381,11 +373,15 @@ const router = useRouter()
         }}
         ref={video}
         type={souce_type}
-        
       />
-      {isErr&&<div className="player-error">
-      {"Error: "+t("This_video_could_not_be_loaded")+" | code:" +srt?.a?.errorCode()}
-   </div>}
+      {isErr && (
+        <div className="player-error">
+          {"Error: " +
+            t("This_video_could_not_be_loaded") +
+            " | code:" +
+            srt?.a?.errorCode()}
+        </div>
+      )}
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
@@ -397,7 +393,12 @@ const router = useRouter()
             <h1 className="title">{data.videoDetails?.title}</h1>
           </div>
         </div>
-        <CogMenu resolutions={resolutions} setResolution={setResolution} seth={seth} h={h} />
+        <CogMenu
+          resolutions={resolutions}
+          setResolution={setResolution}
+          seth={seth}
+          h={h}
+        />
         <div className="player-bottom-bg" />
         {a && (
           <div className="skip-ads">
@@ -405,7 +406,7 @@ const router = useRouter()
             <NextVideo />
           </div>
         )}
-        {data.videoDetails&&controls && (
+        {data.videoDetails && controls && (
           <>
             {!data?.videoDetails?.tw_isOffline && (
               <div className="player-top">
@@ -453,25 +454,39 @@ const router = useRouter()
                   <Button
                     className="player-bottom-btn"
                     onClick={() => {
-                      if(location.pathname==="/watch"){
-                      (window.yoth)?.setMode?.("miniplayer");
-                      document.querySelector(".layout-content")?.classList?.add("animation_on_mode_miniplayer")
-                      router.push("/")
-                        
-                      }else{
-                      router.push("/watch?v="+id);
-                        
-                      (window.yoth)?.setMode?.("watch");
+                      if (location.pathname === "/watch") {
+                        window.yoth?.setMode?.("miniplayer");
+                        document
+                          .querySelector(".layout-content")
+                          ?.classList?.add("animation_on_mode_miniplayer");
+                        router.push("/");
+                      } else {
+                        router.push("/watch?v=" + id);
+
+                        window.yoth?.setMode?.("watch");
                       }
                     }}
                   >
-<svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%"><path d="M25,17 L17,17 L17,23 L25,23 L25,17 L25,17 Z M29,25 L29,10.98 C29,9.88 28.1,9 27,9 L9,9 C7.9,9 7,9.88 7,10.98 L7,25 C7,26.1 7.9,27 9,27 L27,27 C28.1,27 29,26.1 29,25 L29,25 Z M27,25.02 L9,25.02 L9,10.97 L27,10.97 L27,25.02 L27,25.02 Z" fill="#fff"></path></svg>
+                    <svg
+                      height="100%"
+                      version="1.1"
+                      viewBox="0 0 36 36"
+                      width="100%"
+                    >
+                      <path
+                        d="M25,17 L17,17 L17,23 L25,23 L25,17 L25,17 Z M29,25 L29,10.98 C29,9.88 28.1,9 27,9 L9,9 C7.9,9 7,9.88 7,10.98 L7,25 C7,26.1 7.9,27 9,27 L27,27 C28.1,27 29,26.1 29,25 L29,25 Z M27,25.02 L9,25.02 L9,10.97 L27,10.97 L27,25.02 L27,25.02 Z"
+                        fill="#fff"
+                      ></path>
+                    </svg>
                   </Button>
                   {statusPlayerModeWatch != 2 && (
                     <Button
                       className="resize-icon-player player-bottom-btn"
                       onClick={() => {
-if(location.pathname!=="/watch"){router.push("/watch?v="+id);(window.yoth)?.setMode?.("watch");}
+                        if (location.pathname !== "/watch") {
+                          router.push("/watch?v=" + id);
+                          window.yoth?.setMode?.("watch");
+                        }
                         setStatusPlayerModeWatch(
                           statusPlayerModeWatch === 1 ? 0 : 1
                         );
@@ -483,8 +498,11 @@ if(location.pathname!=="/watch"){router.push("/watch?v="+id);(window.yoth)?.setM
                   <Button
                     className="resize-icon-player player-bottom-btn"
                     onClick={() => {
-if(location.pathname!=="/watch"){router.push("/watch?v="+id);(window.yoth)?.setMode?.("watch");};
-             setStatusPlayerModeWatch(
+                      if (location.pathname !== "/watch") {
+                        router.push("/watch?v=" + id);
+                        window.yoth?.setMode?.("watch");
+                      }
+                      setStatusPlayerModeWatch(
                         statusPlayerModeWatch === 2 ? 1 : 2
                       );
                     }}
@@ -512,11 +530,11 @@ const Iframe = function ({ type, ...rest }) {
   );
   return type && <iframe allowfullscreen="" src={src} {...rest} />;
 };
-const CogMenu = function ({ seth,setResolution, resolutions, h }) {
-  const setPlaybackRate = function(a){
-    srt?.setPlaybackRate(a)
-  }
-  resolutions = resolutions.map(({ qualityLabel,},a ) => {
+const CogMenu = function ({ seth, setResolution, resolutions, h }) {
+  const setPlaybackRate = function (a) {
+    srt?.setPlaybackRate(a);
+  };
+  resolutions = resolutions.map(({ qualityLabel }, a) => {
     return {
       title: qualityLabel,
       onClick: () => setResolution(a),
@@ -543,7 +561,7 @@ const CogMenu = function ({ seth,setResolution, resolutions, h }) {
       title: "Speed",
       items: [
         {
-          onClick: () => (seth(1)),
+          onClick: () => seth(1),
           title: "< Back",
         },
         {
@@ -634,7 +652,7 @@ function fullscreen(a) {
 
   var docElm = document.documentElement;
   var body = document.body;
-  const is = a===undefined?!isInFullScreen:a;
+  const is = a === undefined ? !isInFullScreen : a;
   if (is) {
     if (docElm.requestFullscreen) {
       docElm.requestFullscreen();

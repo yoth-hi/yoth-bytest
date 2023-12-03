@@ -16,21 +16,27 @@ export async function generateMetadata(props) {
   const platform = tw ? "twitch" : v ? "youtube" : null;
   const id = tw || v;
   const data = await F({
-    type: "browse",
+    type: "player",
     context: {
-      type: "player_page",
       platform,
       id,
     },
   });
-
+  console.log("start", data?.microformat, "end");
   return {
-    title: data?.videoDetails?.title,
-    description: data?.videoDetails?.description,
+    title: data?.microformat?.title?.simpleText || data?.videoDetails?.title,
+    description:
+      data?.microformat?.description?.simpleText ||
+      data?.videoDetails?.description,
     openGraph: {
-      title: data?.videoDetails?.title,
-      description: data?.videoDetails?.description,
-      images: [data?.videoDetails?.thumbnail],
+      title: data?.microformat?.title?.simpleText || data?.videoDetails?.title,
+      description:
+        data?.microformat?.description?.simpleText ||
+        data?.videoDetails?.description,
+      images: [
+        data?.videoDetails?.thumbnail,
+        data?.microformat?.thumbnail?.thumbnails?.map(() => a?.url),
+      ],
     },
   };
 }
@@ -44,9 +50,8 @@ export default async function Root(props) {
     return redirect("/");
   }
   const data = await F({
-    type: "browse",
+    type: "player",
     context: {
-      type: "player_page",
       platform,
       id,
     },
@@ -70,9 +75,8 @@ export default async function Root(props) {
           itemprop="description"
           content={data?.videoDetails?.description}
         />
-        {/* 
-        <meta itemprop="requiresSubscription" content="False"/>
-       */}
+        {/*   <meta itemprop="requiresSubscription" content="False" />
+         */}
         <meta itemprop="identifier" content={id} />
         {/* 
         <meta itemprop="duration" content="PT25M25S"/>
@@ -108,7 +112,6 @@ export default async function Root(props) {
         </span>
         {platform === "youtube" ? (
           <>
-            {" "}
             <link
               itemprop="embedUrl"
               href={"https://www.youtube.com/embed/" + id}
@@ -118,7 +121,11 @@ export default async function Root(props) {
         ) : null}
         <meta itemprop="width" content="1280" />
         <meta itemprop="height" content="720" />
-        {/* <meta itemprop="isFamilyFriendly" content="true"/>
+        {/*
+        <meta
+          itemprop="isFamilyFriendly"
+          content={data?.microformat?.isFamilySafe ? "true" : "false"}
+        />
         <meta itemprop="regionsAllowed" content="AD,AE,AF,AG,AI,AL,AM,AO,AQ,AR,AS,AT,AU,AW,AX,AZ,BA,BB,BD,BE,BF,BG,BH,BI,BJ,BL,BM,BN,BO,BQ,BR,BS,BT,BV,BW,BY,BZ,CA,CC,CD,CF,CG,CH,CI,CK,CL,CM,CN,CO,CR,CU,CV,CW,CX,CY,CZ,DE,DJ,DK,DM,DO,DZ,EC,EE,EG,EH,ER,ES,ET,FI,FJ,FK,FM,FO,FR,GA,GB,GD,GE,GF,GG,GH,GI,GL,GM,GN,GP,GQ,GR,GS,GT,GU,GW,GY,HK,HM,HN,HR,HT,HU,ID,IE,IL,IM,IN,IO,IQ,IR,IS,IT,JE,JM,JO,JP,KE,KG,KH,KI,KM,KN,KP,KR,KW,KY,KZ,LA,LB,LC,LI,LK,LR,LS,LT,LU,LV,LY,MA,MC,MD,ME,MF,MG,MH,MK,ML,MM,MN,MO,MP,MQ,MR,MS,MT,MU,MV,MW,MX,MY,MZ,NA,NC,NE,NF,NG,NI,NL,NO,NP,NR,NU,NZ,OM,PA,PE,PF,PG,PH,PK,PL,PM,PN,PR,PS,PT,PW,PY,QA,RE,RO,RS,RU,RW,SA,SB,SC,SD,SE,SG,SH,SI,SJ,SK,SL,SM,SN,SO,SR,SS,ST,SV,SX,SY,SZ,TC,TD,TF,TG,TH,TJ,TK,TL,TM,TN,TO,TR,TT,TV,TW,TZ,UA,UG,UM,US,UY,UZ,VA,VC,VE,VG,VI,VN,VU,WF,WS,YE,YT,ZA,ZM,ZW"/>
         <meta itemprop="interactionCount" content="424474"/>
         <meta itemprop="datePublished" content="2021-01-14T15:15:00-08:00"/>

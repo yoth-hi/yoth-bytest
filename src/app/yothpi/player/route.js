@@ -152,6 +152,11 @@ export async function POST(req) {
       labels: {
         STREAM_IS_OFFLINE: ts.Stream_is_offiline,
       },
+      microformat:data?.microformat?.playerMicroformatRenderer || {
+        title:{
+        simpleText:(us?.broadcastSettings || t)?.title
+        }
+      },
       stream: {
         streamM3u8Url,
         ...list,
