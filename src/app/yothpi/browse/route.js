@@ -522,9 +522,9 @@ export async function POST(req) {
       const d = await c.json();
       var k = d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(({videoWithContextRenderer})=>{
         return videoWithContextRenderer&&({
-          title:videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
+          title:videoWithContextRenderer.headline?.runs[0]?.text,
           endpoint:"/watch?v="+videoWithContextRenderer.videoId,
-          actorName:videoWithContextRenderer.headline?.runs[0]?.text,
+          actorName:videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
           viewsCount:videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
           thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/hq720.jpg`,
           type:"video"
