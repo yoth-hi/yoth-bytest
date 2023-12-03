@@ -190,7 +190,7 @@ export async function POST(req) {
             viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)?.join("")),
             //node?.viewCount || 0,
             publishedTimeText:compactVideoRenderer?.publishedTimeText?.simpleText ,
-            thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC_SMS_RU_xg_3zyu7PGqD3VkSY8Q`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),
+            thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/sddefault.jpg`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
           })));
       }
@@ -389,7 +389,7 @@ export async function POST(req) {
               viewsCount:
                 n?.shortViewCountText[0]?.text + n?.shortViewCountText[1]?.text,
               endpoint: "/watch?v=" + n?.videoId,
-              thumbnail: `https://i3.ytimg.com/vi/${n?.videoId}/hq720.jpg?sqp=CIiZ06oG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLATAd7np_HlL_nt47fL2pOXo6qkPQ`,
+              thumbnail: `https://i3.ytimg.com/vi/${n?.videoId}/sddefault.jpg`,
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
               actorName: `${n?.ownerText?.runs?.[0]?.text}`,

@@ -1212,6 +1212,7 @@ max-height:120px;
   border-radius: 5px;
   pointer-events: auto;
   cursor: pointer;
+  font-size:15;
 }
 .chat-mgs-status {
   margin: 12px 16px 0px;

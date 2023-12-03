@@ -136,7 +136,7 @@ export default async function Root(props) {
     </>
   );
 }
-function rd(a){
- return a.substring(0, 130);
+function rd(a=""){
+ return a.substring(0, 130) +(a.length>130?"...":"");
 }
 export const revalidate = 30;
