@@ -1,7 +1,7 @@
-import Title from "../../components/string";
-import Image from "../../components/image";
-import Button from "../../components/button_root";
-import { t } from "../../libs/transition";
+import Title from "../../../components/string";
+import Image from "../../../components/image";
+import Button from "../../../components/button_root";
+import { t } from "../../../libs/transition";
 export default function ({ children }) {
   return (
     <div
