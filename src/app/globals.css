@@ -1903,3 +1903,29 @@ max-height:120px;
 .resize-icon-player svg{
   transform:scale(.7);
 }
+.page-home-top-button{
+background:rgba(var(--foreground-rgb),.1);
+border:rgba(var(--background-wp-rgb),.2) 1px solid;
+padding:3px 6px;
+margin:8px 2px;
+border-radius:4px;
+overflow:hidden;
+}
+.page-home-top-buttons{
+margin:0 auto;
+max-width:400px;
+}
+.card-channel-row{
+display:flex;
+height:200px;
+width:100%;
+max-width:450px;
+}
+.card-channel-row-image{
+margin-right:20px;
+width:160px;
+height:160px;
+border-radius:100%;
+overflow:hidden;
+
+}

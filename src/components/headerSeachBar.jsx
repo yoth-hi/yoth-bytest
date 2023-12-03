@@ -1,6 +1,9 @@
+"use client";
 import SearchIcon from "./icons/SearchIcon";
 import { t } from "../libs/transition";
+import { useRouter } from "next/navigation";
 export default function () {
+  const router = useRouter();
   const onKeywordUp = function () {};
   const onKeywordChange = function () {};
   return (
@@ -9,7 +12,19 @@ export default function () {
         <div className="icon" id="search-icon-hover">
           <SearchIcon />
         </div>
-        <form action="/results" className=" search-bar-form">
+        <form
+          action="/results"
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (event.target[0].value) {
+              var t =
+                "/results?search_query=" +
+                encodeURIComponent(event?.target[0].value);
+              router.push(t);
+            }
+          }}
+          className=" search-bar-form"
+        >
           <input
             placeholder={t("Search")}
             //  onChange={onKeywordChange}

@@ -7,7 +7,7 @@ import S from "../../components/icons/span";
 
 import CardVideo from "../../components/CardVideo";
 import Fetch from "../../service/ApiRest";
-import CardChannel from "../../components/cardChannelBox";
+import CardVideoRow from "../../components/CardVideoRow";
 import A from "../../components/cardChannelRow";
 import { t } from "../../libs/transition";
 import { useLayoutEffect, useState } from "react";
@@ -23,22 +23,11 @@ export default function (props) {
     });
   useLayoutEffect(() => {
     ApiGet().then(setData);
-  }, []);
-  const a = {
-    "*":"\\",
-    actorImage:
-      "https://static-cdn.jtvnw.net/jtv_user_pictures/219332ac-75e2-473b-9a9c-6e8d51dd96fd-profile_image-50x50.png",
-    actorName: "OverLordZv",
-
-    thumbnail:
-      "https://static-cdn.jtvnw.net/previews-ttv/live_user_overlordzv-1920x1080.jpg",
-    title: "chegar a unreal",
-  };
+  }, [props?.searchParams?.search_query]);
   return (
     <div className="page-query">
       <div>
-        {data?.content?.list?.map((q) => (
-          <A q={q} />
+        {data?.content?.list?.map((q) => (q&&q?.type==="video"?<CardVideoRow data={q} />:<A q={q} />
         ))}
         <S />
       </div>

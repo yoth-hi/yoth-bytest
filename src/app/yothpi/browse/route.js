@@ -402,6 +402,24 @@ export async function POST(req) {
           t[Math.floor(Math.random() * t.length)]
         );
       });
+      data.content.topBtnFilters =[
+        {
+          apiFilter:"F:all",
+          name:"All"
+        },
+        {
+          apiFilter:"F:youtube",
+          name:"Youtube"
+        },
+        {
+          apiFilter:"F:twitch",
+          name:"Twitch"
+        },
+        {
+          apiFilter:"F:rbc",
+          name:"Recommended_by_breeder"
+        },
+      ]
       data.content.banner = {
         viewsCount: "---",
         list: [
@@ -469,8 +487,53 @@ export async function POST(req) {
           },
         }),
       });
+      const c = await fetch("https://m.youtube.com/youtubei/v1/search?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false", {
+  "headers": {
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
+    "content-type": "application/json",
+    "sec-ch-ua": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\"",
+    "sec-ch-ua-arch": "\"\"",
+    "sec-ch-ua-bitness": "\"\"",
+    "sec-ch-ua-full-version": "\"120.0.6099.26\"",
+    "sec-ch-ua-full-version-list": "\"Not_A Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"120.0.6099.26\"",
+    "sec-ch-ua-mobile": "?1",
+    "sec-ch-ua-model": "\"SM-A135M\"",
+    "sec-ch-ua-platform": "\"Android\"",
+    "sec-ch-ua-platform-version": "\"13.0.0\"",
+    "sec-ch-ua-wow64": "?0",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "same-origin",
+    "sec-fetch-site": "same-origin",
+    "x-client-data": "CIzqygE=",
+    "x-goog-visitor-id": "Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D",
+    "x-youtube-bootstrap-logged-in": "false",
+    "x-youtube-client-name": "2",
+    "x-youtube-client-version": "2.20231130.05.00"
+  },
+  "referrer": "https://m.youtube.com/results?sp=mAEA&search_query="+query,
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": "{\"context\":{\"client\":{\"hl\":\"en\",\"gl\":\"BR\",\"remoteHost\":\"143.137.158.18\",\"deviceMake\":\"Generic\",\"deviceModel\":\"Android 10.0\",\"visitorData\":\"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D\",\"userAgent\":\"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)\",\"clientName\":\"MWEB\",\"clientVersion\":\"2.20231130.05.00\",\"osName\":\"Android\",\"osVersion\":\"10\",\"originalUrl\":\"https://m.youtube.com/results?sp=mAEA&search_query="+query+"\",\"playerType\":\"UNIPLAYER\",\"screenPixelDensity\":3,\"platform\":\"MOBILE\",\"clientFormFactor\":\"SMALL_FORM_FACTOR\",\"configInfo\":{\"appInstallData\":\"CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF\"},\"screenDensityFloat\":2.625,\"userInterfaceTheme\":\"USER_INTERFACE_THEME_DARK\",\"timeZone\":\"America/Sao_Paulo\",\"browserName\":\"Chrome Mobile\",\"browserVersion\":\"120.0.0.0\",\"acceptHeader\":\"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\",\"deviceExperimentId\":\"ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG\",\"screenWidthPoints\":412,\"screenHeightPoints\":410,\"utcOffsetMinutes\":-180,\"memoryTotalKbytes\":\"4000000\",\"mainAppWebInfo\":{\"graftUrl\":\"/results?sp=mAEA&search_query="+query+"\",\"webDisplayMode\":\"WEB_DISPLAY_MODE_BROWSER\",\"isWebNativeShareAvailable\":true}},\"user\":{\"lockedSafetyMode\":false},\"request\":{\"useSsl\":true,\"internalExperimentFlags\":[],\"consistencyTokenJars\":[]},\"clickTracking\":{\"clickTrackingParams\":\"CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J\"},\"adSignalsInfo\":{\"params\":[{\"key\":\"dt\",\"value\":\"1701634226262\"},{\"key\":\"flash\",\"value\":\"0\"},{\"key\":\"frm\",\"value\":\"0\"},{\"key\":\"u_tz\",\"value\":\"-180\"},{\"key\":\"u_his\",\"value\":\"5\"},{\"key\":\"u_h\",\"value\":\"918\"},{\"key\":\"u_w\",\"value\":\"412\"},{\"key\":\"u_ah\",\"value\":\"918\"},{\"key\":\"u_aw\",\"value\":\"412\"},{\"key\":\"u_cd\",\"value\":\"24\"},{\"key\":\"bc\",\"value\":\"31\"},{\"key\":\"bih\",\"value\":\"410\"},{\"key\":\"biw\",\"value\":\"412\"},{\"key\":\"brdim\",\"value\":\"0,0,0,0,412,0,412,410,412,410\"},{\"key\":\"vis\",\"value\":\"1\"},{\"key\":\"wgl\",\"value\":\"true\"},{\"key\":\"ca_type\",\"value\":\"image\"}]}},\"query\":\""+query+"\",\"params\":\"mAEA\",\"webSearchboxStatsUrl\":\"/search?oq="+query+"&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M\"}",
+  "method": "POST",
+  "mode": "cors",
+  "credentials": "include"
+});
       const b = await a.json();
-      data.content.list = b?.data?.searchFor?.channels?.items;
+      const d = await c.json();
+      var k = d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(({videoWithContextRenderer})=>{
+        return videoWithContextRenderer&&({
+          title:videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
+          endpoint:"/watch?v="+videoWithContextRenderer.videoId,
+          actorName:videoWithContextRenderer.headline?.runs[0]?.text,
+          viewsCount:videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
+          thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/hq720.jpg`,
+          type:"video"
+        })
+      })
+      data.content.list=[]
+      data.content.list.push(...k);
+      
+      data.content.list.push(...b?.data?.searchFor?.channels?.items)
     }
   
   } catch (error) {

@@ -57,7 +57,7 @@ export default function ({ data }) {
         ".page-content-video-list-grid .card-video[skeleton]"
       )[0];
       const b = document.querySelector("#app-desktop");
-      if(!a) return;
+      if (!a) return;
       const { height, y } = a.getBoundingClientRect();
       const e = y - innerHeight;
       if (e < 100) {
@@ -89,6 +89,18 @@ export default function ({ data }) {
   }, []);
   return (
     <>
+      <div className="page-home-top-buttons">
+        {null
+        /*
+          data?.content?.topBtnFilters?.map(({ name, apiFilter }) => (
+          <button key={apiFilter} aria-label={name} className="page-home-top-button">
+            <span>{"name"}</span>
+          </button>
+        ))
+          
+        */
+        }
+      </div>
       <Banner data={data?.content?.banner ?? {}} />
       <Title semibold="" large="" title={t("Recommended")} />
       {/* 
