@@ -425,6 +425,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     onClick={() => {
                       play_pouse();
                     }}
+                    aria-label={isPlay?t("Pause_K"):t("Play_K")}
                   >
                     <svg
                       height="100%"
@@ -432,11 +433,13 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                       viewBox="0 0 36 36"
                       width="100%"
                     >
-                      {isPlay ? (
-                        <path d="M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"></path>
-                      ) : (
-                        <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
-                      )}
+                      <path
+                        d={
+                          isPlay
+                            ? "M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"
+                            : "M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"
+                        }
+                      ></path>
                     </svg>
                   </Button>
                   <Button className="player-bottom-btn  resize-icon-player next-video">
@@ -455,15 +458,19 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     className="player-bottom-btn"
                     onClick={() => {
                       if (location.pathname === "/watch") {
+                        router.push("/") .then(()=>{
+                          
                         window.yoth?.setMode?.("miniplayer");
                         document
                           .querySelector(".layout-content")
                           ?.classList?.add("animation_on_mode_miniplayer");
-                        router.push("/");
+                        })
                       } else {
-                        router.push("/watch?v=" + id);
-
-                        window.yoth?.setMode?.("watch");
+                        router.push("/watch?v=" + id)
+                          .then(()=>{
+                            
+                          window.yoth?.setMode?.("watch");
+                          })
                       }
                     }}
                   >
@@ -484,8 +491,11 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                       className="resize-icon-player player-bottom-btn"
                       onClick={() => {
                         if (location.pathname !== "/watch") {
-                          router.push("/watch?v=" + id);
+                          router.push("/watch?v=" + id)
+                          .then(()=>{
+                            
                           window.yoth?.setMode?.("watch");
+                          })
                         }
                         setStatusPlayerModeWatch(
                           statusPlayerModeWatch === 1 ? 0 : 1
@@ -499,10 +509,14 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     className="resize-icon-player player-bottom-btn"
                     onClick={() => {
                       if (location.pathname !== "/watch") {
-                        router.push("/watch?v=" + id);
+                        router.push("/watch?v=" + id).then(()=>{
+                          
                         window.yoth?.setMode?.("watch");
-                      }
                       setStatusPlayerModeWatch(
+                        statusPlayerModeWatch === 2 ? 1 : 2
+                      );
+                        })
+                      } else  setStatusPlayerModeWatch(
                         statusPlayerModeWatch === 2 ? 1 : 2
                       );
                     }}
