@@ -24,9 +24,9 @@ export default function ({ children }) {
           </div>
           <div className="channel-content-metadata">
             <div>
-              <Title large="" semibold="" title="title_channel" />
+              <Title large="" semibold="" title="[name]" />
             </div>
-            <div className="channel-content-metadata-count">98K follow</div>
+            <div className="channel-content-metadata-count">[Number follow] follow</div>
           </div>
           <div>
             <Button className="">[btn_follow]</Button>

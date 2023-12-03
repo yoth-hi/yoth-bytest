@@ -14,7 +14,7 @@ export default function (props) {
 }
 const T = memo(function (props) {
   const { data } = props;
-  if (!data) return;
+  if (!data || !data.thumbnail) return;
   const { title, endpoint, actorName, viewsCount, thumbnail } = data;
   return (
     <>
