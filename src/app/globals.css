@@ -860,7 +860,7 @@ margin:0px auto;
   padding: 8px;
   width: 300px;
   border-radius: 8px;
-  max-width: 10vw;
+  max-width: 30vw;
   pointer-events: none;
   transition: opacity 0.2s;
 }
@@ -1377,11 +1377,12 @@ max-height:120px;
   border-radius: 100000px;
 }
 .banner-home {
-  height: 300px;
+  height: 400px;
   overflow: hidden;
   position: relative;
   width:100%;
-  min-height:40vw;
+  min-height:5vw;
+  max-height:400px;
   margin: 32px 0;
 }
 .banner-bg {
