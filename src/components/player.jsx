@@ -458,13 +458,13 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     className="player-bottom-btn"
                     onClick={() => {
                       if (location.pathname === "/watch") {
-                        router.push("/") .then(()=>{
+                        router.push("/") 
                           
                         window.yoth?.setMode?.("miniplayer");
                         document
                           .querySelector(".layout-content")
                           ?.classList?.add("animation_on_mode_miniplayer");
-                        })
+                        
                       } else {
                         router.push("/watch?v=" + id)
                           .then(()=>{
