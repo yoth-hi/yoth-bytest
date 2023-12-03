@@ -102,6 +102,7 @@ export default function ({ data }) {
         }
       </div>
       <Banner data={data?.content?.banner ?? {}} />
+      <div id="center">
       <Title semibold="" large="" title={t("Recommended")} />
       {/* 
       <div className="page-content-video-list-items">
@@ -130,6 +131,7 @@ export default function ({ data }) {
         ))}
       </div>
       <Spin />
+      </div>
     </>
   );
 }

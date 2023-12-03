@@ -103,6 +103,8 @@ img {
   position: relative;
   display: flex;
   flex: 0 0 100px;
+  font-weight:700;
+  
 }
 .header-profile-panel {
   @apply mx-[12px];
@@ -858,7 +860,7 @@ margin:0px auto;
   padding: 8px;
   width: 300px;
   border-radius: 8px;
-  max-width: 30vw;
+  max-width: 10vw;
   pointer-events: none;
   transition: opacity 0.2s;
 }
@@ -1228,7 +1230,7 @@ max-height:120px;
 .page-home {
   margin-top: 16px;
 }
-.page-home,
+.page-home #center,
 .page-sub-content {
   max-width: min(2880px, calc(100vw - var(--sidebar-width)));
   width: 100%;
@@ -1378,8 +1380,9 @@ max-height:120px;
   height: 300px;
   overflow: hidden;
   position: relative;
-  margin: 32px;
-  border-radius: 20px;
+  width:100%;
+  min-height:40vw;
+  margin: 32px 0;
 }
 .banner-bg {
   z-index: 3;
@@ -1743,7 +1746,7 @@ max-height:120px;
   max-width: min(600px, calc(95vw - var(--sidebar-width)));
   margin: 5px auto;
 }
-.page-home > .core-string {
+.page-home #center > .core-string {
   @apply mx-[32px];
 }
 
