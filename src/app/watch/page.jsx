@@ -22,7 +22,7 @@ export async function generateMetadata(props) {
       id,
     },
   });
-    return {
+  return {
     title: data?.microformat?.title?.simpleText || data?.videoDetails?.title,
     description:
       data?.microformat?.description?.simpleText ||
@@ -33,8 +33,9 @@ export async function generateMetadata(props) {
         data?.microformat?.description?.simpleText ||
         data?.videoDetails?.description,
       images: [
-        data?.videoDetails?.thumbnail,
-        data?.microformat?.thumbnail?.thumbnails?.map((a) => a?.url),
+        platform === "youtube"
+          ? "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"
+          : data?.videoDetails?.thumbnail,
       ],
     },
   };
