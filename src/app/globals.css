@@ -165,12 +165,15 @@ img {
   @apply border-[#888]/50 border;
   transition: border 0.3s;
   flex-basis: 700px;
-
-  @apply ml-[10px] rounded-full flex items-center;
+  
+  @apply ml-[10px] mr-[14px] rounded-full flex items-center;
   height: 40px;
 }
 .search-bar-form {
   @apply flex  items-center;
+}
+.endpoint-block{
+  display:black!important;
 }
 .btn-simple {
   @apply flex items-center;
@@ -934,6 +937,9 @@ margin:0px auto;
     .page-watch-info-conteiner
     > *:not(.page-watch-container) {
     margin-right: 0px !important;
+  }
+  .card-video {
+  margin:0px auto!important;
   }
 }
 .button-text {

@@ -43,20 +43,20 @@ export default memo(function ({ data, skeleton }) {
             />
           )}
         </div>
-        <div className="card-matadata">
-          <Link href={endpoint || "/"} aria-label={title || ""}>
+        <Link href={endpoint || "/"} className="endpoint-block"  aria-label={title || ""}>
+          <div className="card-matadata">
             <h3 className="card-video-title">
               {title || <div className="skeleton-text title" />}
             </h3>
-          </Link>
-          <div className="card-video-details">
-            <div className="card-video-channel-name">
-              {actorName || <div className="skeleton-text" />}
+            <div className="card-video-details">
+              <div className="card-video-channel-name">
+                {actorName || <div className="skeleton-text" />}
+              </div>
+              <div className="card-video-matadata">{viewsCount}</div>
             </div>
-            <div className="card-video-matadata">{viewsCount}</div>
           </div>
-        </div>
+        </Link>
       </div>
     </Btn>
   );
-})
+});
