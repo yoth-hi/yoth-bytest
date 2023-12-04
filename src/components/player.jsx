@@ -22,6 +22,8 @@ import { t } from "../libs/transition";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
+
+
 // var mw=
 // {
 //     p7:function(a)
@@ -69,9 +71,9 @@ var bz = function (a) {
   });
   _1 = decodeURIComponent(_3[2][1]);
   _2 = _3[0][1];
-  _1 = _1 + "&alr=yes&sig=" + _2;
-  console.log(_3.reverse().join("&"));
-  return _1;
+  _1 = _1 + "&alr=yes&sig=" +t( _2);
+  
+  return _3.reverse().join("&");
   // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
 };
 
