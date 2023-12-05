@@ -102,7 +102,7 @@ img {
 .desktop-header .logo {
   position: relative;
   display: flex;
-  flex: 0 0 100px;
+  flex: 0 0 40px;
   font-weight:700;
   
 }
@@ -207,8 +207,8 @@ img {
   @apply flex items-center;
 }
 .desktop-layout-start {
-  width: 156px;
-  min-width: 156px;
+  width: 96px;
+  min-width: 96px;
 }
 .sidebar .button > div {
   justify-content: start !important;
@@ -786,7 +786,6 @@ text-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
 }
 .page-watch-info {
   padding-top: 14px;
-  padding-left: 20px;
   max-width: min(2000px, calc(100vw - 40px));
   margin: 0 auto;
   z-index: 298;
@@ -888,6 +887,17 @@ margin:0px auto;
   opacity: 0.8;
   line-height: 15px;
 }
+@media (max-width: 600px) {
+  .page-watch-info-outers{
+    display:flex;
+    align-items:flex-start !important;
+    justify-content:center;
+    flex-direction:column!important;
+  }
+  .page-watch-info-buttons{
+    margin-top:10px;
+  }
+}
 @media (max-width: 1000px) {
   body {
     --sidebar-width: 0px !important;
@@ -942,6 +952,7 @@ margin:0px auto;
   margin:0px auto!important;
   }
 }
+
 .button-text {
   border-radius: 176px;
   padding: 5px 8px;

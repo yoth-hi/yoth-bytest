@@ -2,20 +2,22 @@
 import { useRef, useEffect, useLayoutEffect, memo, useState } from "react";
 import Player from "./../components/player";
 export default function () {
-  const w = (window.yoth = window.yoth || {});
   const [id, setId] = useState(null);
   const [platform, setPlatform] = useState(null);
   const [mode, setMode] = useState("watch");
   const _ = useRef(null);
-
-  w.setId = function (a, b) {
-    setId(a);
-    setPlatform(b);
-  };
-  w.setMode = setMode;
-  w.append = function (a) {
-    if (_.current) a?.appendChild(_.current);
-  };
+  if (typeof window !== "undefined") {
+    var w = (window.yoth = window.yoth || {});
+    // Client-side-only code
+    w.setId = function (a, b) {
+      setId(a);
+      setPlatform(b);
+    };
+    w.setMode = setMode;
+    w.append = function (a) {
+      if (_.current) a?.appendChild(_.current);
+    };
+  }
   useEffect(() => {
     var x = document.querySelector(".miniplayer");
     switch (mode) {
@@ -51,7 +53,7 @@ const Layer = memo(({ id, sp, platform }) => (
     <div className="page-watch-primary">
       <div className="page-watch-primary-player">
         <div id="cinematic" />
-        <div className="page-watch-primary-player-conteiner" videoId={id}>
+        <div className="page-watch-primary-player-conteiner" videoid={id}>
           <Player {...{ id, platform, sp }} key={287} />
         </div>
       </div>

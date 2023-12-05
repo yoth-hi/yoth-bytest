@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getTraslate, req_btn } from "../_service";
+var _list = [];
 export async function POST(req) {
   const startTime = Date.now();
   const data = { content: {} };
@@ -16,7 +17,7 @@ export async function POST(req) {
       });
     }
     const {
-      context: { lg = "en", platform, start=0, query, id, type },
+      context: { lg = "en", platform, start = 0, query, id, type },
     } = json || { context: {} };
     const auto = "test";
     const { context } = json || {};
@@ -112,7 +113,7 @@ export async function POST(req) {
           {
             headers: {
               accept: "*/*",
-              "accept-language":lg,
+              "accept-language": lg,
               "content-type": "application/json",
               "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120"',
               "sec-ch-ua-arch": '"x86"',
@@ -137,7 +138,9 @@ export async function POST(req) {
             referrer: "https://www.youtube.com/watch?v=" + id + "",
             referrerPolicy: "strict-origin-when-cross-origin",
             body:
-              '{"context":{"client":{"hl":"'+lg+'","gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
+              '{"context":{"client":{"hl":"' +
+              lg +
+              '","gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
               id +
               '","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"CLON_aoGEInorgUQ2cmvBRCvh7AFEJrwrwUQt-r-EhD1-_4SENSSsAUQ3ej-EhD8hbAFEIiHsAUQ0OKvBRDf2K8FEOPYrwUQ6-j-EhC--a8FEMyu_hIQqfevBRCI468FEKuHsAUQnYuwBRDnuq8FENvYrwUQ4divBRDHg7AFEL6KsAUQ9fmvBRDi1K4FENfprwUQ1KGvBRCn968FEOrDrwUQzN-uBRC9tq4FEKy3rwUQuIuuBRDT4a8FEK2HsAUQ6ej-EhDcgrAFELGHsAUQpcL-EhDuoq8FEKuCsAUQ1YiwBRDks_4SEOHyrwUQ-r6vBRC8-a8FEKKBsAUQopKwBRC_968FEOuTrgUQqIGwBRCWlbAFEJT6_hIQpoGwBRD3jrAFEOb9_hIQ65awBRCZkbAFEK7U_hIQyfevBRDbr68FELfvrwUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRZek5EZzFOVE15TkRrd05ERTBNZz09ELON_aoGGLON_aoG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v=' +
               id +
@@ -150,96 +153,127 @@ export async function POST(req) {
           }
         );
         const r_data = await resp.json();
-       // data.i= r_data;
-       const _id = id;
+        // data.i= r_data;
+        const _id = id;
         data.videoDetails = {
           title:
-            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.title?.simpleText,
+            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
+              ?.playerOverlayVideoDetailsRenderer?.title?.simpleText,
           description:
             r_data?.contents?.twoColumnWatchNextResults?.results?.results
-              ?.contents?.[1]?.videoSecondaryInfoRenderer?.attributedDescription?.content,
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.attributedDescription
+              ?.content,
           actorName:
-            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
+            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
+              ?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
           actorId: "",
-          viewCount:r_data?.contents?.twoColumnWatchNextResults?.results?.results
-              ?.contents?.[1]?.videoSecondaryInfoRenderer?.viewCount?.videoViewCountRenderer?.viewCount?.simpleText,
-          actorImage: r_data?.contents?.twoColumnWatchNextResults?.results?.results
-              ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
+          viewCount:
+            r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.viewCount
+              ?.videoViewCountRenderer?.viewCount?.simpleText,
+          actorImage:
+            r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner
+              ?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
           thumbnail: `https://i.ytimg.com/vi/${_id}/hq720.jpg`,
           id: _id,
           isLive: false,
         };
-        var f = "--"  
+        var f = "--";
         data.content.cardChannel = {
-          name: r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
+          name: r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
+            ?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
           endpoint: "/yt@" + "null",
-          profileImage: r_data?.contents?.twoColumnWatchNextResults?.results?.results
-              ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
-           onSubscrive: {
+          profileImage:
+            r_data?.contents?.twoColumnWatchNextResults?.results?.results
+              ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner
+              ?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
+          onSubscrive: {
             id: btoa(`SUBSCRIBE_${context?.platform}_${"%null%"}_${auto}`),
             api: 2987,
           },
           subscribers: {
             label: `${String(f || 0).replace(/(\d{3})/g, " $1")}`,
-            number:  f|| 0,
+            number: f || 0,
           },
         };
-        data.content.listVideo = r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(({ compactVideoRenderer }) => (compactVideoRenderer&&({
-            title: compactVideoRenderer?.title?.simpleText,
-            actorName: "",//us?.displayName,
-            viewsCount: Number((compactVideoRenderer?.viewCountText?.simpleText||"").match(/\d/g)?.join("")),
-            //node?.viewCount || 0,
-            publishedTimeText:compactVideoRenderer?.publishedTimeText?.simpleText ,
-            thumbnail:  `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`,//size(node.previewThumbnailURL, 400, (400 / 16) * 9),
-            endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
-          })));
+
+        data.content.listVideo =
+          r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(
+            ({ compactVideoRenderer }) =>
+              compactVideoRenderer && {
+                title: compactVideoRenderer?.title?.simpleText,
+                actorName: "", //us?.displayName,
+                viewsCount: Number(
+                  (compactVideoRenderer?.viewCountText?.simpleText || "")
+                    .match(/\d/g)
+                    ?.join("")
+                ),
+                //node?.viewCount || 0,
+                publishedTimeText:
+                  compactVideoRenderer?.publishedTimeText?.simpleText,
+                thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
+                endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
+              }
+          );
       }
     } else if (type === "home_gaming") {
-      const _data = await fetch("https://gql.twitch.tv/gql", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Accept-Language": lg,
-          "Client-Id": "r8s4dac0uhzifbpu9sjdiwzctle17ff",
-          "Content-Type": "application/json",
-          //'Authorization': 'OAuth r8s4dac0uhzifbpu9sjdiwzctle17ff',
-          "Device-Id": "qQkSyxaRxX4Jbu0abiq2QPZLDwm02vOJ",
-          "User-Agent":
-            "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36",
-          Referer: "https://m.twitch.tv/",
-        },
-        body: JSON.stringify({
-          query:
-            "query Homepage_Query(\n  $requestID: String!\n  $platform: String!\n  $itemsPerRow: Int!\n  $url: String!\n  $first: Int!\n  $after: Cursor\n) {\n  ...RecommendationShelves_shelves\n  ...SeoHead_query\n}\n\nfragment ClipCardCommon_clip on Clip {\n  id\n  __typename\n  broadcaster {\n    login\n    displayName\n    profileImageURL(width: 64)\n    id\n    __typename\n  }\n  createdAt\n  durationSeconds\n  game {\n    categorySlug: slug\n    displayName\n    name\n    id\n    __typename\n  }\n  slug\n  thumbnailURL(width: 480, height: 272)\n  title\n  viewCount\n}\n\nfragment RecommendationShelves_shelves on Query {\n  shelves(requestID: $requestID, platform: $platform, itemsPerRow: $itemsPerRow, first: $first, after: $after) {\n    edges {\n      node {\n        id\n        __typename\n        ...Shelf_shelf\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SeoHead_query on Query {\n  urlMetadata(url: $url) {\n    title\n    metatags {\n      name\n      attributes {\n        key\n        value\n      }\n    }\n    jsonld\n    share {\n      title\n      text\n      url\n    }\n  }\n}\n\nfragment ShelfGameCard_game on Game {\n  id\n  __typename\n  name\n  ...useGameCardCommonFragment_game\n}\n\nfragment ShelfStreamCard_stream on Stream {\n  id\n  __typename\n  ...useStreamCardCommonFragment_stream\n  broadcaster {\n    login\n    id\n    __typename\n  }\n}\n\nfragment ShelfTitle_title on ShelfTitle {\n  key\n  fallbackLocalizedTitle\n  localizedTitleTokens {\n    node {\n      __typename\n      ...TokenContent_node\n      ... on BrowsableCollection {\n        id\n        __typename\n      }\n      ... on Game {\n        id\n        __typename\n      }\n      ... on Tag {\n        id\n        __typename\n      }\n      ... on User {\n        id\n        __typename\n      }\n    }\n  }\n}\n\nfragment Shelf_shelf on Shelf {\n  __typename\n  id\n  __typename\n  title {\n    ...ShelfTitle_title\n  }\n  content {\n    __typename\n    edges {\n      __typename\n      trackingID\n      node {\n        __typename\n        ... on Game {\n          id\n          __typename\n          ...ShelfGameCard_game\n        }\n        ... on Stream {\n          id\n          __typename\n          broadcaster {\n            id\n            __typename\n            login\n          }\n          ...ShelfStreamCard_stream\n        }\n        ... on Clip {\n          id\n          __typename\n          ...useShelfClipCardFragment\n        }\n        ... on Tag {\n          id\n          __typename\n        }\n        ... on Video {\n          id\n          __typename\n        }\n      }\n    }\n  }\n  trackingInfo {\n    __typename\n    rowName\n  }\n}\n\nfragment StreamCardDropDownMenu_broadcaster on User {\n  id\n  __typename\n  login\n  displayName\n}\n\nfragment TokenContent_node on TitleTokenNode {\n  __isTitleTokenNode: __typename\n  __typename\n  ... on Game {\n    id\n    __typename\n    name\n    displayName\n    categorySlug: slug\n  }\n  ... on TextToken {\n    text\n    hasEmphasis\n    location\n  }\n  ... on BrowsableCollection {\n    id\n    __typename\n    collectionSlug: slug\n    collectionName: name {\n      fallbackLocalizedTitle\n    }\n  }\n}\n\nfragment useGameCardCommonFragment_game on Game {\n  boxArtURL\n  displayName\n  name\n  categorySlug: slug\n  viewersCount\n  ...useGameTagListFragment_game\n}\n\nfragment useGameTagListFragment_game on Game {\n  gameTags: tags(limit: 10, tagType: CONTENT) {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useShelfClipCardFragment on Clip {\n  id\n  __typename\n  broadcaster {\n    login\n    id\n    __typename\n  }\n  slug\n  ...ClipCardCommon_clip\n}\n\nfragment useStreamCardCommonFragment_stream on Stream {\n  id\n  __typename\n  viewersCount\n  previewImageURL\n  type\n  game {\n    id\n    __typename\n    name\n    slug\n  }\n  broadcaster {\n    id\n    __typename\n    broadcastSettings {\n      title\n      id\n      __typename\n    }\n    login\n    displayName\n    profileImageURL(width: 50)\n    ...StreamCardDropDownMenu_broadcaster\n  }\n  ...useStreamTagListFragment_stream\n}\n\nfragment useStreamTagListFragment_stream on Stream {\n  streamTags: tags {\n    ...useTagLinkFragment_tag\n    id\n    __typename\n  }\n}\n\nfragment useTagLinkFragment_tag on Tag {\n  id\n  __typename\n  tagName\n  localizedDescription\n  localizedName\n}\n",
-          variables: {
-            requestID: "LmLqsk9ZGlITX4Qz",
-            platform: "mobile_web",
-            itemsPerRow: 5,
-            url: "https://m.twitch.tv/",
-            first: 1,
-            after: start,
+      const _T = await fetch(
+        "https://m.youtube.com/youtubei/v1/browse?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
+        {
+          headers: {
+            accept: "*/*",
+            "accept-language":
+              "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
+            "content-type": "application/json",
+            "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120"',
+            "sec-ch-ua-arch": '""',
+            "sec-ch-ua-bitness": '""',
+            "sec-ch-ua-full-version": '"120.0.6099.26"',
+            "sec-ch-ua-full-version-list":
+              '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.26"',
+            "sec-ch-ua-mobile": "?1",
+            "sec-ch-ua-model": '"SM-A135M"',
+            "sec-ch-ua-platform": '"Android"',
+            "sec-ch-ua-platform-version": '"13.0.0"',
+            "sec-ch-ua-wow64": "?0",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "same-origin",
+            "sec-fetch-site": "same-origin",
+            "x-client-data": "CIzqygE=",
+            "x-goog-visitor-id":
+              "Cgs3Qmxmak1KT250RSi95rmrBjIKCgJCUhIEGgAgMg%3D%3D",
+            "x-youtube-bootstrap-logged-in": "false",
+            "x-youtube-client-name": "2",
+            "x-youtube-client-version": "2.20231204.01.00",
           },
-        }),
-      }).catch(console.error);
-      const __1data = await _data.json();
-      data.content.listVideo =
-        __1data?.data?.shelves?.edges[0].node?.content.edges?.map(
-          (n) => (
-            (n = n.node),
-            n && {
-              title: n?.broadcaster?.broadcastSettings?.title,
-              viewsCount: n?.viewsCount,
-              endpoint: "/watch?tw=" + n?.broadcaster?.login,
-              thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${
-                n?.broadcaster?.login
-              }-400x${(400 / 16) * 9}.jpg`,
-
-              actorImage: `${n?.broadcaster?.profileImageURL}`,
-              actorName: `${n?.broadcaster?.displayName}`,
-              n,
-            }
-          )
-        );
+          referrer: "https://m.youtube.com/gaming",
+          referrerPolicy: "strict-origin-when-cross-origin",
+          body: '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSi95rmrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231204.01.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/gaming","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CL3muasGEIfUrwUQ1YiwBRCp968FEPX7_hIQiIewBRCu1P4SEJmUsAUQrLevBRDnuq8FEL2ZsAUQ2cmvBRDJ968FEJ6LsAUQ3ej-EhC90q8FELz5rwUQvoqwBRDpjLAFEJT6_hIQ2piwBRCrgrAFEOHyrwUQpoGwBRC36v4SEM6vrwUQ3oKwBRC--a8FELfvrwUQ6sOvBRCikrAFEKXC_hIQiOOvBRCWlbAFEJj8_hIQzN-uBRDUkrAFEJrwrwUQ55ewBRD1-a8FEL22rgUQ_IWwBRC4i64FENuZsAUQooGwBRDks_4SEMyu_hIQ8OWvBRDT4a8FELaQsAUQzZWwBRCHqK8FENDirwUQx4OwBRComrAFEMb1rgUQpPWuBRDr6P4SEPeasAUQ-pCwBQ%3D%3D"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0Rrd05UazFNamM0TXpBek1UWXlPQT09EL3muasGGL3muasG","screenWidthPoints":412,"screenHeightPoints":787,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/gaming","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CCMQpIEJGAMiEwjXnp6vifeCAxWAjZUCHYpTDcU="},"adSignalsInfo":{"params":[{"key":"dt","value":"1701737277654"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"3"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"787"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,787,412,787"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"browseId":"UCOpNcN46UbXVtpKMrmU4Abg"}',
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
+        }
+      );
+      const a = await _T?.json();
+      data.content.banner = _list;
+      data.content.listVideo = [];
+      a?.contents.singleColumnBrowseResultsRenderer.tabs[0]?.tabRenderer.content.sectionListRenderer?.contents[1]?.itemSectionRenderer.contents[0].horizontalCardListRenderer.cards?.map(
+        ({ videoCardRenderer }) => {
+          var k =({
+            title: videoCardRenderer?.title.runs[0].text,
+            id:videoCardRenderer?.videoId,
+            thumbnail: `https://i.ytimg.com/vi/${videoCardRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
+            endpoint: `/watch?v=${videoCardRenderer?.videoId}`,
+          });
+          data.content.listVideo?.push(k)
+          _list[parseInt(Math.random()*5)]={
+            thumbnail:k.thumbnail,
+            id:k?.id,
+            platform:"youtube"
+          };
+        }
+      );
     } else if (type === "home_page") {
       const _T = await fetch(
         "https://www.youtube.com/youtubei/v1/browse?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
@@ -334,7 +368,7 @@ export async function POST(req) {
         }
       ).catch(console.error);
       const a = await _T?.json();
-      
+
       const _data = await fetch("https://gql.twitch.tv/gql", {
         method: "POST",
         headers: {
@@ -362,7 +396,7 @@ export async function POST(req) {
         }),
       }).catch(console.error);
       const __1data = await _data.json();
-      
+
       data._ = a;
       var t = __1data?.data?.shelves?.edges[0].node?.content.edges?.map(
         (n) => (
@@ -402,24 +436,24 @@ export async function POST(req) {
           t[Math.floor(Math.random() * t.length)]
         );
       });
-      data.content.topBtnFilters =[
+      data.content.topBtnFilters = [
         {
-          apiFilter:"F:all",
-          name:"All"
+          apiFilter: "F:all",
+          name: "All",
         },
         {
-          apiFilter:"F:youtube",
-          name:"Youtube"
+          apiFilter: "F:youtube",
+          name: "Youtube",
         },
         {
-          apiFilter:"F:twitch",
-          name:"Twitch"
+          apiFilter: "F:twitch",
+          name: "Twitch",
         },
         {
-          apiFilter:"F:rbc",
-          name:"Recommended_by_breeder"
+          apiFilter: "F:rbc",
+          name: "Recommended_by_breeder",
         },
-      ]
+      ];
       data.content.banner = {
         viewsCount: "---",
         list: [
@@ -487,55 +521,77 @@ export async function POST(req) {
           },
         }),
       });
-      const c = await fetch("https://m.youtube.com/youtubei/v1/search?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false", {
-  "headers": {
-    "accept": "*/*",
-    "accept-language": "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
-    "content-type": "application/json",
-    "sec-ch-ua": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\"",
-    "sec-ch-ua-arch": "\"\"",
-    "sec-ch-ua-bitness": "\"\"",
-    "sec-ch-ua-full-version": "\"120.0.6099.26\"",
-    "sec-ch-ua-full-version-list": "\"Not_A Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"120.0.6099.26\"",
-    "sec-ch-ua-mobile": "?1",
-    "sec-ch-ua-model": "\"SM-A135M\"",
-    "sec-ch-ua-platform": "\"Android\"",
-    "sec-ch-ua-platform-version": "\"13.0.0\"",
-    "sec-ch-ua-wow64": "?0",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "same-origin",
-    "sec-fetch-site": "same-origin",
-    "x-client-data": "CIzqygE=",
-    "x-goog-visitor-id": "Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D",
-    "x-youtube-bootstrap-logged-in": "false",
-    "x-youtube-client-name": "2",
-    "x-youtube-client-version": "2.20231130.05.00"
-  },
-  "referrer": "https://m.youtube.com/results?sp=mAEA&search_query="+query,
-  "referrerPolicy": "strict-origin-when-cross-origin",
-  "body": "{\"context\":{\"client\":{\"hl\":\"en\",\"gl\":\"BR\",\"remoteHost\":\"143.137.158.18\",\"deviceMake\":\"Generic\",\"deviceModel\":\"Android 10.0\",\"visitorData\":\"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D\",\"userAgent\":\"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)\",\"clientName\":\"MWEB\",\"clientVersion\":\"2.20231130.05.00\",\"osName\":\"Android\",\"osVersion\":\"10\",\"originalUrl\":\"https://m.youtube.com/results?sp=mAEA&search_query="+query+"\",\"playerType\":\"UNIPLAYER\",\"screenPixelDensity\":3,\"platform\":\"MOBILE\",\"clientFormFactor\":\"SMALL_FORM_FACTOR\",\"configInfo\":{\"appInstallData\":\"CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF\"},\"screenDensityFloat\":2.625,\"userInterfaceTheme\":\"USER_INTERFACE_THEME_DARK\",\"timeZone\":\"America/Sao_Paulo\",\"browserName\":\"Chrome Mobile\",\"browserVersion\":\"120.0.0.0\",\"acceptHeader\":\"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\",\"deviceExperimentId\":\"ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG\",\"screenWidthPoints\":412,\"screenHeightPoints\":410,\"utcOffsetMinutes\":-180,\"memoryTotalKbytes\":\"4000000\",\"mainAppWebInfo\":{\"graftUrl\":\"/results?sp=mAEA&search_query="+query+"\",\"webDisplayMode\":\"WEB_DISPLAY_MODE_BROWSER\",\"isWebNativeShareAvailable\":true}},\"user\":{\"lockedSafetyMode\":false},\"request\":{\"useSsl\":true,\"internalExperimentFlags\":[],\"consistencyTokenJars\":[]},\"clickTracking\":{\"clickTrackingParams\":\"CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J\"},\"adSignalsInfo\":{\"params\":[{\"key\":\"dt\",\"value\":\"1701634226262\"},{\"key\":\"flash\",\"value\":\"0\"},{\"key\":\"frm\",\"value\":\"0\"},{\"key\":\"u_tz\",\"value\":\"-180\"},{\"key\":\"u_his\",\"value\":\"5\"},{\"key\":\"u_h\",\"value\":\"918\"},{\"key\":\"u_w\",\"value\":\"412\"},{\"key\":\"u_ah\",\"value\":\"918\"},{\"key\":\"u_aw\",\"value\":\"412\"},{\"key\":\"u_cd\",\"value\":\"24\"},{\"key\":\"bc\",\"value\":\"31\"},{\"key\":\"bih\",\"value\":\"410\"},{\"key\":\"biw\",\"value\":\"412\"},{\"key\":\"brdim\",\"value\":\"0,0,0,0,412,0,412,410,412,410\"},{\"key\":\"vis\",\"value\":\"1\"},{\"key\":\"wgl\",\"value\":\"true\"},{\"key\":\"ca_type\",\"value\":\"image\"}]}},\"query\":\""+query+"\",\"params\":\"mAEA\",\"webSearchboxStatsUrl\":\"/search?oq="+query+"&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M\"}",
-  "method": "POST",
-  "mode": "cors",
-  "credentials": "include"
-});
+      const c = await fetch(
+        "https://m.youtube.com/youtubei/v1/search?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
+        {
+          headers: {
+            accept: "*/*",
+            "accept-language":
+              "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
+            "content-type": "application/json",
+            "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120"',
+            "sec-ch-ua-arch": '""',
+            "sec-ch-ua-bitness": '""',
+            "sec-ch-ua-full-version": '"120.0.6099.26"',
+            "sec-ch-ua-full-version-list":
+              '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.26"',
+            "sec-ch-ua-mobile": "?1",
+            "sec-ch-ua-model": '"SM-A135M"',
+            "sec-ch-ua-platform": '"Android"',
+            "sec-ch-ua-platform-version": '"13.0.0"',
+            "sec-ch-ua-wow64": "?0",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "same-origin",
+            "sec-fetch-site": "same-origin",
+            "x-client-data": "CIzqygE=",
+            "x-goog-visitor-id":
+              "Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D",
+            "x-youtube-bootstrap-logged-in": "false",
+            "x-youtube-client-name": "2",
+            "x-youtube-client-version": "2.20231130.05.00",
+          },
+          referrer:
+            "https://m.youtube.com/results?sp=mAEA&search_query=" + query,
+          referrerPolicy: "strict-origin-when-cross-origin",
+          body:
+            '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231130.05.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/results?sp=mAEA&search_query=' +
+            query +
+            '","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG","screenWidthPoints":412,"screenHeightPoints":410,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/results?sp=mAEA&search_query=' +
+            query +
+            '","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J"},"adSignalsInfo":{"params":[{"key":"dt","value":"1701634226262"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"5"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"410"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,410,412,410"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"query":"' +
+            query +
+            '","params":"mAEA","webSearchboxStatsUrl":"/search?oq=' +
+            query +
+            '&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M"}',
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
+        }
+      );
       const b = await a.json();
       const d = await c.json();
-      var k = d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(({videoWithContextRenderer})=>{
-        return videoWithContextRenderer&&({
-          title:videoWithContextRenderer.headline?.runs[0]?.text,
-          endpoint:"/watch?v="+videoWithContextRenderer.videoId,
-          actorName:videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
-          viewsCount:videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
-          thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/hq720.jpg`,
-          type:"video"
-        })
-      })
-      data.content.list=[]
+      var k =
+        d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(
+          ({ videoWithContextRenderer }) => {
+            return (
+              videoWithContextRenderer && {
+                title: videoWithContextRenderer.headline?.runs[0]?.text,
+                endpoint: "/watch?v=" + videoWithContextRenderer.videoId,
+                actorName:
+                  videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
+                viewsCount:
+                  videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
+                thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/hq720.jpg`,
+                type: "video",
+              }
+            );
+          }
+        );
+      data.content.list = [];
       data.content.list.push(...k);
-      
-      data.content.list.push(...b?.data?.searchFor?.channels?.items)
+
+      data.content.list.push(...b?.data?.searchFor?.channels?.items);
     }
-  
   } catch (error) {
     console.error("[ LOG REQUEST BROUSER ERROR ]", error);
     return new NextResponse(error, { status: 403 });
@@ -547,3 +603,4 @@ function size(a = "", b, c) {
   return a.replace("{width}", b).replace("{height}", c);
 }
 //{"query":"query ChannelHomePage_Query(\\n  $login: String\u0021\\n  $url: String\u0021\\n) {\\n  channel: user(login: $login) {\\n    ...ChannelLayout_user\\n    id\\n    __typename\\n    login\\n    displayName\\n    stream {\\n      id\\n      __typename\\n      ...ChannelFeaturedCardStream_stream\\n    }\\n    subscriptionProducts {\\n      ...FeaturedClipsShelfCover_subscriptionProducts\\n      id\\n      __typename\\n    }\\n    archives: videos(first: 1, type: ARCHIVE, sort: TIME) {\\n      edges {\\n        node {\\n          ...ChannelFeaturedCardVideo_video\\n          id\\n          __typename\\n        }\\n      }\\n    }\\n    videoShelves(first: 1) {\\n      edges {\\n        node {\\n          type\\n          title\\n          items {\\n            __typename\\n            ...VideoShelf_items\\n            ... on Clip {\\n              id\\n              __typename\\n            }\\n            ... on Video {\\n              id\\n              __typename\\n            }\\n          }\\n          id\\n          __typename\\n        }\\n      }\\n    }\\n    channel {\\n      home {\\n        shelves {\\n          categoryShelf {\\n            edges {\\n              node {\\n                ...CategoryShelf_items\\n                id\\n                __typename\\n              }\\n            }\\n          }\\n          streamerShelf {\\n            edges {\\n              node {\\n                ...StreamerShelf_items\\n                id\\n                __typename\\n              }\\n            }\\n          }\\n        }\\n      }\\n      id\\n      __typename\\n    }\\n  }\\n  ...SeoHead_query\\n}\\n\\nfragment CategoryShelf_items on Game {\\n  id\\n  __typename\\n  name\\n  ...GameCard_game\\n}\\n\\nfragment ChannelCover_user on User {\\n  login\\n  bannerImageURL\\n  primaryColorHex\\n}\\n\\nfragment ChannelDescription_user on User {\\n  login\\n  displayName\\n  description\\n  lastBroadcast {\\n    game {\\n      displayName\\n      id\\n      __typename\\n    }\\n    id\\n    __typename\\n  }\\n  videos(first: 30) {\\n    edges {\\n      node {\\n        id\\n        __typename\\n        game {\\n          id\\n          __typename\\n          displayName\\n        }\\n      }\\n    }\\n  }\\n}\\n\\nfragment ChannelFeaturedCardStream_stream on Stream {\\n  id\\n  __typename\\n  broadcaster {\\n    broadcastSettings {\\n      title\\n      id\\n      __typename\\n    }\\n    id\\n    __typename\\n    login\\n  }\\n  previewImageURL\\n  game {\\n    displayName\\n    id\\n    __typename\\n  }\\n}\\n\\nfragment ChannelFeaturedCardVideo_video on Video {\\n  id\\n  __typename\\n  title\\n  viewCount\\n  previewThumbnailURL\\n  publishedAt\\n  game {\\n    name\\n    id\\n    __typename\\n  }\\n}\\n\\nfragment ChannelLayout_user on User {\\n  ...ChannelCover_user\\n  ...ChannelProfileInfo_user\\n  id\\n  __typename\\n  login\\n}\\n\\nfragment ChannelName_user on User {\\n  displayName\\n  login\\n  roles {\\n    isPartner\\n  }\\n}\\n\\nfragment ChannelProfileInfo_user on User {\\n  ...ChannelStatus_user\\n  ...ChannelDescription_user\\n  ...ChannelName_user\\n  ...SocialMediaLinks_user\\n  ...useFollowChannelFragment\\n  profileImageURL(width: 150)\\n  login\\n  displayName\\n  primaryColorHex\\n  followers {\\n    totalCount\\n  }\\n  stream {\\n    id\\n    __typename\\n  }\\n}\\n\\nfragment ChannelStatus_user on User {\\n  lastBroadcast {\\n    id\\n    __typename\\n    startedAt\\n    game {\\n      id\\n      __typename\\n      displayName\\n    }\\n  }\\n  stream {\\n    id\\n    __typename\\n    createdAt\\n    game {\\n      id\\n      __typename\\n      displayName\\n    }\\n    type\\n    viewersCount\\n  }\\n}\\n\\nfragment FeaturedClipsShelfCover_subscriptionProducts on SubscriptionProduct {\\n  id\\n  __typename\\n  emotes {\\n    id\\n    __typename\\n    token\\n  }\\n}\\n\\nfragment GameCard_game on Game {\\n  id\\n  __typename\\n  boxArtURL\\n  displayName\\n  name\\n  slug\\n  viewersCount\\n}\\n\\nfragment SeoHead_query on Query {\\n  urlMetadata(url: $url) {\\n    title\\n    metatags {\\n      name\\n      attributes {\\n        key\\n        value\\n      }\\n    }\\n    jsonld\\n    share {\\n      title\\n      text\\n      url\\n    }\\n  }\\n}\\n\\nfragment SocialMediaLinks_user on User {\\n  channel {\\n    id\\n    __typename\\n    socialMedias {\\n      id\\n      __typename\\n      name\\n      title\\n      url\\n    }\\n  }\\n}\\n\\nfragment StreamerShelf_items on User {\\n  id\\n  __typename\\n  ...UserCard_user\\n}\\n\\nfragment UserCard_user on User {\\n  id\\n  __typename\\n  displayName\\n  login\\n  stream {\\n    viewersCount\\n    id\\n    __typename\\n  }\\n  primaryColorHex\\n  profileImageURL(width: 150)\\n}\\n\\nfragment VideoShelfClip_clip on Clip {\\n  id\\n  __typename\\n  broadcaster {\\n    login\\n    id\\n    __typename\\n  }\\n  clipCreatedAt: createdAt\\n  durationSeconds\\n  game {\\n    name\\n    displayName\\n    id\\n    __typename\\n  }\\n  slug\\n  thumbnailURL\\n  clipTitle: title\\n  clipViewCount: viewCount\\n}\\n\\nfragment VideoShelfVideo_video on Video {\\n  id\\n  __typename\\n  createdAt\\n  lengthSeconds\\n  game {\\n    name\\n    displayName\\n    id\\n    __typename\\n  }\\n  previewThumbnailURL\\n  title\\n  viewCount\\n}\\n\\nfragment VideoShelf_items on VideoShelfItem {\\n  __isVideoShelfItem: __typename\\n  __typename\\n  ... on Clip {\\n    id\\n    __typename\\n    game {\\n      name\\n      id\\n      __typename\\n    }\\n    ...VideoShelfClip_clip\\n  }\\n  ... on Video {\\n    id\\n    __typename\\n    game {\\n      name\\n      id\\n      __typename\\n    }\\n    ...VideoShelfVideo_video\\n  }\\n}\\n\\nfragment useFollowChannelFragment on User {\\n  id\\n  __typename\\n  self {\\n    follower {\\n      followedAt\\n    }\\n  }\\n}\\n","variables":{"login":"wuant","url":"https://m.twitch.tv/wuant/home"}}' \
+export const revalidate = 200;

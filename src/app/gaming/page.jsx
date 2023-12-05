@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <>
       <div className="page-home">
-        <Banner />
+        <Banner list={data?.content?.banner}/>
         <Title semibold="" large="" title="Gamers" />
         <div className="row-list">
           {/*   <CardCategory />
@@ -52,3 +52,4 @@ export default async function Home() {
     </>
   );
 }
+export const revalidate = 100;
