@@ -9,14 +9,15 @@ export const metadata = {
 }
 
 export default async function Home() {
-  const data = await Fetch({
+/*  const data = await Fetch({
     type: "browse",
     context: {
       type: "home_gaming",
     },
   });
-
-  return (
+*/
+  return"this page is with bugs"
+ /* return (
     <>
       <div className="page-home">
         <Banner list={data?.content?.banner}/>
@@ -38,7 +39,7 @@ export default async function Home() {
           <CardCategory />
           <CardCategory />
           <CardCategory />
-  */}
+  * /}
         </div>{JSON.stringify(data)}
         <div className="page-content-video">
           <Title semibold="" large="" title="Recommended for you" />
@@ -50,6 +51,6 @@ export default async function Home() {
         </div>
       </div>
     </>
-  );
+  );*/
 }
 export const revalidate = 100;
