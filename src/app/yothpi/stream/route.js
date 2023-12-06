@@ -4,12 +4,18 @@ export async function GET(req) {
   const url = new URL(req.url);
 
   const qurl = decodeURIComponent(url.searchParams.get("q"));
-  var m =null//decodeURIComponent(url.searchParams.get("m"));
-  if (m) {
-    m = JSON.parse(m);
-  } else m = {};
+  var m =decodeURIComponent(url.searchParams.get("m"));
+  
+    if(m)m = JSON.parse(m);
 
-  const blob = await  fetch(qurl, m)
+
+  const blob = await  fetch(qurl, {
+    body:m?(new Uint8Array([120,0])):undefined,
+    method:"POST",
+    mode:"no-cors",
+    cache:"no-store", 
+    credentials:"include"
+  })
     .then((response) => response.body)
     .then((body) => {
       console.log(body); //** print a streamable object

@@ -2,7 +2,7 @@
 import Title from "./string";
 export default function () {
   return (
-    <div className="miniplayer">
+    <div className="miniplayer hidden">
       <div>
         <div className="miniplayer-player-container"></div>
         <div>

@@ -38,6 +38,7 @@ const linguagems = {
     "*_M_Views": "*M Views",
     "*_B_Views": "*B Views",
     "*_T_Views": "*T Views",
+    "Search_for_*":"Search for \"*\"",
     "This_video_could_not_be_loaded":"This video could not be loaded"
   },
 };

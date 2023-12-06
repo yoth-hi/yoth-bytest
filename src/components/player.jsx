@@ -312,6 +312,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     };
   }, [video]);
   React.useEffect(() => {
+    srt?.setType?.(souce_type || M?.souce_type);
     srt?.setSrc?.(souce || M?.src);
   }, [souce]);
   React.useLayoutEffect(() => {

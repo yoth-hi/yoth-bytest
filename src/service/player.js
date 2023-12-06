@@ -92,8 +92,12 @@ e.hasAttribute = function (a) {
   return this.t.hasAttribute(a);
 };
 export default function ({ video }) {
+  var __type;
   const a = new _(video);
-  const play = ()=>a.play();
+  const play = () => a.play();
+  const setType = function (a) {
+    __type = a;
+  };
   const setSrc = (b) => {
     var c = {
       credentials: "include",
@@ -101,12 +105,62 @@ export default function ({ video }) {
       body: new Uint8Array([120, 0]),
       method: "POST",
     };
-    a.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
+     a.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
     //  fetch(b);
-    play();
+    play()
+      return;
+/*
+    if (!b) {
+      a.setSrc("");
+    }
+    // Check if the browser supports the MediaSource API
+    const mediaSource = new MediaSource();
+
+    // Set up the video element to use the MediaSource
+    a.setSrc(URL.createObjectURL(mediaSource));
+
+    mediaSource.addEventListener("sourceopen", () => {
+      const sourceBuffer = mediaSource.addSourceBuffer(
+        'video/mp4; codecs="avc1.64000d,mp4a.40.2"'
+      );
+
+      // Fetching and streaming videoaltitags
+      fetch(b, {
+        credentials: "include",
+        method: "POST",
+        body: "x\u0000",
+        mode: "no-cors",
+        cache: "no-store",
+      })
+        .then((response) =>{
+          response.body
+          const reader = response.body.getReader();
+          
+          // Reading and appending stream chunks
+          function read() {
+            reader.read().then(({ done, value }) => {
+              if (done) {
+                console.log("Stream finished");
+                return;
+              }
+
+              // Append the chunk to the source buffer
+              sourceBuffer.appendBuffer(value);
+              console.log(value);
+              // Continue reading the next chunk
+              read();
+            }).catch(console.error);
+          }
+          read();
+
+          // Start reading the stream
+        })
+        .catch((error) => console.error("Error fetching video:", error));
+    });
+*/
   };
-  const pause = ()=>a.pause();
-  const setPlaybackRate = (b)=>a.setPlaybackRate(b);
+  const pause = () => a.pause();
+  const setPlaybackRate = (b) => a.setPlaybackRate(b);
   return {
     setSrc,
     play,

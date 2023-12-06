@@ -4,7 +4,6 @@ import Title from "../../components/string";
 import Button from "../../components/button_brr";
 import S from "../../components/icons/span";
 
-
 import CardVideo from "../../components/CardVideo";
 import Fetch from "../../service/ApiRest";
 import CardVideoRow from "../../components/CardVideoRow";
@@ -27,12 +26,21 @@ export default function (props) {
   return (
     <div className="page-query">
       <div>
-        {data?.content?.list?.map((q) => (q&&q?.type==="video"?<CardVideoRow data={q} />:<A q={q} />
-        ))}
-        <S />
+        <div className="page-search-topbar">
+          <Title
+            semibold=""
+            title={t("Search_for_*", [props?.searchParams?.search_query])}
+          />
+        </div>
+        <div>
+          <div>
+            {data?.content?.list?.map((q) =>
+              q && q?.type === "video" ? <CardVideoRow data={q} /> : <A q={q} />
+            )}
+            <S />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-

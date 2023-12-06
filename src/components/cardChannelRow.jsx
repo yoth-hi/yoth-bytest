@@ -1,7 +1,7 @@
 import Image from "./image";
 import Link from "next/link";
 export default function ({ q }) {
-  "*";
+  if(!q)return;
   //(JSON.stringify(jstr))
   return (
     <div className="card-channel-row">

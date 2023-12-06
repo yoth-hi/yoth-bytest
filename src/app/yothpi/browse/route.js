@@ -214,7 +214,9 @@ export async function POST(req) {
                   compactVideoRenderer?.publishedTimeText?.simpleText,
                 thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
                 endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
-              }
+              } 
+              || _list[parseInt(Math.random()*10)]
+              || _list[parseInt(Math.random()*10)]
           );
       }
     } else if (type === "home_gaming") {
@@ -249,7 +251,7 @@ export async function POST(req) {
           },
           referrer: "https://m.youtube.com/gaming",
           referrerPolicy: "strict-origin-when-cross-origin",
-          body: '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSi95rmrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231204.01.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/gaming","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CL3muasGEIfUrwUQ1YiwBRCp968FEPX7_hIQiIewBRCu1P4SEJmUsAUQrLevBRDnuq8FEL2ZsAUQ2cmvBRDJ968FEJ6LsAUQ3ej-EhC90q8FELz5rwUQvoqwBRDpjLAFEJT6_hIQ2piwBRCrgrAFEOHyrwUQpoGwBRC36v4SEM6vrwUQ3oKwBRC--a8FELfvrwUQ6sOvBRCikrAFEKXC_hIQiOOvBRCWlbAFEJj8_hIQzN-uBRDUkrAFEJrwrwUQ55ewBRD1-a8FEL22rgUQ_IWwBRC4i64FENuZsAUQooGwBRDks_4SEMyu_hIQ8OWvBRDT4a8FELaQsAUQzZWwBRCHqK8FENDirwUQx4OwBRComrAFEMb1rgUQpPWuBRDr6P4SEPeasAUQ-pCwBQ%3D%3D"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0Rrd05UazFNamM0TXpBek1UWXlPQT09EL3muasGGL3muasG","screenWidthPoints":412,"screenHeightPoints":787,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/gaming","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CCMQpIEJGAMiEwjXnp6vifeCAxWAjZUCHYpTDcU="},"adSignalsInfo":{"params":[{"key":"dt","value":"1701737277654"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"3"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"787"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,787,412,787"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"browseId":"UCOpNcN46UbXVtpKMrmU4Abg"}',
+          body: '{"context":{"client":{"hl":"'+lg+'","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSi95rmrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231204.01.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/gaming","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CL3muasGEIfUrwUQ1YiwBRCp968FEPX7_hIQiIewBRCu1P4SEJmUsAUQrLevBRDnuq8FEL2ZsAUQ2cmvBRDJ968FEJ6LsAUQ3ej-EhC90q8FELz5rwUQvoqwBRDpjLAFEJT6_hIQ2piwBRCrgrAFEOHyrwUQpoGwBRC36v4SEM6vrwUQ3oKwBRC--a8FELfvrwUQ6sOvBRCikrAFEKXC_hIQiOOvBRCWlbAFEJj8_hIQzN-uBRDUkrAFEJrwrwUQ55ewBRD1-a8FEL22rgUQ_IWwBRC4i64FENuZsAUQooGwBRDks_4SEMyu_hIQ8OWvBRDT4a8FELaQsAUQzZWwBRCHqK8FENDirwUQx4OwBRComrAFEMb1rgUQpPWuBRDr6P4SEPeasAUQ-pCwBQ%3D%3D"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0Rrd05UazFNamM0TXpBek1UWXlPQT09EL3muasGGL3muasG","screenWidthPoints":412,"screenHeightPoints":787,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/gaming","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CCMQpIEJGAMiEwjXnp6vifeCAxWAjZUCHYpTDcU="},"adSignalsInfo":{"params":[{"key":"dt","value":"1701737277654"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"3"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"787"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,787,412,787"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"browseId":"UCOpNcN46UbXVtpKMrmU4Abg"}',
           method: "POST",
           mode: "cors",
           credentials: "include",
@@ -260,17 +262,17 @@ export async function POST(req) {
       data.content.listVideo = [];
       a?.contents.singleColumnBrowseResultsRenderer.tabs[0]?.tabRenderer.content.sectionListRenderer?.contents[1]?.itemSectionRenderer.contents[0].horizontalCardListRenderer.cards?.map(
         ({ videoCardRenderer }) => {
-          var k =({
+          var k = {
             title: videoCardRenderer?.title.runs[0].text,
-            id:videoCardRenderer?.videoId,
+            id: videoCardRenderer?.videoId,
             thumbnail: `https://i.ytimg.com/vi/${videoCardRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?v=${videoCardRenderer?.videoId}`,
-          });
-          data.content.listVideo?.push(k)
-          _list[parseInt(Math.random()*5)]={
-            thumbnail:k.thumbnail,
-            id:k?.id,
-            platform:"youtube"
+          };
+          data.content.listVideo?.push(k);
+          _list[parseInt(Math.random() * 5)] = {
+            thumbnail: k?.thumbnail,
+            id: k?.id,
+            platform: "youtube",
           };
         }
       );
@@ -411,7 +413,7 @@ export async function POST(req) {
 
             actorImage: `${n?.broadcaster?.profileImageURL}`,
             actorName: `${n?.broadcaster?.displayName}`,
-          }
+          } || _list[parseInt(Math.random()*10)]
         )
       );
       t.push(
@@ -427,10 +429,11 @@ export async function POST(req) {
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
               actorName: `${n?.ownerText?.runs?.[0]?.text}`,
-            }
+            }|| _list[parseInt(Math.random()*10)]
           )
         )
       );
+      t.push(_list[parseInt(Math.random()*2)]);
       t.forEach(() => {
         (data.content.listVideo = data.content.listVideo || []).push(
           t[Math.floor(Math.random() * t.length)]
@@ -536,8 +539,6 @@ export async function POST(req) {
             "sec-ch-ua-full-version-list":
               '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.26"',
             "sec-ch-ua-mobile": "?1",
-            "sec-ch-ua-model": '"SM-A135M"',
-            "sec-ch-ua-platform": '"Android"',
             "sec-ch-ua-platform-version": '"13.0.0"',
             "sec-ch-ua-wow64": "?0",
             "sec-fetch-dest": "empty",
@@ -554,14 +555,14 @@ export async function POST(req) {
             "https://m.youtube.com/results?sp=mAEA&search_query=" + query,
           referrerPolicy: "strict-origin-when-cross-origin",
           body:
-            '{"context":{"client":{"hl":"en","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231130.05.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/results?sp=mAEA&search_query=' +
+            '{"context":{"client":{"hl":"'+lg+'","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231130.05.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/results?sp=mAEA&search_query=' +
             query +
             '","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG","screenWidthPoints":412,"screenHeightPoints":410,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/results?sp=mAEA&search_query=' +
             query +
             '","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J"},"adSignalsInfo":{"params":[{"key":"dt","value":"1701634226262"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"5"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"410"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,410,412,410"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"query":"' +
             query +
             '","params":"mAEA","webSearchboxStatsUrl":"/search?oq=' +
-            query +
+            query +  
             '&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M"}',
           method: "POST",
           mode: "cors",
@@ -570,27 +571,42 @@ export async function POST(req) {
       );
       const b = await a.json();
       const d = await c.json();
-      var k =
-        d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(
-          ({ videoWithContextRenderer }) => {
-            return (
-              videoWithContextRenderer && {
-                title: videoWithContextRenderer.headline?.runs[0]?.text,
-                endpoint: "/watch?v=" + videoWithContextRenderer.videoId,
-                actorName:
-                  videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
-                viewsCount:
-                  videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
-                thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/hq720.jpg`,
-                type: "video",
-              }
-            );
+      var f = ({ videoWithContextRenderer,...as_ }) => {
+        console.log(as_)
+        return (
+          videoWithContextRenderer && {
+            title: videoWithContextRenderer.headline?.runs[0]?.text,
+            endpoint: "/watch?v=" + videoWithContextRenderer.videoId,
+            actorName:
+              videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
+            viewsCount:
+              videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
+            thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/sddefault.jpg`,
+            type: "video",
           }
         );
+      };
+      var t=b?.data?.searchFor?.channels?.items;
+      
+      var k = [];
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[1]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[2]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[3]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(t[0]);
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[4]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[5]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(...(d?.contents?.sectionListRenderer?.contents?.[6]?.itemSectionRenderer?.contents?.map(f) ||[]))
+        k.push(t[1]);
+        _list.push(_list[parseInt(Math.random()*10)] || k[parseInt(Math.random()*10)] );
+        k.push(t[2]);
+        k.push(t[3]);
+        k[parseInt(Math.random()*10)]=_list[parseInt(Math.random()*10)];
+        _list.push(k[parseInt(Math.random()*10)]);
+      data._ = d;
       data.content.list = [];
       data.content.list.push(...k);
 
-      data.content.list.push(...b?.data?.searchFor?.channels?.items);
     }
   } catch (error) {
     console.error("[ LOG REQUEST BROUSER ERROR ]", error);
