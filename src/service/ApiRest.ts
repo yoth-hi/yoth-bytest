@@ -13,8 +13,8 @@ const Fetch = (a: string = "", b: Record<string, any> = {}): Promise<any> => {
     const headersList = headers();
     _j = false; 
     
-//a = `https://yoth-hi.vercel.app${a}`;
-a = `http://localhost:3000${a}`;
+a = `https://yoth-hi.vercel.app${a}`;
+//a = `http://localhost:3000${a}`;
   } catch (error) {
     a = `${location.origin}${a}`;
   }
