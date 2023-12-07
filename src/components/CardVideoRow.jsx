@@ -32,7 +32,7 @@ const T = memo(function (props) {
           <div>
             <div className="card-video-row-channel-name">{actorName}</div>
             <div className="card-video-row-matadata">
-              {viewsCount?formate(viewsCount, "Views"):<div className="skeleton-text title" />}
+              {viewsCount?(viewsCount?.label||formate(viewsCount, "Views")):<div className="skeleton-text title" />}
             </div>
           </div>
         </Link>

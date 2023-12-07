@@ -6,7 +6,7 @@ import { useEffect, memo, useState } from "react";
 
 export default memo(function ({ data, skeleton }) {
   if (!data) return;
-  const { title, endpoint,plt, actorImage, actorName, viewsCount, thumbnail } =
+  const { title, endpoint, plt, actorImage, actorName, viewsCount, thumbnail } =
     data;
   return (
     <Btn
@@ -27,30 +27,32 @@ export default memo(function ({ data, skeleton }) {
             aria-label={title}
           />
           <div className="card-video--time">
-            <div className="card-video--time-pf">{plt==="tw"?"Twitch":"YouTube"}</div>
+            <div className="card-video--time-pf">
+              {plt === "tw" ? "Twitch" : "YouTube"}
+            </div>
           </div>
         </div>
       </Link>
-      <div className="card-video-details">
-        <div
-          className={
-            actorImage ? "card-video-profile" : "skeleton-image-square"
-          }
-        >
-          {actorImage && (
-            <Image
-              classRoot="card-video-profile"
-              width={64}
-              src={actorImage}
-              aria-label={actorName}
-            />
-          )}
-        </div>
-        <Link
-          href={endpoint || "/"}
-          className="endpoint-block"
-          aria-label={title || ""}
-        >
+      <Link
+        href={endpoint || "/"}
+        className="endpoint-block"
+        aria-label={title || ""}
+      >
+        <div className="card-video-details">
+          <div
+            className={
+              actorImage ? "card-video-profile" : "skeleton-image-square"
+            }
+          >
+            {actorImage && (
+              <Image
+                classRoot="card-video-profile"
+                width={64}
+                src={actorImage}
+                aria-label={actorName}
+              />
+            )}
+          </div>
           <div className="card-matadata">
             <h3 className="card-video-title">
               {title || <div className="skeleton-text title" />}
@@ -62,8 +64,8 @@ export default memo(function ({ data, skeleton }) {
               <div className="card-video-matadata">{viewsCount}</div>
             </div>
           </div>
-        </Link>
-      </div>
+        </div>
+      </Link>
     </Btn>
   );
 });

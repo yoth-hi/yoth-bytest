@@ -129,7 +129,7 @@ export async function POST(req) {
           context?.id +
           '","playbackContext":{"contentPlaybackContext":{"currentUrl":"/watch?v=' +
           context?.id +
-          '","vis":0,"splay":false,"autoCaptionsDefaultOn":false,"autonavState":"STATE_NONE","html5Preference":"HTML5_PREF_WANTS","signatureTimestamp":19681,"referer":"https://yoth-hi.vercel.app/","lactMilliseconds":"-1","watchAmbientModeContext":{"hasShownAmbientMode":true,"watchAmbientModeEnabled":true}}},"racyCheckOk":false,"contentCheckOk":false}',
+          '","vis":0,"splay":false,"autoCaptionsDefaultOn":false,"autonavState":"STATE_NONE","html5Preference":"HTML5_PREF_WANTS","signatureTimestamp":0,"referer":"https://yoth-hi.vercel.app/","lactMilliseconds":"-1","watchAmbientModeContext":{"hasShownAmbientMode":true,"watchAmbientModeEnabled":true}}},"racyCheckOk":false,"contentCheckOk":false}',
         method: "POST",
         mode: "cors",
         credentials: "include",
@@ -154,7 +154,7 @@ export async function POST(req) {
       },
       microformat:data?.microformat?.playerMicroformatRenderer || {
         title:{
-        simpleText:(us?.broadcastSettings || t)?.title
+          simpleText:(us?.broadcastSettings || t)?.title
         }
       },
       stream: {
@@ -178,7 +178,7 @@ export async function POST(req) {
           us?.offlineImageURL ||
           us?.bannerImageURL,
         id: us?.id || t?.videoId,
-        isLive: !!us?.stream,
+        isLive: !!us?.stream || !!t?.isLive,
         tw_isOffline: !us?.stream && context?.platform === "twitch",
       },
     },

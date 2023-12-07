@@ -22,8 +22,6 @@ import { t } from "../libs/transition";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
-
-
 // var mw=
 // {
 //     p7:function(a)
@@ -71,8 +69,8 @@ var bz = function (a) {
   });
   _1 = decodeURIComponent(_3[2][1]);
   _2 = _3[0][1];
-  _1 = _1 + "&alr=yes&sig=" +t( _2);
-  
+  _1 = _1 + "&alr=yes&sig=" + t(_2);
+
   return _3.reverse().join("&");
   // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
 };
@@ -224,6 +222,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   const souce_type = a?.stream?.action?.mimeType || data?.stream?.[c]?.mimeType;
   // M?.change?.(souce,souce_type)
   const resolutions = Object.values(data?.stream || {});
+  const { STREAM_IS_OFFLINE } = data?.labels || {};
   const handleScroll = (e) => {
     var t = document.body;
     if (e.target.scrollTop > 20) {
@@ -330,7 +329,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     setError(false);
     s(true);
     return () => {};
-  }, [id,platform]);
+  }, [id, platform]);
 
   const hoverPlayer = function () {
     time = 200;
@@ -345,7 +344,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
       className="video-player"
       tabIndex="-1"
     >
-      {start_play && (
+      {(start_play|| data?.videoDetails?.tw_isOffline) && (
         <Image
           src={
             platform === "youtube"
@@ -409,7 +408,17 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             <NextVideo />
           </div>
         )}
-        {data.videoDetails && controls && (
+        {data?.videoDetails&&data?.videoDetails?.tw_isOffline && (
+          <div className="player-card-info" title="offline">
+            <div className="player-card-info-title">{STREAM_IS_OFFLINE}</div>
+            <div className="player-card-info-metadata">
+              <div>{"--"}</div>
+              <div>{" • "}</div>
+              <div>{"--"}</div>
+            </div>
+          </div>
+        )}
+        {data.videoDetails && controls && !data?.videoDetails?.tw_isOffline && (
           <>
             {!data?.videoDetails?.tw_isOffline && (
               <div className="player-top">
@@ -428,7 +437,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     onClick={() => {
                       play_pouse();
                     }}
-                    aria-label={isPlay?t("Pause_K"):t("Play_K")}
+                    aria-label={isPlay ? t("Pause_K") : t("Play_K")}
                   >
                     <svg
                       height="100%"
@@ -461,19 +470,16 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     className="player-bottom-btn"
                     onClick={() => {
                       if (location.pathname === "/watch") {
-                        router.push("/") 
-                          
+                        router.push("/");
+
                         window.yoth?.setMode?.("miniplayer");
                         document
                           .querySelector(".layout-content")
                           ?.classList?.add("animation_on_mode_miniplayer");
-                        
                       } else {
-                        router.push("/watch?v=" + id)
-                          .then(()=>{
-                            
+                        router.push("/watch?v=" + id).then(() => {
                           window.yoth?.setMode?.("watch");
-                          })
+                        });
                       }
                     }}
                   >
@@ -494,11 +500,9 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                       className="resize-icon-player player-bottom-btn"
                       onClick={() => {
                         if (location.pathname !== "/watch") {
-                          router.push("/watch?v=" + id)
-                          .then(()=>{
-                            
-                          window.yoth?.setMode?.("watch");
-                          })
+                          router.push("/watch?v=" + id).then(() => {
+                            window.yoth?.setMode?.("watch");
+                          });
                         }
                         setStatusPlayerModeWatch(
                           statusPlayerModeWatch === 1 ? 0 : 1
@@ -512,16 +516,16 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     className="resize-icon-player player-bottom-btn"
                     onClick={() => {
                       if (location.pathname !== "/watch") {
-                        router.push("/watch?v=" + id).then(()=>{
-                          
-                        window.yoth?.setMode?.("watch");
-                      setStatusPlayerModeWatch(
-                        statusPlayerModeWatch === 2 ? 1 : 2
-                      );
-                        })
-                      } else  setStatusPlayerModeWatch(
-                        statusPlayerModeWatch === 2 ? 1 : 2
-                      );
+                        router.push("/watch?v=" + id).then(() => {
+                          window.yoth?.setMode?.("watch");
+                          setStatusPlayerModeWatch(
+                            statusPlayerModeWatch === 2 ? 1 : 2
+                          );
+                        });
+                      } else
+                        setStatusPlayerModeWatch(
+                          statusPlayerModeWatch === 2 ? 1 : 2
+                        );
                     }}
                   >
                     {statusPlayerModeWatch === 2 ? (

@@ -119,7 +119,8 @@ export default function RootLayout({ children, ...a }) {
   //    <Script src="/s/player/en/base.js" />
 }
 function parseLanguagePreferences(preferences) {
-  const languageArray = preferences.split(",").map((item) => {
+  if(!preferences)return;
+  const languageArray = preferences?.split(",").map((item) => {
     const [code, priority] = item.trim().split(";q=");
     return { code, priority: parseFloat(priority) || 1 };
   });

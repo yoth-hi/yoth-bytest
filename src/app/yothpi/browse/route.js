@@ -62,7 +62,6 @@ export async function POST(req) {
             end: {},
           };
         }
-        data._1data = __1data;
         const us = __1data?.data?.channel;
 
         if (platform === "twitch") {
@@ -168,12 +167,15 @@ export async function POST(req) {
               ?.content,
           actorName:
             r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
-              ?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text, //"" ,
-          actorId: "",
+              ?.playerOverlayVideoDetailsRenderer?.subtitle.text, //"" ,
+          actorId: r_data?.playerOverlays?.playerOverlayRenderer?.autoplay?.playerOverlayAutoplayRenderer?.byline?.runs[0]?.navigationEndpoint?.browseEndpoint?.browseId,
+          actorEndpoint: r_data?.playerOverlays?.playerOverlayRenderer?.autoplay?.playerOverlayAutoplayRenderer?.byline?.runs[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl,
           viewCount:
             r_data?.contents?.twoColumnWatchNextResults?.results?.results
               ?.contents?.[1]?.videoSecondaryInfoRenderer?.viewCount
               ?.videoViewCountRenderer?.viewCount?.simpleText,
+          metadata:r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
+              ?.playerOverlayVideoDetailsRenderer?.subtitle?.runs,
           actorImage:
             r_data?.contents?.twoColumnWatchNextResults?.results?.results
               ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner
@@ -222,6 +224,7 @@ export async function POST(req) {
               _list[parseInt(Math.random() * 10)] ||
               _list[parseInt(Math.random() * 10)]
           );
+        data._1data = r_data;
       }
     } else if (type === "home_gaming") {
       const _T = await fetch(
@@ -682,8 +685,7 @@ export async function POST(req) {
             endpoint: "/watch?v=" + videoWithContextRenderer.videoId,
             actorName:
               videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
-            viewsCount:
-              videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
+            viewsCount:{label:videoWithContextRenderer.shortViewCountText?.runs[0]?.text},
             thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/sddefault.jpg`,
             type: "video",
           }
