@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { getTraslate, req_btn } from "../_service";
 
 var _list = [];
-export const list = _list;
 export async function POST(req) {
   const startTime = Date.now();
   const data = { content: {} };
