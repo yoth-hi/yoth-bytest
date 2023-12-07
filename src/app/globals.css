@@ -549,8 +549,13 @@ body:not([fullscreen])
 .player-bottom-buttons {
   text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
 }
+[touche] .player-prosses-dot,
+.player-prosses-content:hover .player-prosses-dot
+{
+transform: translate(-50%, -9px) scale(1)!important;
+}
 .player-prosses.pplay {
-  @apply bg-[#1dffa2];
+  @apply bg-[#ff9a1d];
 }
 .player-prosses.pload {
   @apply bg-[#fff]/40;
@@ -578,10 +583,11 @@ body:not([fullscreen])
 .player-prosses-dot {
   width: 16px;
   height: 16px;
-  background: #1dffa2;
+  background: #ff9a1d;
   border-radius: 50%;
   z-index: 230;
-  transform: translate(-50%, -9px);
+  transform: translate(-50%, -9px) scale(0);
+  transition:transform .3s;
 }
 .player-bottom-buttons {
 }
@@ -589,9 +595,19 @@ body:not([fullscreen])
   @apply flex items-center;
 }
 .player-bottom-volume {
-  width: 100px;
   position: relative;
   height: 4px;
+  width:0px;
+  pointer-events:none;
+  transition:.2s;
+  overflow:hidden;
+}
+.player-bottom-volume-content:hover .player-bottom-volume{
+  pointer-events:auto!important;
+
+  overflow:visible!important;
+  opacity: 1;
+  width: 100px;
 }
 .player-bottom-volume-line {
   height: 4px;
@@ -630,7 +646,7 @@ body:not([fullscreen])
   overflow: hidden;
   width: 48px;
   padding: 0px 2px;
-  cursor: pointer;
+  cursor: pointer!important;
 }
 .player-bottom-btn .btn-interaction {
   display: none;
@@ -731,7 +747,7 @@ body:not([fullscreen])
   content: "";
   right: 0px;
   display: block;
-  background: #1dffa2;
+  background: #ff9a1d;
 }
 .chat-edit-input-text {
   appearance: none;
@@ -820,7 +836,7 @@ body:not([fullscreen])
   @apply flex pb-[15px] px-[14px] items-center justify-between w-full;
 }
 .chat-btn-send {
-  background: #1dffa2;
+  background: #ff9a1d;
   padding: 5px 10px;
   border-radius: 8px;
   color: #000;
@@ -1064,7 +1080,7 @@ body:not([fullscreen])
 }
 .btn-cog-subtitle {
   color: #fff;
-  background: #1dffa2;
+  background: #ff9a1d;
   opacity: 0.5;
   position: absolute;
   top: 2px;
@@ -1761,7 +1777,7 @@ body:not([fullscreen])
 .channel-content-metadata-count {
   @apply text-[#323232] dark:text-[#eee] text-[14px];
 }
-.page-query {
+.page-search-content {
   max-width: min(600px, calc(95vw - var(--sidebar-width)));
   margin: 5px auto;
 }
@@ -1969,4 +1985,25 @@ body:not([fullscreen])
   height: 124px;
   width: 220px;
   position: relative;
+}
+.page-search-topbar{
+height:50px;
+align-items:center;
+display:flex;
+margin-top:15px;
+border-bottom:1px solid #8884;
+margin-left:15px;
+margin-right:15px;
+}
+.page-search-content-alist{
+margin-bottom:15px;
+pedding-bottom:5px;
+border-bottom:1px solid #8884;
+}
+.page-search-content-alist>.core-string{
+  
+height:50px;
+align-items:center;
+display:flex;
+font-size:20px;
 }

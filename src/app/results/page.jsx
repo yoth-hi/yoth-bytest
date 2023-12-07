@@ -24,7 +24,7 @@ export default function (props) {
     ApiGet().then(setData);
   }, [props?.searchParams?.search_query]);
   return (
-    <div className="page-query">
+    <div>
       <div>
         <div className="page-search-topbar">
           <Title
@@ -32,11 +32,22 @@ export default function (props) {
             title={t("Search_for_*", [props?.searchParams?.search_query])}
           />
         </div>
-        <div>
+        <div className="page-search-content">
           <div>
-            {data?.content?.list?.map((q) =>
-              q && q?.type === "video" ? <CardVideoRow data={q} /> : <A q={q} />
-            )}
+            {data?.content?.list?.map((q) => (
+              <div className="page-search-content-alist">
+                <Title semibold="" title={q?.title} />
+                <div>
+                  {q?.list?.map((q) =>
+                    q && q?.type === "video" ? (
+                      <CardVideoRow data={q} />
+                    ) : (
+                      <A q={q} />
+                    )
+                  )}
+                </div>
+              </div>
+            ))}
             <S />
           </div>
         </div>

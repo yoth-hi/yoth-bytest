@@ -330,7 +330,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     setError(false);
     s(true);
     return () => {};
-  }, [id]);
+  }, [id,platform]);
 
   const hoverPlayer = function () {
     time = 200;

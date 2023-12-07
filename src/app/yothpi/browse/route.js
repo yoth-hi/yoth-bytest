@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+
 import { getTraslate, req_btn } from "../_service";
+
 var _list = [];
+export const list = _list;
 export async function POST(req) {
   const startTime = Date.now();
   const data = { content: {} };
@@ -201,7 +204,7 @@ export async function POST(req) {
         data.content.listVideo =
           r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(
             ({ compactVideoRenderer }) =>
-              compactVideoRenderer && {
+              (compactVideoRenderer && {
                 title: compactVideoRenderer?.title?.simpleText,
                 actorName: "", //us?.displayName,
                 viewsCount: Number(
@@ -214,9 +217,9 @@ export async function POST(req) {
                   compactVideoRenderer?.publishedTimeText?.simpleText,
                 thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
                 endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
-              } 
-              || _list[parseInt(Math.random()*10)]
-              || _list[parseInt(Math.random()*10)]
+              }) ||
+              _list[parseInt(Math.random() * 10)] ||
+              _list[parseInt(Math.random() * 10)]
           );
       }
     } else if (type === "home_gaming") {
@@ -251,7 +254,10 @@ export async function POST(req) {
           },
           referrer: "https://m.youtube.com/gaming",
           referrerPolicy: "strict-origin-when-cross-origin",
-          body: '{"context":{"client":{"hl":"'+lg+'","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSi95rmrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231204.01.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/gaming","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CL3muasGEIfUrwUQ1YiwBRCp968FEPX7_hIQiIewBRCu1P4SEJmUsAUQrLevBRDnuq8FEL2ZsAUQ2cmvBRDJ968FEJ6LsAUQ3ej-EhC90q8FELz5rwUQvoqwBRDpjLAFEJT6_hIQ2piwBRCrgrAFEOHyrwUQpoGwBRC36v4SEM6vrwUQ3oKwBRC--a8FELfvrwUQ6sOvBRCikrAFEKXC_hIQiOOvBRCWlbAFEJj8_hIQzN-uBRDUkrAFEJrwrwUQ55ewBRD1-a8FEL22rgUQ_IWwBRC4i64FENuZsAUQooGwBRDks_4SEMyu_hIQ8OWvBRDT4a8FELaQsAUQzZWwBRCHqK8FENDirwUQx4OwBRComrAFEMb1rgUQpPWuBRDr6P4SEPeasAUQ-pCwBQ%3D%3D"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0Rrd05UazFNamM0TXpBek1UWXlPQT09EL3muasGGL3muasG","screenWidthPoints":412,"screenHeightPoints":787,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/gaming","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CCMQpIEJGAMiEwjXnp6vifeCAxWAjZUCHYpTDcU="},"adSignalsInfo":{"params":[{"key":"dt","value":"1701737277654"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"3"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"787"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,787,412,787"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"browseId":"UCOpNcN46UbXVtpKMrmU4Abg"}',
+          body:
+            '{"context":{"client":{"hl":"' +
+            lg +
+            '","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSi95rmrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231204.01.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/gaming","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CL3muasGEIfUrwUQ1YiwBRCp968FEPX7_hIQiIewBRCu1P4SEJmUsAUQrLevBRDnuq8FEL2ZsAUQ2cmvBRDJ968FEJ6LsAUQ3ej-EhC90q8FELz5rwUQvoqwBRDpjLAFEJT6_hIQ2piwBRCrgrAFEOHyrwUQpoGwBRC36v4SEM6vrwUQ3oKwBRC--a8FELfvrwUQ6sOvBRCikrAFEKXC_hIQiOOvBRCWlbAFEJj8_hIQzN-uBRDUkrAFEJrwrwUQ55ewBRD1-a8FEL22rgUQ_IWwBRC4i64FENuZsAUQooGwBRDks_4SEMyu_hIQ8OWvBRDT4a8FELaQsAUQzZWwBRCHqK8FENDirwUQx4OwBRComrAFEMb1rgUQpPWuBRDr6P4SEPeasAUQ-pCwBQ%3D%3D"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0Rrd05UazFNamM0TXpBek1UWXlPQT09EL3muasGGL3muasG","screenWidthPoints":412,"screenHeightPoints":787,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/gaming","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CCMQpIEJGAMiEwjXnp6vifeCAxWAjZUCHYpTDcU="},"adSignalsInfo":{"params":[{"key":"dt","value":"1701737277654"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"3"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"787"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,787,412,787"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"browseId":"UCOpNcN46UbXVtpKMrmU4Abg"}',
           method: "POST",
           mode: "cors",
           credentials: "include",
@@ -276,6 +282,94 @@ export async function POST(req) {
           };
         }
       );
+    } else if (type === "player_page_render_next_videos") {
+      if(platform!=="youtube"){data.content.listVideo=_list ;return};
+      const resp = await fetch(
+        "https://www.youtube.com/youtubei/v1/next?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
+        {
+          headers: {
+            accept: "*/*",
+            "accept-language": lg,
+            "content-type": "application/json",
+            "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120"',
+            "sec-ch-ua-arch": '"x86"',
+            "sec-ch-ua-bitness": '"64"',
+            "sec-ch-ua-full-version": '"120.0.6099.20"',
+            "sec-ch-ua-full-version-list":
+              '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.20"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-model": '""',
+            "sec-ch-ua-platform": '"Linux"',
+            "sec-ch-ua-platform-version": '""',
+            "sec-ch-ua-wow64": "?0",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "same-origin",
+            "sec-fetch-site": "same-origin",
+            "x-client-data": "CIzqygE=",
+            "x-goog-visitor-id": "Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D",
+            "x-youtube-bootstrap-logged-in": "false",
+            "x-youtube-client-name": "1",
+            "x-youtube-client-version": "2.20231121.08.00",
+          },
+          referrer: "https://www.youtube.com/watch?v=" + id + "",
+          referrerPolicy: "strict-origin-when-cross-origin",
+          body:
+            '{"context":{"client":{"hl":"' +
+            lg +
+            '","gl":"BR","remoteHost":"177.124.75.110","deviceMake":"","deviceModel":"","visitorData":"Cgs3Qmxmak1KT250RSizjf2qBjIICgJCUhICGgA%3D","userAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36,gzip(gfe)","clientName":"WEB","clientVersion":"2.20231121.08.00","osName":"X11","osVersion":"","originalUrl":"https://www.youtube.com/watch?v=' +
+            id +
+            '","screenPixelDensity":1,"platform":"DESKTOP","clientFormFactor":"UNKNOWN_FORM_FACTOR","configInfo":{"appInstallData":"CLON_aoGEInorgUQ2cmvBRCvh7AFEJrwrwUQt-r-EhD1-_4SENSSsAUQ3ej-EhD8hbAFEIiHsAUQ0OKvBRDf2K8FEOPYrwUQ6-j-EhC--a8FEMyu_hIQqfevBRCI468FEKuHsAUQnYuwBRDnuq8FENvYrwUQ4divBRDHg7AFEL6KsAUQ9fmvBRDi1K4FENfprwUQ1KGvBRCn968FEOrDrwUQzN-uBRC9tq4FEKy3rwUQuIuuBRDT4a8FEK2HsAUQ6ej-EhDcgrAFELGHsAUQpcL-EhDuoq8FEKuCsAUQ1YiwBRDks_4SEOHyrwUQ-r6vBRC8-a8FEKKBsAUQopKwBRC_968FEOuTrgUQqIGwBRCWlbAFEJT6_hIQpoGwBRD3jrAFEOb9_hIQ65awBRCZkbAFEK7U_hIQyfevBRDbr68FELfvrwUQ1v-vBRCIj7AF"},"screenDensityFloat":1.4434934854507446,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13TkRZek5EZzFOVE15TkRrd05ERTBNZz09ELON_aoGGLON_aoG","screenWidthPoints":1782,"screenHeightPoints":1726,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","clientScreen":"WATCH","mainAppWebInfo":{"graftUrl":"/watch?v=' +
+            id +
+            '","pwaInstallabilityStatus":"PWA_INSTALLABILITY_STATUS_UNKNOWN","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CNICENwwIhMInOjb5JDaggMVaFVIAB33zgZyMgpnLWhpZ2gtcmVjWg9GRXdoYXRfdG9fd2F0Y2iaAQYQjh4YngE="},"adSignalsInfo":{"params":[{"key":"dt","value":"1700742839642"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"2"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"1726"},{"key":"biw","value":"1782"},{"key":"brdim","value":"0,0,0,0,412,0,412,399,1782,1726"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"videoId":"' +
+            id +
+            '","racyCheckOk":false,"contentCheckOk":false,"autonavState":"STATE_NONE","playbackContext":{"vis":0,"lactMilliseconds":"-1"},"captionsRequested":false}',
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
+        }
+      );
+      const r_data = await resp.json();
+      // data.i= r_data;
+      const _id = id;
+      var f = "--";
+      data.content.cardChannel = {
+        name: r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
+          ?.playerOverlayVideoDetailsRenderer?.subtitle?.runs[0]?.text,
+        endpoint: "/yt@" + "null",
+        profileImage:
+          r_data?.contents?.twoColumnWatchNextResults?.results?.results
+            ?.contents?.[1]?.videoSecondaryInfoRenderer?.owner
+            ?.videoOwnerRenderer?.thumbnail?.thumbnails?.[1]?.url,
+        onSubscrive: {
+          id: btoa(`SUBSCRIBE_${context?.platform}_${"%null%"}_${auto}`),
+          api: 2987,
+        },
+        subscribers: {
+          label: `${String(f || 0).replace(/(\d{3})/g, " $1")}`,
+          number: f || 0,
+        },
+      };
+
+      data.content.listVideo =
+        r_data?.contents?.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results.map(
+          ({ compactVideoRenderer }) =>
+            (compactVideoRenderer && {
+              title: compactVideoRenderer?.title?.simpleText,
+              actorName: "", //us?.displayName,
+              viewsCount: Number(
+                (compactVideoRenderer?.viewCountText?.simpleText || "")
+                  .match(/\d/g)
+                  ?.join("")
+              ),
+              //node?.viewCount || 0,
+              publishedTimeText:
+                compactVideoRenderer?.publishedTimeText?.simpleText,
+              thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
+              endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
+            }) ||
+            _list[parseInt(Math.random() * 10)] ||
+            _list[parseInt(Math.random() * 10)]
+        ) ||_list;
     } else if (type === "home_page") {
       const _T = await fetch(
         "https://www.youtube.com/youtubei/v1/browse?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
@@ -403,7 +497,7 @@ export async function POST(req) {
       var t = __1data?.data?.shelves?.edges[0].node?.content.edges?.map(
         (n) => (
           (n = n.node),
-          n && {
+          (n && {
             title: n?.broadcaster?.broadcastSettings?.title,
             viewsCount: n?.viewsCount,
             endpoint: "/watch?tw=" + n?.broadcaster?.login,
@@ -413,14 +507,15 @@ export async function POST(req) {
 
             actorImage: `${n?.broadcaster?.profileImageURL}`,
             actorName: `${n?.broadcaster?.displayName}`,
-          } || _list[parseInt(Math.random()*10)]
+          }) ||
+            _list[parseInt(Math.random() * 10)]
         )
       );
       t.push(
         ...a?.contents?.twoColumnBrowseResultsRenderer.tabs?.[0]?.tabRenderer.content.richGridRenderer?.contents?.map(
           (n) => (
             (n = n.richItemRenderer?.content?.videoRenderer),
-            n && {
+            (n && {
               title: n?.title?.runs?.[0]?.text,
               viewsCount:
                 n?.shortViewCountText[0]?.text + n?.shortViewCountText[1]?.text,
@@ -429,11 +524,12 @@ export async function POST(req) {
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
               actorName: `${n?.ownerText?.runs?.[0]?.text}`,
-            }|| _list[parseInt(Math.random()*10)]
+            }) ||
+              _list[parseInt(Math.random() * 10)]
           )
         )
       );
-      t.push(_list[parseInt(Math.random()*2)]);
+      t.push(_list[parseInt(Math.random() * 2)]);
       t.forEach(() => {
         (data.content.listVideo = data.content.listVideo || []).push(
           t[Math.floor(Math.random() * t.length)]
@@ -555,14 +651,16 @@ export async function POST(req) {
             "https://m.youtube.com/results?sp=mAEA&search_query=" + query,
           referrerPolicy: "strict-origin-when-cross-origin",
           body:
-            '{"context":{"client":{"hl":"'+lg+'","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231130.05.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/results?sp=mAEA&search_query=' +
+            '{"context":{"client":{"hl":"' +
+            lg +
+            '","gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231130.05.00","osName":"Android","osVersion":"10","originalUrl":"https://m.youtube.com/results?sp=mAEA&search_query=' +
             query +
             '","playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG","screenWidthPoints":412,"screenHeightPoints":410,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":"/results?sp=mAEA&search_query=' +
             query +
             '","webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J"},"adSignalsInfo":{"params":[{"key":"dt","value":"1701634226262"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"5"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"410"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,410,412,410"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"query":"' +
             query +
             '","params":"mAEA","webSearchboxStatsUrl":"/search?oq=' +
-            query +  
+            query +
             '&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M"}',
           method: "POST",
           mode: "cors",
@@ -571,8 +669,8 @@ export async function POST(req) {
       );
       const b = await a.json();
       const d = await c.json();
-      var f = ({ videoWithContextRenderer,...as_ }) => {
-        console.log(as_)
+      var f = ({ videoWithContextRenderer, ...as_ }) => {
+        console.log(as_);
         return (
           videoWithContextRenderer && {
             title: videoWithContextRenderer.headline?.runs[0]?.text,
@@ -586,33 +684,60 @@ export async function POST(req) {
           }
         );
       };
-      var t=b?.data?.searchFor?.channels?.items;
-      
+      var t = b?.data?.searchFor?.channels?.items;
+
       var k = [];
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[1]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[2]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[3]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(t[0]);
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[4]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[5]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(...(d?.contents?.sectionListRenderer?.contents?.[6]?.itemSectionRenderer?.contents?.map(f) ||[]))
-        k.push(t[1]);
-        _list.push(_list[parseInt(Math.random()*10)] || k[parseInt(Math.random()*10)] );
-        k.push(t[2]);
-        k.push(t[3]);
-        k[parseInt(Math.random()*10)]=_list[parseInt(Math.random()*10)];
-        _list.push(k[parseInt(Math.random()*10)]);
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[1]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[2]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[3]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[4]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[5]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
+      k.push(
+        ...(d?.contents?.sectionListRenderer?.contents?.[6]?.itemSectionRenderer?.contents?.map(
+          f
+        ) || [])
+      );
       data._ = d;
       data.content.list = [];
-      data.content.list.push(...k);
-
+      data.content.list.push({
+        list:k,
+        title:"YouTube"
+      })
+      data.content.list.push({
+        list:t,
+        title:"Twitch"
+      })
     }
   } catch (error) {
     console.error("[ LOG REQUEST BROUSER ERROR ]", error);
     return new NextResponse(error, { status: 403 });
   }
-  data.time = `${(Date.now() - startTime) / 1000}ms`;
+    data.time = `${(Date.now() - startTime) / 1000}ms`;
   return Response.json(data);
 }
 function size(a = "", b, c) {

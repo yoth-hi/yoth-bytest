@@ -21,7 +21,7 @@ export default function (props) {
   ws.addEventListener("close", function () {
     props.Status?.("close");
   });
-  return {ws};
+  return {ws,clear(){ws.close()}};
 }
 /*
    setTimeout(() => {

@@ -67,10 +67,10 @@ export default function ({ video }) {
             })`,
           }}
         ></div>
-        {/*  <div
+         <div
           className="player-prosses-dot"
           style={{ marginLeft: `${progressPlay * 100}%` }}
-        ></div>*/}
+        ></div>
       </div>
     </>
   );

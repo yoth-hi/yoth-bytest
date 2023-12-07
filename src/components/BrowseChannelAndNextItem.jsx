@@ -6,9 +6,10 @@ import Title from "./string";
 import AvtCh from "./cardChannel";
 import CardVideo from "./CardVideoRow";
 import Button from "./button_brr";
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Fetch from "./../service/ApiRest";
 import Share from "./icons/share";
+import S from "./icons/span";
 import { t } from "../libs/transition";
 var j = {};
 const BrowseChannelAndNextItem = function ({ Player, _context }) {
@@ -103,15 +104,69 @@ const BrowseChannelAndNextItem = function ({ Player, _context }) {
             <Chat id={_context?.id} plataforma="tw" auto={null} />
           </div>
         )}
-        <div className="page-watch-next">
-          {data?.content?.listVideo && (
-            <Title semibold="" large="" title={t("Others")} />
-          )}
-          {data?.content?.listVideo?.map((a) => (
-            <CardVideo data={a} />
-          ))}
-        </div>
+        <VideoList platform={platform} id={id} data={data} />
       </div>
+    </div>
+  );
+};
+const VideoList = function ({ platform, id, data }) {
+  const [list, setList] = useState(data?.content?.listVideo);
+  useEffect(() => {
+    var sst = true;
+    /*const interval = setInterval(function () {
+      const a = document.querySelectorAll(
+        ".page-watch-next .card-video-row[skeleton]"
+      )[0];
+      const b = document.querySelector("#app-desktop");
+      if (!a) return;
+      const { height, y } = a.getBoundingClientRect();
+      const e = y - innerHeight;
+      if (e < 100) {
+        if (sst) {
+          sst = false;
+          Fetch({
+            type: "browse",
+            context: {
+              type: "player_page_render_next_videos",
+              platform,
+              id,
+            },
+          }).then((a) => {
+            if(!a?.content?.listVide) return;
+            var m = b.scrollTop;
+
+            setList((list) => {
+              
+              var y=a?.content?.listVideo||[]
+              var l = [];
+              l?.push(...list)
+              l?.push(...data?.content?.listVideo)
+              l?.push(...a?.content?.listVideo)
+              setTimeout(() => {
+                sst = true;
+              }, 300);
+              start = l?.length;
+
+              return l
+            });
+            setTimeout(() => (b.scrollTop = m), 16 * 3);
+          });
+        }
+      }
+    }, 10);
+
+    return () => clearInterval(interval);*/
+  }, []);
+  return (
+    <div className="page-watch-next">
+      {(list || data?.content?.listVideo) && (
+        <Title semibold="" large="" title={t("Others")} />
+      )}
+      {(list || data?.content?.listVideo)?.map?.((a) => (a&&
+        <CardVideo data={a} />
+      ))}
+      {(list || data?.content?.listVideo) && <CardVideo skeleton data={{}} />}
+      {(list || data?.content?.listVideo) && <S />}
     </div>
   );
 };

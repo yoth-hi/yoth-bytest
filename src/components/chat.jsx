@@ -54,7 +54,7 @@ const Msg = function (props) {
   if (!data) return;
   const { timestamp } = data;
   const isTimeShown = true;
-  console.log(data);
+  
   /* <div className="chat-message">
       <div className="message-content">
         <span
@@ -216,6 +216,10 @@ const Msgs = function (props) {
           // setMsgs(0)
         },
       });
+      return ()=>{
+        ws=undefined;
+        ws.clear?.()
+      }
   }, []);
   return (
     <>
