@@ -27,8 +27,7 @@ export default memo(function ({ data, skeleton }) {
             aria-label={title}
           />
           <div className="card-video--time">
-            <div className="card-video--time-pf">{plt==="tw"?"Twitch - Live":"YouTube - --:--"}</div>
-            <span>--:--</span>
+            <div className="card-video--time-pf">{plt==="tw"?"Twitch":"YouTube"}</div>
           </div>
         </div>
       </Link>
