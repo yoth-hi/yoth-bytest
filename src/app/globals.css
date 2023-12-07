@@ -2007,3 +2007,16 @@ align-items:center;
 display:flex;
 font-size:20px;
 }
+.card-video--time{
+  position:absolute;
+  bottom:0;
+  right:0;
+  pedding:2px 10px;
+  margin:15px;
+  background:#000e;
+  border-radius:4px;
+  font-size:14px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+}

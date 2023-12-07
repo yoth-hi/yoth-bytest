@@ -6,7 +6,7 @@ import { useEffect, memo, useState } from "react";
 
 export default memo(function ({ data, skeleton }) {
   if (!data) return;
-  const { title, endpoint, actorImage, actorName, viewsCount, thumbnail } =
+  const { title, endpoint,plt, actorImage, actorName, viewsCount, thumbnail } =
     data;
   return (
     <Btn
@@ -26,6 +26,10 @@ export default memo(function ({ data, skeleton }) {
             src={thumbnail}
             aria-label={title}
           />
+          <div className="card-video--time">
+            <div className="card-video--time-pf">{plt==="tw"?"Twitch - Live":"YouTube - --:--"}</div>
+            <span>--:--</span>
+          </div>
         </div>
       </Link>
       <div className="card-video-details">
@@ -43,7 +47,11 @@ export default memo(function ({ data, skeleton }) {
             />
           )}
         </div>
-        <Link href={endpoint || "/"} className="endpoint-block"  aria-label={title || ""}>
+        <Link
+          href={endpoint || "/"}
+          className="endpoint-block"
+          aria-label={title || ""}
+        >
           <div className="card-matadata">
             <h3 className="card-video-title">
               {title || <div className="skeleton-text title" />}

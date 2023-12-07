@@ -86,6 +86,7 @@ export async function POST(req) {
             viewsCount: node?.viewCount || 0,
             thumbnail: size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?vod_tw=${node.id}`,
+            plt:"tw"
           }));
           data.content.asesibility = {
             Share: _["Share"],
@@ -216,6 +217,7 @@ export async function POST(req) {
                   compactVideoRenderer?.publishedTimeText?.simpleText,
                 thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
                 endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
+                plt:"yt"
               }) ||
               _list[parseInt(Math.random() * 10)] ||
               _list[parseInt(Math.random() * 10)]
@@ -272,6 +274,7 @@ export async function POST(req) {
             id: videoCardRenderer?.videoId,
             thumbnail: `https://i.ytimg.com/vi/${videoCardRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?v=${videoCardRenderer?.videoId}`,
+            plt:"yt"
           };
           data.content.listVideo?.push(k);
           _list[parseInt(Math.random() * 5)] = {
@@ -365,6 +368,7 @@ export async function POST(req) {
                 compactVideoRenderer?.publishedTimeText?.simpleText,
               thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
               endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
+              plt:"yt"
             }) ||
             _list[parseInt(Math.random() * 10)] ||
             _list[parseInt(Math.random() * 10)]
@@ -498,7 +502,7 @@ export async function POST(req) {
           (n = n.node),
           (n && {
             title: n?.broadcaster?.broadcastSettings?.title,
-            viewsCount: n?.viewsCount,
+            viewsCount: n?.viewsCount,plt:"tw",
             endpoint: "/watch?tw=" + n?.broadcaster?.login,
             thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${
               n?.broadcaster?.login
@@ -519,6 +523,7 @@ export async function POST(req) {
               viewsCount:
                 n?.shortViewCountText[0]?.text + n?.shortViewCountText[1]?.text,
               endpoint: "/watch?v=" + n?.videoId,
+              plt:"yt",
               thumbnail: `https://i3.ytimg.com/vi/${n?.videoId}/hq720.jpg`,
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
@@ -672,6 +677,7 @@ export async function POST(req) {
         console.log(as_);
         return (
           videoWithContextRenderer && {
+            plt:"yt",
             title: videoWithContextRenderer.headline?.runs[0]?.text,
             endpoint: "/watch?v=" + videoWithContextRenderer.videoId,
             actorName:

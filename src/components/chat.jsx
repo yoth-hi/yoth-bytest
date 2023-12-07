@@ -217,8 +217,8 @@ const Msgs = function (props) {
         },
       });
       return ()=>{
-        ws=undefined;
         ws.clear?.()
+        ws=undefined;
       }
   }, []);
   return (
