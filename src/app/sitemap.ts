@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<SitemapItem[]> {
   ];
     
   } catch (error) {
-    console.error(error);
+    
   }
     return[    {
       url: origin + "/",
