@@ -85,7 +85,7 @@ export async function POST(req) {
             viewsCount: node?.viewCount || 0,
             thumbnail: size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?vod_tw=${node.id}`,
-            plt:"tw"
+            plt: "tw",
           }));
           data.content.asesibility = {
             Share: _["Share"],
@@ -168,13 +168,20 @@ export async function POST(req) {
           actorName:
             r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
               ?.playerOverlayVideoDetailsRenderer?.subtitle.text, //"" ,
-          actorId: r_data?.playerOverlays?.playerOverlayRenderer?.autoplay?.playerOverlayAutoplayRenderer?.byline?.runs[0]?.navigationEndpoint?.browseEndpoint?.browseId,
-          actorEndpoint: r_data?.playerOverlays?.playerOverlayRenderer?.autoplay?.playerOverlayAutoplayRenderer?.byline?.runs[0]?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl,
+          actorId:
+            r_data?.playerOverlays?.playerOverlayRenderer?.autoplay
+              ?.playerOverlayAutoplayRenderer?.byline?.runs[0]
+              ?.navigationEndpoint?.browseEndpoint?.browseId,
+          actorEndpoint:
+            r_data?.playerOverlays?.playerOverlayRenderer?.autoplay
+              ?.playerOverlayAutoplayRenderer?.byline?.runs[0]
+              ?.navigationEndpoint?.browseEndpoint?.canonicalBaseUrl,
           viewCount:
             r_data?.contents?.twoColumnWatchNextResults?.results?.results
               ?.contents?.[1]?.videoSecondaryInfoRenderer?.viewCount
               ?.videoViewCountRenderer?.viewCount?.simpleText,
-          metadata:r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
+          metadata:
+            r_data?.playerOverlays?.playerOverlayRenderer?.videoDetails
               ?.playerOverlayVideoDetailsRenderer?.subtitle?.runs,
           actorImage:
             r_data?.contents?.twoColumnWatchNextResults?.results?.results
@@ -219,7 +226,7 @@ export async function POST(req) {
                   compactVideoRenderer?.publishedTimeText?.simpleText,
                 thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
                 endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
-                plt:"yt"
+                plt: "yt",
               }) ||
               _list[parseInt(Math.random() * 10)] ||
               _list[parseInt(Math.random() * 10)]
@@ -277,7 +284,7 @@ export async function POST(req) {
             id: videoCardRenderer?.videoId,
             thumbnail: `https://i.ytimg.com/vi/${videoCardRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
             endpoint: `/watch?v=${videoCardRenderer?.videoId}`,
-            plt:"yt"
+            plt: "yt",
           };
           data.content.listVideo?.push(k);
           _list[parseInt(Math.random() * 5)] = {
@@ -288,7 +295,10 @@ export async function POST(req) {
         }
       );
     } else if (type === "player_page_render_next_videos") {
-      if(platform!=="youtube"){data.content.listVideo=_list ;return};
+      if (platform !== "youtube") {
+        data.content.listVideo = _list;
+        return;
+      }
       const resp = await fetch(
         "https://www.youtube.com/youtubei/v1/next?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
         {
@@ -371,11 +381,11 @@ export async function POST(req) {
                 compactVideoRenderer?.publishedTimeText?.simpleText,
               thumbnail: `https://i.ytimg.com/vi/${compactVideoRenderer?.videoId}/hq720.jpg`, //size(node.previewThumbnailURL, 400, (400 / 16) * 9),
               endpoint: `/watch?v=${compactVideoRenderer?.videoId}`,
-              plt:"yt"
+              plt: "yt",
             }) ||
             _list[parseInt(Math.random() * 10)] ||
             _list[parseInt(Math.random() * 10)]
-        ) ||_list;
+        ) || _list;
     } else if (type === "home_page") {
       const _T = await fetch(
         "https://www.youtube.com/youtubei/v1/browse?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8&prettyPrint=false",
@@ -505,7 +515,8 @@ export async function POST(req) {
           (n = n.node),
           (n && {
             title: n?.broadcaster?.broadcastSettings?.title,
-            viewsCount: n?.viewsCount,plt:"tw",
+            viewsCount: n?.viewsCount,
+            plt: "tw",
             endpoint: "/watch?tw=" + n?.broadcaster?.login,
             thumbnail: `https://static-cdn.jtvnw.net/previews-ttv/live_user_${
               n?.broadcaster?.login
@@ -526,7 +537,7 @@ export async function POST(req) {
               viewsCount:
                 n?.shortViewCountText[0]?.text + n?.shortViewCountText[1]?.text,
               endpoint: "/watch?v=" + n?.videoId,
-              plt:"yt",
+              plt: "yt",
               thumbnail: `https://i3.ytimg.com/vi/${n?.videoId}/hq720.jpg`,
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
@@ -539,7 +550,8 @@ export async function POST(req) {
       t.push(_list[parseInt(Math.random() * 2)]);
       t.forEach(() => {
         (data.content.listVideo = data.content.listVideo || []).push(
-          t[Math.floor(Math.random() * t.length)]
+          (0,
+          t[Math.floor(Math.random() * t.length)])
         );
       });
       data.content.topBtnFilters = [
@@ -657,8 +669,90 @@ export async function POST(req) {
           referrer:
             "https://m.youtube.com/results?sp=mAEA&search_query=" + query,
           referrerPolicy: "strict-origin-when-cross-origin",
-          body:
-          JSON.stringify({"context":{"client":{"hl":   lg ,"gl":"BR","remoteHost":"143.137.158.18","deviceMake":"Generic","deviceModel":"Android 10.0","visitorData":"Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D","userAgent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)","clientName":"MWEB","clientVersion":"2.20231130.05.00","osName":"Android","osVersion":"10","originalUrl":`https://m.youtube.com/results?sp=mAEA&search_query=${encodeURIComponent(query)}`,"playerType":"UNIPLAYER","screenPixelDensity":3,"platform":"MOBILE","clientFormFactor":"SMALL_FORM_FACTOR","configInfo":{"appInstallData":"CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF"},"screenDensityFloat":2.625,"userInterfaceTheme":"USER_INTERFACE_THEME_DARK","timeZone":"America/Sao_Paulo","browserName":"Chrome Mobile","browserVersion":"120.0.0.0","acceptHeader":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","deviceExperimentId":"ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG","screenWidthPoints":412,"screenHeightPoints":410,"utcOffsetMinutes":-180,"memoryTotalKbytes":"4000000","mainAppWebInfo":{"graftUrl":`/results?sp=mAEA&search_query=${encodeURIComponent(query)}`,"webDisplayMode":"WEB_DISPLAY_MODE_BROWSER","isWebNativeShareAvailable":true}},"user":{"lockedSafetyMode":false},"request":{"useSsl":true,"internalExperimentFlags":[],"consistencyTokenJars":[]},"clickTracking":{"clickTrackingParams":"CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J"},"adSignalsInfo":{"params":[{"key":"dt","value":"1701634226262"},{"key":"flash","value":"0"},{"key":"frm","value":"0"},{"key":"u_tz","value":"-180"},{"key":"u_his","value":"5"},{"key":"u_h","value":"918"},{"key":"u_w","value":"412"},{"key":"u_ah","value":"918"},{"key":"u_aw","value":"412"},{"key":"u_cd","value":"24"},{"key":"bc","value":"31"},{"key":"bih","value":"410"},{"key":"biw","value":"412"},{"key":"brdim","value":"0,0,0,0,412,0,412,410,412,410"},{"key":"vis","value":"1"},{"key":"wgl","value":"true"},{"key":"ca_type","value":"image"}]}},"query":query,"params":"mAEA","webSearchboxStatsUrl":`/search?oq=${encodeURIComponent(query)}&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M`}),
+          body: JSON.stringify({
+            context: {
+              client: {
+                hl: lg,
+                gl: "BR",
+                remoteHost: "143.137.158.18",
+                deviceMake: "Generic",
+                deviceModel: "Android 10.0",
+                visitorData: "Cgs3Qmxmak1KT250RSiwwbOrBjIKCgJCUhIEGgAgMg%3D%3D",
+                userAgent:
+                  "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36,gzip(gfe)",
+                clientName: "MWEB",
+                clientVersion: "2.20231130.05.00",
+                osName: "Android",
+                osVersion: "10",
+                originalUrl: `https://m.youtube.com/results?sp=mAEA&search_query=${encodeURIComponent(
+                  query
+                )}`,
+                playerType: "UNIPLAYER",
+                screenPixelDensity: 3,
+                platform: "MOBILE",
+                clientFormFactor: "SMALL_FORM_FACTOR",
+                configInfo: {
+                  appInstallData:
+                    "CLDBs6sGEL75rwUQzq-vBRCH1K8FEMyu_hIQtpCwBRC94K4FEPX5rwUQpPWuBRCigbAFEIeRsAUQqfevBRDnl7AFEPX7_hIQ6-j-EhCei7AFEOmMsAUQpoGwBRCIh7AFEOrDrwUQ4fKvBRCst68FELiLrgUQh6ivBRC9tq4FEPyFsAUQt-r-EhDM364FEJmUsAUQvoqwBRDQ4q8FEJT6_hIQxvWuBRCI468FEPDlrwUQvPmvBRC3768FENnJrwUQ3oKwBRC90q8FEMn3rwUQ1YiwBRClwv4SEM2VsAUQq4KwBRDks_4SEJj8_hIQlpWwBRCa8K8FEOe6rwUQ1JKwBRDd6P4SENPhrwUQopKwBRDHg7AFEK7U_hIQ95qwBRD6kLAF",
+                },
+                screenDensityFloat: 2.625,
+                userInterfaceTheme: "USER_INTERFACE_THEME_DARK",
+                timeZone: "America/Sao_Paulo",
+                browserName: "Chrome Mobile",
+                browserVersion: "120.0.0.0",
+                acceptHeader:
+                  "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                deviceExperimentId:
+                  "ChxOek13T0RRMk16TTBNamN6TlRVek9EWXhOdz09ELDBs6sGGLDBs6sG",
+                screenWidthPoints: 412,
+                screenHeightPoints: 410,
+                utcOffsetMinutes: -180,
+                memoryTotalKbytes: "4000000",
+                mainAppWebInfo: {
+                  graftUrl: `/results?sp=mAEA&search_query=${encodeURIComponent(
+                    query
+                  )}`,
+                  webDisplayMode: "WEB_DISPLAY_MODE_BROWSER",
+                  isWebNativeShareAvailable: true,
+                },
+              },
+              user: { lockedSafetyMode: false },
+              request: {
+                useSsl: true,
+                internalExperimentFlags: [],
+                consistencyTokenJars: [],
+              },
+              clickTracking: {
+                clickTrackingParams: "CAEQwbIBIhMI4tmyv4n0ggMVQraVAh0GRg-J",
+              },
+              adSignalsInfo: {
+                params: [
+                  { key: "dt", value: "1701634226262" },
+                  { key: "flash", value: "0" },
+                  { key: "frm", value: "0" },
+                  { key: "u_tz", value: "-180" },
+                  { key: "u_his", value: "5" },
+                  { key: "u_h", value: "918" },
+                  { key: "u_w", value: "412" },
+                  { key: "u_ah", value: "918" },
+                  { key: "u_aw", value: "412" },
+                  { key: "u_cd", value: "24" },
+                  { key: "bc", value: "31" },
+                  { key: "bih", value: "410" },
+                  { key: "biw", value: "412" },
+                  { key: "brdim", value: "0,0,0,0,412,0,412,410,412,410" },
+                  { key: "vis", value: "1" },
+                  { key: "wgl", value: "true" },
+                  { key: "ca_type", value: "image" },
+                ],
+              },
+            },
+            query: query,
+            params: "mAEA",
+            webSearchboxStatsUrl: `/search?oq=${encodeURIComponent(
+              query
+            )}&gs_l=youtube-reduced.3..0i512i13k1j0i512i13i10k1.8875.27566.0.28719.13.10.0.0.0.0.463.1658.3-1j3.5.0....0...1ac.1j4.64.youtube-reduced..8.4.1655.0..0i512i433k1j0i512i433i131k1j0i512k1j0i3k1j0i512i650i433i131k1j0i5i30i13i10k1j0i512i650i546k1.720.-TZZGsixh8M`,
+          }),
           method: "POST",
           mode: "cors",
           credentials: "include",
@@ -667,22 +761,24 @@ export async function POST(req) {
       const b = await a.json();
       const d = await c.json();
       var f = ({ videoWithContextRenderer, ...as_ }) => {
-        console.log(as_);
-        return (
+        
+        var j = (
           videoWithContextRenderer && {
-            plt:"yt",
+            plt: "yt",
             title: videoWithContextRenderer.headline?.runs[0]?.text,
             endpoint: "/watch?v=" + videoWithContextRenderer.videoId,
             actorName:
               videoWithContextRenderer.shortBylineText?.runs?.[0]?.text,
-            viewsCount:{label:videoWithContextRenderer.shortViewCountText?.runs[0]?.text},
+            viewsCount: {
+              label: videoWithContextRenderer.shortViewCountText?.runs[0]?.text,
+            },
             thumbnail: `https://i.ytimg.com/vi/${videoWithContextRenderer.videoId}/sddefault.jpg`,
             type: "video",
           }
         );
+      fft(j);return j
       };
       var t = b?.data?.searchFor?.channels?.items;
-
       var k = [];
       k.push(
         ...(d?.contents?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents?.map(
@@ -722,23 +818,38 @@ export async function POST(req) {
       data._ = d;
       data.content.list = [];
       data.content.list.push({
-        list:k,
-        title:"YouTube"
-      })
+        list: k,
+        title: "YouTube",
+      });
       data.content.list.push({
-        list:t,
-        title:"Twitch"
-      })
+        list: t,
+        title: "Twitch",
+      });
     }
   } catch (error) {
     console.error("[ LOG REQUEST BROUSER ERROR ]", error);
     return new NextResponse(error, { status: 403 });
   }
-    data.time = `${(Date.now() - startTime) / 1000}ms`;
+  data.time = `${(Date.now() - startTime) / 1000}ms`;
   return Response.json(data);
 }
 function size(a = "", b, c) {
   return a.replace("{width}", b).replace("{height}", c);
 }
+function fft(a) {
+  if(a){
+  if(_list.length < 100){
+    
+  _list.push(a);
+  } else {
+    
+  _list[parseInt(Math.random()*100)]=a;
+  }}
+}
+export async function GET(req) {
+  return Response.json({
+    list: _list.map((e)=>({url:e?.endpoint})),
+  });
+}
 //{"query":"query ChannelHomePage_Query(\\n  $login: String\u0021\\n  $url: String\u0021\\n) {\\n  channel: user(login: $login) {\\n    ...ChannelLayout_user\\n    id\\n    __typename\\n    login\\n    displayName\\n    stream {\\n      id\\n      __typename\\n      ...ChannelFeaturedCardStream_stream\\n    }\\n    subscriptionProducts {\\n      ...FeaturedClipsShelfCover_subscriptionProducts\\n      id\\n      __typename\\n    }\\n    archives: videos(first: 1, type: ARCHIVE, sort: TIME) {\\n      edges {\\n        node {\\n          ...ChannelFeaturedCardVideo_video\\n          id\\n          __typename\\n        }\\n      }\\n    }\\n    videoShelves(first: 1) {\\n      edges {\\n        node {\\n          type\\n          title\\n          items {\\n            __typename\\n            ...VideoShelf_items\\n            ... on Clip {\\n              id\\n              __typename\\n            }\\n            ... on Video {\\n              id\\n              __typename\\n            }\\n          }\\n          id\\n          __typename\\n        }\\n      }\\n    }\\n    channel {\\n      home {\\n        shelves {\\n          categoryShelf {\\n            edges {\\n              node {\\n                ...CategoryShelf_items\\n                id\\n                __typename\\n              }\\n            }\\n          }\\n          streamerShelf {\\n            edges {\\n              node {\\n                ...StreamerShelf_items\\n                id\\n                __typename\\n              }\\n            }\\n          }\\n        }\\n      }\\n      id\\n      __typename\\n    }\\n  }\\n  ...SeoHead_query\\n}\\n\\nfragment CategoryShelf_items on Game {\\n  id\\n  __typename\\n  name\\n  ...GameCard_game\\n}\\n\\nfragment ChannelCover_user on User {\\n  login\\n  bannerImageURL\\n  primaryColorHex\\n}\\n\\nfragment ChannelDescription_user on User {\\n  login\\n  displayName\\n  description\\n  lastBroadcast {\\n    game {\\n      displayName\\n      id\\n      __typename\\n    }\\n    id\\n    __typename\\n  }\\n  videos(first: 30) {\\n    edges {\\n      node {\\n        id\\n        __typename\\n        game {\\n          id\\n          __typename\\n          displayName\\n        }\\n      }\\n    }\\n  }\\n}\\n\\nfragment ChannelFeaturedCardStream_stream on Stream {\\n  id\\n  __typename\\n  broadcaster {\\n    broadcastSettings {\\n      title\\n      id\\n      __typename\\n    }\\n    id\\n    __typename\\n    login\\n  }\\n  previewImageURL\\n  game {\\n    displayName\\n    id\\n    __typename\\n  }\\n}\\n\\nfragment ChannelFeaturedCardVideo_video on Video {\\n  id\\n  __typename\\n  title\\n  viewCount\\n  previewThumbnailURL\\n  publishedAt\\n  game {\\n    name\\n    id\\n    __typename\\n  }\\n}\\n\\nfragment ChannelLayout_user on User {\\n  ...ChannelCover_user\\n  ...ChannelProfileInfo_user\\n  id\\n  __typename\\n  login\\n}\\n\\nfragment ChannelName_user on User {\\n  displayName\\n  login\\n  roles {\\n    isPartner\\n  }\\n}\\n\\nfragment ChannelProfileInfo_user on User {\\n  ...ChannelStatus_user\\n  ...ChannelDescription_user\\n  ...ChannelName_user\\n  ...SocialMediaLinks_user\\n  ...useFollowChannelFragment\\n  profileImageURL(width: 150)\\n  login\\n  displayName\\n  primaryColorHex\\n  followers {\\n    totalCount\\n  }\\n  stream {\\n    id\\n    __typename\\n  }\\n}\\n\\nfragment ChannelStatus_user on User {\\n  lastBroadcast {\\n    id\\n    __typename\\n    startedAt\\n    game {\\n      id\\n      __typename\\n      displayName\\n    }\\n  }\\n  stream {\\n    id\\n    __typename\\n    createdAt\\n    game {\\n      id\\n      __typename\\n      displayName\\n    }\\n    type\\n    viewersCount\\n  }\\n}\\n\\nfragment FeaturedClipsShelfCover_subscriptionProducts on SubscriptionProduct {\\n  id\\n  __typename\\n  emotes {\\n    id\\n    __typename\\n    token\\n  }\\n}\\n\\nfragment GameCard_game on Game {\\n  id\\n  __typename\\n  boxArtURL\\n  displayName\\n  name\\n  slug\\n  viewersCount\\n}\\n\\nfragment SeoHead_query on Query {\\n  urlMetadata(url: $url) {\\n    title\\n    metatags {\\n      name\\n      attributes {\\n        key\\n        value\\n      }\\n    }\\n    jsonld\\n    share {\\n      title\\n      text\\n      url\\n    }\\n  }\\n}\\n\\nfragment SocialMediaLinks_user on User {\\n  channel {\\n    id\\n    __typename\\n    socialMedias {\\n      id\\n      __typename\\n      name\\n      title\\n      url\\n    }\\n  }\\n}\\n\\nfragment StreamerShelf_items on User {\\n  id\\n  __typename\\n  ...UserCard_user\\n}\\n\\nfragment UserCard_user on User {\\n  id\\n  __typename\\n  displayName\\n  login\\n  stream {\\n    viewersCount\\n    id\\n    __typename\\n  }\\n  primaryColorHex\\n  profileImageURL(width: 150)\\n}\\n\\nfragment VideoShelfClip_clip on Clip {\\n  id\\n  __typename\\n  broadcaster {\\n    login\\n    id\\n    __typename\\n  }\\n  clipCreatedAt: createdAt\\n  durationSeconds\\n  game {\\n    name\\n    displayName\\n    id\\n    __typename\\n  }\\n  slug\\n  thumbnailURL\\n  clipTitle: title\\n  clipViewCount: viewCount\\n}\\n\\nfragment VideoShelfVideo_video on Video {\\n  id\\n  __typename\\n  createdAt\\n  lengthSeconds\\n  game {\\n    name\\n    displayName\\n    id\\n    __typename\\n  }\\n  previewThumbnailURL\\n  title\\n  viewCount\\n}\\n\\nfragment VideoShelf_items on VideoShelfItem {\\n  __isVideoShelfItem: __typename\\n  __typename\\n  ... on Clip {\\n    id\\n    __typename\\n    game {\\n      name\\n      id\\n      __typename\\n    }\\n    ...VideoShelfClip_clip\\n  }\\n  ... on Video {\\n    id\\n    __typename\\n    game {\\n      name\\n      id\\n      __typename\\n    }\\n    ...VideoShelfVideo_video\\n  }\\n}\\n\\nfragment useFollowChannelFragment on User {\\n  id\\n  __typename\\n  self {\\n    follower {\\n      followedAt\\n    }\\n  }\\n}\\n","variables":{"login":"wuant","url":"https://m.twitch.tv/wuant/home"}}' \
-export const revalidate = 200;
+export const revalidate = 2;

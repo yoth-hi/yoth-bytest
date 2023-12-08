@@ -18,7 +18,7 @@ html[dark] {
   --hover-btn-bg: #fff2;
   background: #0f0f0f;
   --foreground-rgb: 221, 221, 221;
-  --background-rgb: 15, 15, 15;
+  --background-rgb: 0,0,0;
   --fill-rgb: 255, 255, 255;
 }
 
@@ -2029,3 +2029,48 @@ margin-right:20px;}
 .card-channel-flex{
 align-items:center;
 display:flex;}
+.page-direct-content{
+display:flex;
+}
+.direct-user-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+width:100%;
+height:40px;
+overflow:hidden;
+background:rgb(var(--background-rgb));
+border-bottom:1px solid #9992;
+padding:0 14px;
+}
+.direct-user-header-row{
+display:flex;
+align-items:center;
+}
+.page-direct-conteiner{flex:1;}
+.direct-user-header .core-string{margin:0px}
+.direct-user-header-image{
+width:32px;
+overflow:hidden;
+border-radius:50%;margin-right:10px;
+height:32px;}
+.direct-user-header-btn{
+width:32px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.direct-user-box-mensagen{
+max-width:50%;
+padding:10px 12px;
+color:#000;
+background:#ff9a1d;
+border-radius:20px;
+}
+.me-send{
+margin-left:auto;
+}
+.no-me-send{
+margin-right:auto;
+}

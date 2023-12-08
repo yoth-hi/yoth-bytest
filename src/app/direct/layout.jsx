@@ -15,7 +15,7 @@ export default function ({ children }) {
   const [topIndex,setTopIndex]=useState(0);
   return (
     <div>
-      <div>
+      <div className="page-direct-content">
         <div>
           <div>
             <Button title="Primarys" className={topIndex==0?"":"transparent"} onClick={()=>setTopIndex(0)}/>
@@ -24,7 +24,7 @@ export default function ({ children }) {
           </div>
           <List />
         </div>
-        <div>
+        <div className="page-direct-conteiner">
           <div>{children}</div>
         </div>
       </div>
