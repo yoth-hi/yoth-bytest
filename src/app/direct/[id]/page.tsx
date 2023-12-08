@@ -464,6 +464,7 @@ export default function (props: any) {
             <div className="direct-user-header-row">
               <div className="direct-user-header-image">
                 <Image
+                alt="image-alt"
                   className="bg-amber-50"
                   src={require("../../../../public/android-chrome-192x192.png")}
                 />
@@ -480,7 +481,7 @@ export default function (props: any) {
             <div>
               {data.content.renderMensagensList.map((mansage_data, i) => (
                 <div
-                alt="image-alt"
+                
                   id={"box-msg-"+mansage_data.key}
                   key={""+mansage_data.key}
                 >
