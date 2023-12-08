@@ -49,9 +49,10 @@ export default function sitemap() {
 
 */
 var t = [];
-export default function sitemap() {
+export default async function sitemap() {
   const origin = "https://yoth-hi.vercel.app";
-  fetch(
+  try {
+  t = await fetch(
     origin + "/yothpi/browse?key=27626272672626262636363636626262627393829",
     {
       method: "GET",
@@ -60,11 +61,17 @@ export default function sitemap() {
   )
     .then((a) => a.json())
     .then((a) => {
-     t= a?.list?.map((a) => {
-        a.url = origin + a.url;
-        return a;
-      })||[];
+      return (
+        a?.list?.map((a) => {
+          a.url = origin + a.url;
+          return a;
+        }) || []
+      );
     });
+    
+  } catch (error) {
+    
+  }
   return [
     {
       url: origin + "/",
