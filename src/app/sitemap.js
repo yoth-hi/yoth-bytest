@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap() {
-  try {
+  /*try {
     const origin = "https://yoth-hi.vercel.app";
     const a = await fetch(
       origin + "/yothpi/browse?key=27626272672626262636363636626262627393829",
@@ -30,7 +30,7 @@ export default async function sitemap() {
         lastModified: new Date().toISOString(),
       },
     ];
-  } catch (error) {}
+  } catch (error) {}*/
   return [
     {
       url: origin + "/",
