@@ -1,16 +1,21 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
-export default async function sitemap(): MetadataRoute.Sitemap {
+interface SitemapItem {
+  url: string;
+  lastModified?: string;
+}
+
+export default async function sitemap(): Promise<SitemapItem[]> {
   const origin: string = "https://yoth-hi.vercel.app";
-  const a: any = await fetch("http://localhost:3000/yothpi/browse?key=27626272672626262636363636626262627393829", {
+  const a: Response = await fetch("http://localhost:3000/yothpi/browse?key=27626272672626262636363636626262627393829", {
     method: "GET",
-    next: { revalidate: 1 }
-  })
+    next: { revalidate: 10 }
+  });
   const b: any = await a.json() || {};
-  var m = b?.list?.map((a:any):any=>{
-    a. url=origin+a.url
+  const m: SitemapItem[] = b?.list?.map((a: any): SitemapItem => {
+    a.url = origin + a.url;
     return a;
-  })
+  });
   return [
     ...m,
     {
@@ -25,5 +30,5 @@ export default async function sitemap(): MetadataRoute.Sitemap {
       url: origin + "/following",
       lastModified: new Date().toISOString(),
     },
-  ]
+  ];
 }
