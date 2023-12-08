@@ -5,7 +5,7 @@ interface SitemapItem {
   lastModified?: string;
 }
 
-export default async function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<any> {
   try {
     const origin: string = "https://yoth-hi.vercel.app";
     const a: Response = await fetch(origin + "/yothpi/browse?key=27626272672626262636363636626262627393829", {
