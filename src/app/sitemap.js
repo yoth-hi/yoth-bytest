@@ -1,5 +1,5 @@
-import { MetadataRoute } from "next";
 
+/*
 export default function sitemap() {
   /*try {
     const origin = "https://yoth-hi.vercel.app";
@@ -30,7 +30,7 @@ export default function sitemap() {
         lastModified: new Date().toISOString(),
       },
     ];
-  } catch (error) {}*/
+  } catch (error) {}* /
   return [
     {
       url: origin + "/",
@@ -49,4 +49,21 @@ export default function sitemap() {
       lastModified: new Date().toISOString(),
     },
   ];
+}
+
+*/
+
+export default function sitemap() {
+  const origin = "https://yoth-hi.vercel.app"
+  return [
+    {
+      url: origin + "/",
+    },
+    {
+      url: origin + "/gaming"
+    },
+    {
+      url: origin + "/following"
+    }
+  ]
 }
