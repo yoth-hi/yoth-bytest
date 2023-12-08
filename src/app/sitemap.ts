@@ -34,6 +34,23 @@ export default async function sitemap(): Promise<SitemapItem[]> {
   ];
     
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
+    return[    {
+      url: origin + "/",
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: origin + "/gaming",
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: origin + "/following",
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: origin + "/watch?tw=wuant",
+      lastModified: new Date().toISOString(),
+    },
+    ]
 }
