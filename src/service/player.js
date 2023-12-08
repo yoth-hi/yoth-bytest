@@ -105,6 +105,7 @@ export default function ({ video }) {
       body: new Uint8Array([120, 0]),
       method: "POST",
     };
+    if(!b)return a.setSrc("");
      a.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
     //  fetch(b);
     play()

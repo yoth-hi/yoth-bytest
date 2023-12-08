@@ -218,7 +218,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   const souce =
     a?.stream?.action?.src ||
     bz(data?.stream?.[c]?.signatureCipher) ||
-    data?.stream?.[c]?.url;
+    data?.stream?.[c]?.url ||data?.stream?.streamM3u8Url;
   const souce_type = a?.stream?.action?.mimeType || data?.stream?.[c]?.mimeType;
   // M?.change?.(souce,souce_type)
   const resolutions = Object.values(data?.stream || {});

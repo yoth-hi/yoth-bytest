@@ -4,15 +4,16 @@ import { getStream } from "./_m3u8_tw";
 import { headers } from "next/headers";
 
 // `https://yoth-hi-github-io.vercel.app/yothpi/stream?q=${encodeURIComponent(
-const getUrlStreamTwichM3u8 = async function (p, channel) {
+const getUrlStreamTwichM3u8 = function (p, channel) {
   if (!p) return;
   const { signature, value } = p;
-  return await fetch(
+  return (
     `http://usher.ttvnw.net/api/channel/hls/${channel}.m3u8?player=twitchweb&&token=${encodeURIComponent(
       value
     )}&sig=${signature}&allow_audio_only=true&allow_source=true&type=any&p=${Math.floor(
       Math.random() * 10000
-    )}`,
+    )}`)
+  /*
     {
       method: "GET",
     }
@@ -20,7 +21,7 @@ const getUrlStreamTwichM3u8 = async function (p, channel) {
     .then((a) => a.text())
     .then((a) => {
       return parsePlaylist(a);
-    });
+    });*/
   //)}`;
 };
 const twitch = async function (channel, ling = "en") {
@@ -83,11 +84,10 @@ export async function POST(req) {
   if (context?.platform === "twitch") {
     const channel = context.id;
     data = await twitch(channel, ling);
-    /*getUrlStreamTwichM3u8list = await getUrlStreamTwichM3u8(
+    streamM3u8Url =  getUrlStreamTwichM3u8(
       data?.data?.user?.stream?.playbackAccessToken,
       channel
-    );*/
-    // list=getStream(channel,true)
+    );
   }
   if (context?.platform === "youtube") {
     const res = await fetch(

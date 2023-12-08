@@ -11,11 +11,11 @@ const Fetch = (a: string = "", b: Record<string, any> = {}): Promise<any> => {
   try {
     const { headers } = require("next/headers");
     const headersList = headers();
-    _j = false;  
-    
-    
-a = `https://yoth-hi.vercel.app${a}`;
-//a= `http://localhost:3000${a}`;
+    _j = false;
+
+
+        a = `https://yoth-hi.vercel.app${a}`;
+        //a= `http://localhost:3000${a}`;
   } catch (error) {
     a = `${location.origin}${a}`;
   }
@@ -23,10 +23,10 @@ a = `https://yoth-hi.vercel.app${a}`;
     ...b,
     cache: "no-store",
   };
+  const apiFetch = new FAR();
   const req = new Request(a, b);
   return new Promise(function (ok, erro) {
-    (_j ? fetch(req) : fetch(a, b))
-      .then((e) => e.json())
+    apiFetch.fetch(a, b,_j)
       .then(ok)
       .catch((a) => {
         ok({ "erro": a });
@@ -45,7 +45,9 @@ const ApiRest: FC<ApiRestProps> = async (props) => {
   try {
     lg = navigator.language;
   } catch (a) {
-    lg = "en";
+    const { headers } = require("next/headers");
+    const headersList = headers();
+    lg = (headersList.get("accept-language")?.[0]+headersList.get("accept-language")?.[1])||"en"
   }
   const headers = {
     "Authentication": auto,
@@ -68,5 +70,24 @@ const ApiRest: FC<ApiRestProps> = async (props) => {
   }
 };
 
+//FAR=fetch api rest
+class FAR {
+  fetch(a: string, config: any | null, isRequestCostom: boolean): Promise<any> {
+    let fetchProms: Promise<any>;
+    if (isRequestCostom) {
+      a = new Request(a, config);
+      fetchProms = fetch(a);
+    } else {
+      fetchProms = fetch(a, config);
+    }
+    return fetchProms.then(this.handleResponse);
+  }
+
+  handleResponse(response: Response): Promise<any> {
+    const json = response.text().then(function (text: string): any {
+      return JSON.parse(text);
+    });
+    return json;
+  }
+}
 export default ApiRest;
-    
