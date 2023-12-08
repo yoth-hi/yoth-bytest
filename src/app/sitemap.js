@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-export default async function sitemap() {
+export default function sitemap() {
   /*try {
     const origin = "https://yoth-hi.vercel.app";
     const a = await fetch(
