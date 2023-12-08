@@ -72,13 +72,13 @@ const ApiRest: FC<ApiRestProps> = async (props) => {
 
 //FAR=fetch api rest
 class FAR {
-  fetch(a: string, config: any | null, isRequestCostom: boolean): Promise<any> {
+  fetch(url: string, config: any | null, isRequestCostom: boolean): Promise<any> {
     let fetchProms: Promise<any>;
     if (isRequestCostom) {
-      a = new Request(a, config);
-      fetchProms = fetch(a);
+      const req = new Request(url, config);
+      fetchProms = fetch(req);
     } else {
-      fetchProms = fetch(a, config);
+      fetchProms = fetch(url, config);
     }
     return fetchProms.then(this.handleResponse);
   }
