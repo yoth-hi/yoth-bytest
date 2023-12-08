@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Title from "../../../components/string";
-
+/*
 type PageDirectUser = {
   content: {
     renderDataUserDirect: {
@@ -454,9 +454,9 @@ const data: PageDirectUser = {
       },
     ],
   },
-};
+};*/
 export default function (props: any) {
-  return (
+  return/* (
     <div className="direct-user">
       <div>
         <div>
@@ -535,7 +535,7 @@ export default function (props: any) {
         </div>
       </div>
     </div>
-  );
+  );*/
 }
 
 //page-watch-primary => scroll
