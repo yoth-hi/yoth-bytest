@@ -6,8 +6,9 @@ interface SitemapItem {
 }
 
 export default async function sitemap(): Promise<SitemapItem[]> {
+  try {
   const origin: string = "https://yoth-hi.vercel.app";
-  const a: Response = await fetch("http://localhost:3000/yothpi/browse?key=27626272672626262636363636626262627393829", {
+  const a: Response = await fetch(origin+"/yothpi/browse?key=27626272672626262636363636626262627393829", {
     method: "GET",
     next: { revalidate: 10 }
   });
@@ -31,4 +32,8 @@ export default async function sitemap(): Promise<SitemapItem[]> {
       lastModified: new Date().toISOString(),
     },
   ];
+    
+  } catch (error) {
+    console.error(error)
+  }
 }
