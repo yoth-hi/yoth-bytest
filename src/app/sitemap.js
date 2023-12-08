@@ -1,4 +1,3 @@
-
 /*
 export default function sitemap() {
   /*try {
@@ -11,10 +10,7 @@ export default function sitemap() {
       }
     );
     const b = (await a.json()) || {};
-    const m = b?.list?.map((a) => {
-      a.url = origin + a.url;
-      return a;
-    });
+    const m = 
     return [
       ...m,
       {
@@ -52,18 +48,33 @@ export default function sitemap() {
 }
 
 */
-
+var t = [];
 export default function sitemap() {
-  const origin = "https://yoth-hi.vercel.app"
+  const origin = "https://yoth-hi.vercel.app";
+  fetch(
+    origin + "/yothpi/browse?key=27626272672626262636363636626262627393829",
+    {
+      method: "GET",
+      next: { revalidate: 10 },
+    }
+  )
+    .then((a) => a.json())
+    .then((a) => {
+     t= a?.list?.map((a) => {
+        a.url = origin + a.url;
+        return a;
+      })||[];
+    });
   return [
     {
       url: origin + "/",
     },
     {
-      url: origin + "/gaming"
+      url: origin + "/gaming",
     },
     {
-      url: origin + "/following"
-    }
-  ]
+      url: origin + "/following",
+    },
+    ...t,
+  ];
 }
