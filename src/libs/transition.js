@@ -1,4 +1,4 @@
-import getCodeLanguage from "./getCodeLanguage";
+;import getCodeLanguage from "./getCodeLanguage";
 const linguagems = {
   en: {
     See_more: "See more",
@@ -41,6 +41,48 @@ const linguagems = {
     "Search_for_*":"Search for \"*\"",
     "This_video_could_not_be_loaded":"This video could not be loaded"
   },
+  pt: {
+    See_more: "Ver mais",
+    Last: "Mais recente", 
+    Channels_you_followed: "Canais que você seguiu",
+    Home: "Início",
+    Reels: "Reels",
+    Following: "Seguindo",
+    Explore: "Explorar",
+    Lives: "Ao vivos",
+    Menu: "Menu",
+    Go_to_homepage: "Vá para a página inicio",
+    Notifications: "Notificações",
+    Recommended: "Recomendado",
+    Gaming: "Jogos",
+    Close: "Fechar",
+    Channel: "Canal",
+    Channels: "Canals",
+    Send: "Enviar",
+    Search: "Pesquisar",
+    Your_channel: "Seu canal",
+    Theme: "Tema",
+    Logout: "Sair",
+    Language: "Linguagem",
+    Settings: "Configurações",
+    Send_feedback: "Enviar feedback",
+    Light: "Claro",
+    Dark: "Escuro",
+    Login: "Login",
+    Chat: "Bater papo",
+    System_default: "Sistema padrão",
+    Pause_K: "Pausa (K)",
+    Play_K: "Play (K)",
+    Others: "Others", 
+    "*_Views": "* Visualizações",
+    "*_K_Views": "*K Visualizações",
+    "*_M_Views": "*M Visualizações",
+    "*_B_Views": "*B Visualizações",
+    "*_T_Views": "*T Visualizações",
+    "Search_for_*":"Procurar \"*\"",
+    "This_video_could_not_be_loaded":"Não foi possível carregar este vídeo",
+    "":""
+  },
 };
 export const t = function (label, values = []) {
   var values_index = 0;
@@ -60,7 +102,13 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 function getLing() {
-  var tom = { en: "en", "en-US": "en" };
+  var tom = {
+    en: "en",
+    "pt-pt": "pt",
+    "pt-br": "pt",
+    "pt": "pt",
+    "en-US": "en"
+  };
   var language = "en";
   try {
     language =

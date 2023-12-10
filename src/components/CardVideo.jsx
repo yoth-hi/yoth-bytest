@@ -26,11 +26,11 @@ export default memo(function ({ data, skeleton }) {
             src={thumbnail}
             aria-label={title}
           />
-          <div className="card-video--time">
+         {(0,!skeleton)&&(<div className="card-video--time">
             <div className="card-video--time-pf">
               {plt === "tw" ? "Twitch" : "YouTube"}
             </div>
-          </div>
+          </div>)}
         </div>
       </Link>
       <Link

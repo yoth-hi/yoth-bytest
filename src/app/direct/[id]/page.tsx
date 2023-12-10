@@ -456,7 +456,8 @@ const data: PageDirectUser = {
   },
 };*/
 export default function (props: any) {
-  return/* (
+  return
+  /* (
     <div className="direct-user">
       <div>
         <div>

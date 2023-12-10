@@ -92,24 +92,57 @@ e.hasAttribute = function (a) {
   return this.t.hasAttribute(a);
 };
 export default function ({ video }) {
-  var __type;
   const a = new _(video);
+  var __type;
   const play = () => a.play();
   const setType = function (a) {
     __type = a;
   };
   const setSrc = (b) => {
+    video.preload = "auto";
     var c = {
       credentials: "include",
       cache: "no-store",
+      mode: "no-cors",
       body: new Uint8Array([120, 0]),
       method: "POST",
+      
     };
-    if(!b)return a.setSrc("");
+  if(!b)return a.setSrc("");
      a.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
     //  fetch(b);
     play()
+    fetch(b, {
+  "headers": {
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.9,ja-JP;q=0.8,ja;q=0.7,pt-BR;q=0.6,pt;q=0.5",
+    "sec-ch-ua": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\"",
+    "sec-ch-ua-arch": "\"x86\"",
+    "sec-ch-ua-bitness": "\"64\"",
+    "sec-ch-ua-full-version": "\"120.0.6099.26\"",
+    "sec-ch-ua-full-version-list": "\"Not_A Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"120.0.6099.26\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-model": "\"\"",
+    "sec-ch-ua-platform": "\"Linux\"",
+    "sec-ch-ua-platform-version": "\"\"",
+    "sec-ch-ua-wow64": "?0",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "cross-site",
+    "x-client-data": "CIzqygE="
+  },
+  "referrer": "https://www.youtube.com/",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": "x\u0000",
+  "method": "POST",
+  "mode": "no-cors",
+  "credentials": "omit"
+}).finally(console.log)
+    
+    
+
       return;
+      
 /*
     if (!b) {
       a.setSrc("");

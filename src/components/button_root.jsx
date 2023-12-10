@@ -14,13 +14,14 @@ export default memo(function ({ popout, root, children, ...rest }) {
   };
   const hHover = function () {
     fill.current.style.opacity = 0.1;
+    stroke.current.style.opacity = 0.1;
   };
   const unhHover = function () {
     stroke.current.style.opacity = 0.2;
     setTimeout(function () {
       fill.current.style.opacity = 0;
       stroke.current.style.opacity = 0;
-    }, 210);
+    }, 40);
   };
   return (
     <Button

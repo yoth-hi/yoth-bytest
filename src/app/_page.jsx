@@ -90,8 +90,9 @@ export default function ({ data }) {
   return (
     <>
       <div className="page-home-top-buttons">
-        {null
-        /*
+        {
+          null
+          /*
           data?.content?.topBtnFilters?.map(({ name, apiFilter }) => (
           <button key={apiFilter} aria-label={name} className="page-home-top-button">
             <span>{"name"}</span>
@@ -103,8 +104,8 @@ export default function ({ data }) {
       </div>
       <Banner data={data?.content?.banner ?? {}} />
       <div id="center">
-      <Title semibold="" large="" title={t("Recommended")} />
-      {/* 
+        <Title semibold="" large="" title={t("Recommended")} />
+        {/* 
       <div className="page-content-video-list-items">
         {list.map((a) => (
           <div className="page-content-video-list-items-row">
@@ -122,15 +123,15 @@ export default function ({ data }) {
         ))}
       </div>
           */}
-      <div className="page-content-video-list-grid">
-        {(list || data?.content?.listVideo)?.map((a) => (
-          <CardVideo data={a} key={a?.key} />
-        ))}
-        {[0, 0, 0, 0]?.map(() => (
-          <CardVideo data={{}} skeleton />
-        ))}
-      </div>
-      <Spin />
+        <div className="page-content-video-list-grid">
+          {(list || data?.content?.listVideo)?.map?.(
+            (a) => a && <CardVideo data={a} key={a?.key} />
+          )}
+          {[0, 0, 0, 0]?.map(() => (
+            <CardVideo data={{}} skeleton />
+          ))}
+        </div>
+        <Spin />
       </div>
     </>
   );

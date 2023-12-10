@@ -17,6 +17,7 @@ export default function ({ video }) {
   const _ = {
     canvas: [A(config), A(config), A(config)],
   };
+  const a = document.querySelector("#cinematic");
   const interval = setInterval(() => {
     _.canvas[1]?.context?.clearRect(0, 0, 1000, 1000);
     _.canvas[1]?.context?.drawImage(
@@ -34,15 +35,21 @@ export default function ({ video }) {
       config.width,
       config.height
     );
+    if (a && a.style) {
+      if (config.inative) {
+        a.style.opacity = 0;
+      } else {
+        a.style.opacity = 1;
+      }
+    }
   }, 16);
-  const a = document.querySelector("#cinematic");
   a?.appendChild?.(_.canvas[0]?.canvas);
   a?.appendChild?.(_.canvas[1]?.canvas);
   return {
     clear() {
       try {
-      a?.removeChild?.(_.canvas[0]?.canvas);
-      a?.removeChild?.(_.canvas[1]?.canvas);
+        a?.removeChild?.(_.canvas[0]?.canvas);
+        a?.removeChild?.(_.canvas[1]?.canvas);
         /* code */
       } catch (e) {}
       clearInterval(interval);

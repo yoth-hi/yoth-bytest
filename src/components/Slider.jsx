@@ -1,7 +1,14 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+function formatTime(milliseconds) {
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  const formattedTime = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  return formattedTime;
+}
 
-export default function ({ video }) {
+export default function ({ video,tt, time }) {
   const [progressPlay, setProgressPlay] = useState(0);
   const [progressHover, setProgressHover] = useState(-1);
   const root = useRef(null);
@@ -28,9 +35,12 @@ export default function ({ video }) {
     setProgressHover(-1);
   };
   useEffect(() => {
-    var vid;
+    var vid,timm;
     const interval = setInterval(() => {
       if ((vid = video.current)) {
+      if(timm=time.current){
+        timm.innerText=`${formatTime(vid.currentTime*1000)} / ${formatTime(vid.duration*1000)}`
+      }
         if (vid.currentTime !== vid.duration * progressPlay) {
           setProgressPlay(vid.currentTime / vid.duration);
         }
@@ -57,7 +67,7 @@ export default function ({ video }) {
         ></div>
         <div
           className="player-prosses pplay"
-          style={{ transform: `scaleX(${progressPlay})` }}
+          style={{ transform: `scaleX(${progressPlay<0?0:(progressPlay>1?1:progressPlay)})` }}
         ></div>
         <div
           className="player-prosses phove"

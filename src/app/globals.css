@@ -544,6 +544,7 @@ body:not([fullscreen])
   left: 15px;
   right: 15px;
   max-width: 100%;
+  text-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
 }
 .player-bottom,
 .player-bottom-buttons {
@@ -656,6 +657,7 @@ transform: translate(-50%, -9px) scale(1)!important;
 }
 .player-top {
   height: 48px;
+  text-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
   @apply absolute top-0 left-0 right-0 flex items-center justify-between;
 }
 .player-top .title {
@@ -2073,4 +2075,12 @@ margin-left:auto;
 }
 .no-me-send{
 margin-right:auto;
+}
+.player-time-display {
+    font-size: 13px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 5px;
+    white-space: nowrap;
+    line-height: 47px;
 }

@@ -186,7 +186,8 @@ var bz = function (a) {
         </>
       )}*/
 var render_cine = undefined,
-  srt = undefined;
+  srt = undefined,
+  audioSource = undefined;
 
 var time = 0,
   r = 0,
@@ -196,6 +197,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   const player = React.useRef(null);
   const spin = React.useRef(null);
   const video = React.useRef(null);
+  const refTime = React.useRef(null);
   const router = useRouter();
   const [statusPlayerModeWatch, setStatusPlayerModeWatch] = React.useState(1);
   //0 = normal
@@ -207,6 +209,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   const [start_play, set_start_play] = React.useState(true);
   const [a, b] = React.useState(null); // a = isModeAd, b = setModeAd, item = {stream:{url},config:{time:0}}
   const [c, setResolution] = React.useState(0); // index resolutions
+  const [_audioSrc, set_audioSrc] = React.useState(0); // index resolutions
   const [h, seth] = React.useState(0);
   const [temp_, s] = React.useState(false);
   const play_pouse = function () {
@@ -215,6 +218,8 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     if (!vid) return alert("%% no video ");
     vid.paused ? srt.play() : srt.pause();
   };
+  const audioSrc = (Object.values(data?.stream || {}).filter(({ qualityLabel })=>!!!qualityLabel))?.[_audioSrc]
+
   const souce =
     a?.stream?.action?.src ||
     bz(data?.stream?.[c]?.signatureCipher) ||
@@ -231,6 +236,11 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
       t.removeAttribute("scrollwatch");
     }
   };
+  React.useEffect(()=>{
+   /* if(!audioSource)return;
+    audioSource.src = audioSrc?.url;
+    audioSource.type = audioSrc?.mimeType?.split(";")?.[0];
+*/  },[_audioSrc,data])
   React.useEffect(() => {
     const adt = document.querySelector("#app-desktop");
 
@@ -303,11 +313,20 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     if (!video.current) return;
     render_cine = render_cine || new Cine({ video: video.current });
     srt = srt || new tr({ video: video.current });
+     audioSource = audioSource || document.createElement('source');
+
+  try{
+  video.current.appendChild(audioSource);
+}catch(a){}
     return () => {
       render_cine?.clear();
       render_cine = undefined;
       srt?.clear?.();
       srt = undefined;
+  try{
+  video.current.removeChild(audioSource);
+}catch(a){}
+
     };
   }, [video]);
   React.useEffect(() => {
@@ -429,7 +448,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
               </div>
             )}
             <div className="player-bottom">
-              <Slider video={video} />
+              <Slider video={video} tt={srt} time={refTime}/>
               <div className="player-bottom-buttons">
                 <div className="player-bottom-buttons-flex">
                   <Button
@@ -458,6 +477,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     <NextVideo />
                   </Button>
                   <Vol video={video} />
+                  <span className="player-time-display" ref={refTime}>00:00 / 00:00</span>
                 </div>
                 <div className="player-bottom-buttons-flex">
                   <Button

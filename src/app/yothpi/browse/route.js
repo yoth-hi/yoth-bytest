@@ -291,6 +291,7 @@ export async function POST(req) {
             thumbnail: k?.thumbnail,
             id: k?.id,
             platform: "youtube",
+            endpoint:`/watch?v=${videoCardRenderer?.videoId}`,
           };
         }
       );
@@ -820,6 +821,16 @@ export async function POST(req) {
       data.content.list.push({
         list: k,
         title: "YouTube",
+      });
+      data.content.list.push({
+        list: [
+          _list[parseInt(Math.random()*_list.length)],
+          _list[parseInt(Math.random()*_list.length)],
+          _list[parseInt(Math.random()*_list.length)],
+          _list[parseInt(Math.random()*_list.length)],
+          _list[parseInt(Math.random()*_list.length)],
+        ],
+        title: "Recently searched"
       });
       data.content.list.push({
         list: t,

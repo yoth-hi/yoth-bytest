@@ -2,7 +2,7 @@
 import SearchIcon from "./icons/SearchIcon";
 import { t } from "../libs/transition";
 import { useRouter } from "next/navigation";
-export default function () {
+export default function ({qs}) {
   const router = useRouter();
   const onKeywordUp = function () {};
   const onKeywordChange = function () {};
