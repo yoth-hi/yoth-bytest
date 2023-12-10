@@ -11,8 +11,8 @@ export default memo(function ({ classRoot, loadingSkeleton, alt, src, ...rest })
   }, []);
   return (
     <div rounded={rest.rounded} className={["core-image", classRoot].join(" ")+(loaded?"":" "+loadingSkeleton)}>
-      {Stated
-        ? src && (
+     {/*Stated
+        ?*/ src && (
             <img
               {...rest}
               src={src}
@@ -22,7 +22,7 @@ export default memo(function ({ classRoot, loadingSkeleton, alt, src, ...rest })
               alt={alt || "image no asesibility"}
             />
           )
-        : ""}
+    /*    : ""*/}
     </div>
   );
 })

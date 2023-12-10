@@ -1,11 +1,23 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 function formatTime(milliseconds) {
+  
+  if(Infinity==(milliseconds)){
+    return"--:--";
+  }
   const seconds = Math.floor(milliseconds / 1000);
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-  const formattedTime = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  return formattedTime;
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+
+  if (hours > 0) {
+    return `${hours}:${remainingMinutes < 10 ? '0' : ''}${remainingMinutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  } else if (minutes > 0) {
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  } else {
+    return `0:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  }
 }
 
 export default function ({ video,tt, time }) {

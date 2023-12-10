@@ -10,6 +10,7 @@ import Play from "./icons/play";
 import Pause from "./icons/pause";
 import Fullscreen from "./icons/fullscreen";
 import ExitFullscreen from "./icons/exitFullscreen";
+import ArrowLeft from "./icons/ArrowLeft";
 import TheaterMode from "./icons/theaterMode";
 import Settings from "./icons/Settings";
 import Fetch from "../service/ApiRest";
@@ -185,6 +186,30 @@ var bz = function (a) {
           </div>
         </>
       )}*/
+function xmlToVtt(xmlString) {
+  let parser = new DOMParser();
+  let xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  let textNodes = xmlDoc.querySelectorAll('text');
+
+  let vttString = 'WEBVTT\n\n';
+
+  textNodes.forEach((textNode, index) => {
+    let start = parseFloat(textNode.getAttribute('start')).toFixed(3);
+    let dur = parseFloat(textNode.getAttribute('dur')).toFixed(3);
+    let textContent = textNode.textContent.trim();
+
+    vttString += `${index + 1}\n${formatTime(start)} --> ${formatTime(parseFloat(start) + parseFloat(dur))}\n${textContent}\n\n`;
+  });
+
+  return vttString;
+}
+
+function formatTime(seconds) {
+  let minutes = Math.floor(seconds / 60);
+  let remainingSeconds = (seconds % 60).toFixed(3);
+  return `${String(minutes).padStart(2, '0')}:${remainingSeconds.padStart(6, '0')}`;
+}
+
 var render_cine = undefined,
   srt = undefined,
   audioSource = undefined;
@@ -203,6 +228,8 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   //0 = normal
   //1 = theater
   //2 = fullscreen
+  const [caption, setCaption] = React.useState(-1);
+  const [fff, setfff] = React.useState(null);
   const [isPlay, toPlay] = React.useState(false);
   const [data, setData] = React.useState({});
   const [isErr, setError] = React.useState(false);
@@ -218,12 +245,15 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     if (!vid) return alert("%% no video ");
     vid.paused ? srt.play() : srt.pause();
   };
-  const audioSrc = (Object.values(data?.stream || {}).filter(({ qualityLabel })=>!!!qualityLabel))?.[_audioSrc]
+  const audioSrc = Object.values(data?.stream || {}).filter(
+    ({ qualityLabel }) => !!!qualityLabel
+  )?.[_audioSrc];
 
   const souce =
     a?.stream?.action?.src ||
     bz(data?.stream?.[c]?.signatureCipher) ||
-    data?.stream?.[c]?.url ||data?.stream?.streamM3u8Url;
+    data?.stream?.[c]?.url ||
+    data?.stream?.streamM3u8Url;
   const souce_type = a?.stream?.action?.mimeType || data?.stream?.[c]?.mimeType;
   // M?.change?.(souce,souce_type)
   const resolutions = Object.values(data?.stream || {});
@@ -236,11 +266,21 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
       t.removeAttribute("scrollwatch");
     }
   };
-  React.useEffect(()=>{
-   /* if(!audioSource)return;
+  React.useEffect(() => {
+    /* if(!audioSource)return;
     audioSource.src = audioSrc?.url;
     audioSource.type = audioSrc?.mimeType?.split(";")?.[0];
-*/  },[_audioSrc,data])
+*/
+  }, [_audioSrc, data]);
+  React.useEffect(() => {
+    if (data?.captions?.[caption]?.baseUrl)
+      fetch(data?.captions?.[caption]?.baseUrl)
+        .then((a) => a.text())
+        .then((a) => {
+          const blob = new Blob([xmlToVtt(a)], {});
+          setfff(URL.createObjectURL(blob));
+        });
+  }, [caption, data]);
   React.useEffect(() => {
     const adt = document.querySelector("#app-desktop");
 
@@ -313,20 +353,19 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     if (!video.current) return;
     render_cine = render_cine || new Cine({ video: video.current });
     srt = srt || new tr({ video: video.current });
-     audioSource = audioSource || document.createElement('source');
+    audioSource = audioSource || document.createElement("source");
 
-  try{
-  video.current.appendChild(audioSource);
-}catch(a){}
+    try {
+      video.current.appendChild(audioSource);
+    } catch (a) {}
     return () => {
       render_cine?.clear();
       render_cine = undefined;
       srt?.clear?.();
       srt = undefined;
-  try{
-  video.current.removeChild(audioSource);
-}catch(a){}
-
+      try {
+        video.current.removeChild(audioSource);
+      } catch (a) {}
     };
   }, [video]);
   React.useEffect(() => {
@@ -361,9 +400,17 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
       onTouchMove={hoverPlayer}
       onMouseMove={hoverPlayer}
       className="video-player"
+      style={
+        id
+          ? {}
+          : {
+              pointerEvents: "none",
+              display: "none",
+            }
+      }
       tabIndex="-1"
     >
-      {(start_play|| data?.videoDetails?.tw_isOffline) && (
+      {(start_play || data?.videoDetails?.tw_isOffline) && (
         <Image
           src={
             platform === "youtube"
@@ -378,7 +425,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
         tabIndex="-1"
-        onError={() => (souce ? setError(true) : null)}
+        /*  onError={() => (souce ? setError(true) : null)}*/
         onPlay={() => {
           toPlay(true);
         }}
@@ -394,7 +441,26 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         }}
         ref={video}
         type={souce_type}
-      />
+      >
+        {caption > -1 && (
+          <track
+            label={data?.captions?.[caption]?.name?.simpleText}
+            kind="subtitles"
+            src={fff || data?.captions?.[caption]?.baseUrl}
+            srcLang={data?.captions?.[caption]?.languageCode}
+            default
+          />
+        )}
+      </video>
+      <div className="player-screan-end">
+        <div className="player-screan-end-content">
+          {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => (
+            <div className="player-screan-end-item">
+              <img src="https://i3.ytimg.com/vi/k7_KXpwQ2PY/hq720.jpg" />
+            </div>
+          ))}
+        </div>
+      </div>
       {isErr && (
         <div className="player-error">
           {"Error: " +
@@ -419,6 +485,8 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           setResolution={setResolution}
           seth={seth}
           h={h}
+          listCaptions={data?.captions}
+          setCaption={setCaption}
         />
         <div className="player-bottom-bg" />
         {a && (
@@ -427,7 +495,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             <NextVideo />
           </div>
         )}
-        {data?.videoDetails&&data?.videoDetails?.tw_isOffline && (
+        {data?.videoDetails && data?.videoDetails?.tw_isOffline && (
           <div className="player-card-info" title="offline">
             <div className="player-card-info-title">{STREAM_IS_OFFLINE}</div>
             <div className="player-card-info-metadata">
@@ -448,7 +516,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
               </div>
             )}
             <div className="player-bottom">
-              <Slider video={video} tt={srt} time={refTime}/>
+              <Slider video={video} tt={srt} time={refTime} />
               <div className="player-bottom-buttons">
                 <div className="player-bottom-buttons-flex">
                   <Button
@@ -477,7 +545,9 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                     <NextVideo />
                   </Button>
                   <Vol video={video} />
-                  <span className="player-time-display" ref={refTime}>00:00 / 00:00</span>
+                  <span className="player-time-display" ref={refTime}>
+                    00:00 / 00:00
+                  </span>
                 </div>
                 <div className="player-bottom-buttons-flex">
                   <Button
@@ -571,26 +641,41 @@ const Iframe = function ({ type, ...rest }) {
   );
   return type && <iframe allowfullscreen="" src={src} {...rest} />;
 };
-const CogMenu = function ({ seth, setResolution, resolutions, h }) {
+const CogMenu = function ({
+  seth,
+  listCaptions,
+  setCaption,
+  setResolution,
+  resolutions,
+  h,
+}) {
   const setPlaybackRate = function (a) {
     srt?.setPlaybackRate(a);
   };
   resolutions = resolutions.map(({ qualityLabel }, a) => {
     return {
       title: qualityLabel,
-      onClick: () => setResolution(a),
+      onClick: () => (seth(0),setResolution(a)),
+    };
+  });
+  listCaptions = listCaptions||[];
+  listCaptions = listCaptions?.map(({ name }, a) => {
+    return {
+      title: name?.simpleText,
+      onClick: () => (seth(0),setCaption(a))
     };
   });
   const controles = [
     {
       type: "menu",
       onClick: () => seth(2),
-      icon: null,
+      icon: <Settings />,
       title: "Quality",
       items: [
         {
           onClick: () => seth(1),
-          title: "< Back",
+          title: "Back",
+          icon: <ArrowLeft />,
         },
         ...resolutions,
       ],
@@ -603,7 +688,8 @@ const CogMenu = function ({ seth, setResolution, resolutions, h }) {
       items: [
         {
           onClick: () => seth(1),
-          title: "< Back",
+          title: "Back",
+          icon: <ArrowLeft />,
         },
         {
           onClick: () => (setPlaybackRate(0.25), seth(1)),
@@ -639,6 +725,24 @@ const CogMenu = function ({ seth, setResolution, resolutions, h }) {
         },
       ],
     },
+    {
+      type: "menu",
+      onClick: () => seth(4),
+      icon: null ,
+      title: "Captions",
+      items: [
+        {
+          onClick: () => seth(1),
+          title: "Back",
+          icon: <ArrowLeft />,
+        },
+        {
+          title: "Disable",
+          onClick: () => (seth(0),setCaption(-1)),
+        },
+        ...listCaptions,
+      ],
+    },
   ];
   return (
     <div
@@ -647,10 +751,10 @@ const CogMenu = function ({ seth, setResolution, resolutions, h }) {
         height:
           (h == 1
             ? controles.length
-            : controles[h - 2]?.items?.length > 5
-            ? 5
+            : controles[h - 2]?.items?.length > 10
+            ? 10
             : controles[h - 2]?.items?.length) *
-            32 +
+            40 +
           18 +
           "px",
       }}
@@ -666,10 +770,10 @@ const CogMenu = function ({ seth, setResolution, resolutions, h }) {
   );
 };
 
-const ButtonCog = function ({ set_, g, h, title, onClick }) {
+const ButtonCog = function ({ set_, g, h, icon, title, onClick }) {
   return (
     <div onClick={() => onClick(() => set_(0))} className="btn-cog">
-      <div className="btn-cog-icon"></div>
+      <div className="btn-cog-icon">{icon} </div>
       <div className="btn-cog-text">
         {title}
         {h && <div className="btn-cog-subtitle">h2</div>}

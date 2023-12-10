@@ -525,8 +525,7 @@ export async function POST(req) {
 
             actorImage: `${n?.broadcaster?.profileImageURL}`,
             actorName: `${n?.broadcaster?.displayName}`,
-          }) ||
-            _list[parseInt(Math.random() * 10)]
+          }) 
         )
       );
       t.push(
@@ -543,12 +542,10 @@ export async function POST(req) {
 
               actorImage: `${n?.channelThumbnailSupportedRenderers?.channelThumbnailWithLinkRenderer?.thumbnail?.thumbnails[0]?.url}`,
               actorName: `${n?.ownerText?.runs?.[0]?.text}`,
-            }) ||
-              _list[parseInt(Math.random() * 10)]
+            }) 
           )
         )
       );
-      t.push(_list[parseInt(Math.random() * 2)]);
       t.forEach(() => {
         (data.content.listVideo = data.content.listVideo || []).push(
           (0,

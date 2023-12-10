@@ -162,9 +162,10 @@ export async function POST(req) {
         ...list,
       },
       screenEnd: {
-        // list:(data.endscreen?.endscreenRenderer)
+        list:(data?.endscreen?.endscreenRenderer?.elements?.map(({endscreenElementRenderer })=>endscreenElementRenderer))
       },
-      nextVideosOnEnd: [],
+      nextVideosOnEnd: [   ],
+      captions:data?.captions?.playerCaptionsTracklistRenderer?.captionTracks,
       videoDetails: {
         title: (us?.broadcastSettings || t)?.title,
         description: us?.description,

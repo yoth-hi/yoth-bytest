@@ -13,7 +13,6 @@ const Action_b = {
   VIP: "https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2",
 };
 export default function ({ id }) {
-  
   const points = 0; //state
   const value = 0; //state
 
@@ -54,7 +53,7 @@ const Msg = function (props) {
   if (!data) return;
   const { timestamp } = data;
   const isTimeShown = true;
-  
+
   /* <div className="chat-message">
       <div className="message-content">
         <span
@@ -192,7 +191,7 @@ const Msgs = function (props) {
       const newMsg = [...beforeMsg, a].slice(-100);
       return newMsg;
     });
-    chatRef.current.scrollTop = chatRef.current.scrollHeight*1e3
+    chatRef.current.scrollTop = chatRef.current.scrollHeight * 1e3;
   };
   useEffect(() => {
     ws =
@@ -200,14 +199,17 @@ const Msgs = function (props) {
       Ws({
         channel,
         MSG: function (data) {
-          const { parameters, command, tags } = ParceJsonTwich(data);
-          if (command?.command === "PRIVMSG") {
-            addMsg({
-              ...tags,
-              badges: Object.entries(tags?.badges),
-              text: parameters,
-            });
-          }
+          try {
+            /* code */
+            const { parameters, command, tags } = ParceJsonTwich(data);
+            if (command?.command === "PRIVMSG") {
+              addMsg({
+                ...tags,
+                badges: Object.entries(tags?.badges),
+                text: parameters,
+              });
+            }
+          } catch (e) {}
         },
         Status: function (data) {
           const a = Actions[data];
@@ -216,10 +218,10 @@ const Msgs = function (props) {
           // setMsgs(0)
         },
       });
-      return ()=>{
-        ws.clear?.()
-        ws=undefined;
-      }
+    return () => {
+      ws.clear?.();
+      ws = undefined;
+    };
   }, []);
   return (
     <>
