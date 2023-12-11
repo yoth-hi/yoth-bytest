@@ -21,7 +21,7 @@ export default function () {
               <div className="button-skeleton" />
             </div>
           </div>
-          <Description text={undefined} metadata={undefined} />
+          <Description text={""} metadata={[]} />
         </div>
         <div className="page-watch-items"></div>
       </div>
