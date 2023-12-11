@@ -1,5 +1,5 @@
 class FAR {
-  fetch(url: string, config: object | null, isRequestCostom: boolean): Promise<any> {
+  fetch(url: string, config: RequestInit | null, isRequestCostom: boolean): Promise<any> {
     let fetchProms: Promise<any>;
     if (isRequestCostom) {
       const req = new Request(url, config);
