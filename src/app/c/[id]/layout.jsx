@@ -2,7 +2,18 @@ import Title from "../../../components/string";
 import Image from "../../../components/image";
 import Button from "../../../components/button_root";
 import { t } from "../../../libs/transition";
+const data = {
+  content:{
+    channelContentRender:{
+      content:{
+        title:"api/channel/name",
+        follows:"api/channel/follows",
+      }
+    }
+  }
+}
 export default function ({ children }) {
+  const { title, banner, fw }  = data?.content?.channelContentRender?.content||{};
   return (
     <div
       style={{
@@ -24,12 +35,12 @@ export default function ({ children }) {
           </div>
           <div className="channel-content-metadata">
             <div>
-              <Title large="" semibold="" title="[name]" />
+              <Title large="" semibold="" title={title} />
             </div>
-            <div className="channel-content-metadata-count">[Number follow] follow</div>
+            <div className="channel-content-metadata-count">{fw} follow</div>
           </div>
           <div>
-            <Button className="">[btn_follow]</Button>
+            <Button className="channel-content-btn">Follow/Subscriber</Button>
           </div>
         </div>
       </div>

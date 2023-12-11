@@ -2,7 +2,7 @@
 
 
 const nextConfig = {
-/*  async headers() {
+  async headers() {
     return [
       {
         source: '/:path*',

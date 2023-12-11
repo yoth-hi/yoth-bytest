@@ -2192,4 +2192,14 @@ body[no-active-mode-ambiente] #cinematic{
   opacity:0;
 }
 [disabled],
-.disabled{pointer-events:none!important;opacity:.7!important}
+.disabled{
+cursor: not-allowed;
+pointer-events:none!important;opacity:.7!important}
+.channel-content-btn{
+  padding: 5px 10px;
+  background:#fff;
+  color:#000;
+}
+.skeleton-video{
+  aspect-ratio: 16/9;
+}
