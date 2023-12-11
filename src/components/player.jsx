@@ -189,16 +189,18 @@ var bz = function (a) {
 function xmlToVtt(xmlString) {
   let parser = new DOMParser();
   let xmlDoc = parser.parseFromString(xmlString, "text/xml");
-  let textNodes = xmlDoc.querySelectorAll('text');
+  let textNodes = xmlDoc.querySelectorAll("text");
 
-  let vttString = 'WEBVTT\n\n';
+  let vttString = "WEBVTT\n\n";
 
   textNodes.forEach((textNode, index) => {
-    let start = parseFloat(textNode.getAttribute('start')).toFixed(3);
-    let dur = parseFloat(textNode.getAttribute('dur')).toFixed(3);
+    let start = parseFloat(textNode.getAttribute("start")).toFixed(3);
+    let dur = parseFloat(textNode.getAttribute("dur")).toFixed(3);
     let textContent = textNode.textContent.trim();
 
-    vttString += `${index + 1}\n${formatTime(start)} --> ${formatTime(parseFloat(start) + parseFloat(dur))}\n${textContent}\n\n`;
+    vttString += `${index + 1}\n${formatTime(start)} --> ${formatTime(
+      parseFloat(start) + parseFloat(dur)
+    )}\n${textContent}\n\n`;
   });
 
   return vttString;
@@ -207,7 +209,10 @@ function xmlToVtt(xmlString) {
 function formatTime(seconds) {
   let minutes = Math.floor(seconds / 60);
   let remainingSeconds = (seconds % 60).toFixed(3);
-  return `${String(minutes).padStart(2, '0')}:${remainingSeconds.padStart(6, '0')}`;
+  return `${String(minutes).padStart(2, "0")}:${remainingSeconds.padStart(
+    6,
+    "0"
+  )}`;
 }
 
 var render_cine = undefined,
@@ -230,6 +235,8 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   //2 = fullscreen
   const [caption, setCaption] = React.useState(-1);
   const [fff, setfff] = React.useState(null);
+  const [isModeAnb, setModeAnb] = React.useState(true);
+
   const [isPlay, toPlay] = React.useState(false);
   const [data, setData] = React.useState({});
   const [isErr, setError] = React.useState(false);
@@ -281,6 +288,17 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           setfff(URL.createObjectURL(blob));
         });
   }, [caption, data]);
+  React.useState(()=>{
+    const body = document.body;
+    const spo = body.querySelector(".btn-cog input");
+    if(spo)spo.checked=isModeAnb
+    if(isModeAnb){
+      body.classList.remove("no-mode-ambiente")
+    }else {
+      body.classList.add("no-mode-ambiente")
+      
+    }
+  },[isModeAnb])
   React.useEffect(() => {
     const adt = document.querySelector("#app-desktop");
 
@@ -486,6 +504,9 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           resolutions={resolutions}
           setResolution={setResolution}
           seth={seth}
+          isModeAnb={isModeAnb}
+          setModeAnb={setModeAnb}
+          
           h={h}
           listCaptions={data?.captions}
           setCaption={setCaption}
@@ -649,28 +670,37 @@ const CogMenu = function ({
   setCaption,
   setResolution,
   resolutions,
-  h,
+  h,isModeAnb, setModeAnb
 }) {
-  const setPlaybackRate = function (a) {
+    const setPlaybackRate = function (a) {
     srt?.setPlaybackRate(a);
   };
   resolutions = resolutions.map(({ qualityLabel }, a) => {
     return {
       title: qualityLabel,
-      onClick: () => (seth(0),setResolution(a)),
+      onClick: () => (seth(0), setResolution(a)),
     };
   });
-  listCaptions = listCaptions||[];
+  listCaptions = listCaptions || [];
   listCaptions = listCaptions?.map(({ name }, a) => {
     return {
       title: name?.simpleText,
-      onClick: () => (seth(0),setCaption(a))
+      onClick: () => (seth(0), setCaption(a)),
     };
   });
+  
   const controles = [
+    {},
+    {
+      type: "switch",
+      onClick: () => (setModeAnb(!isModeAnb)),
+      icon: null,
+      title: "Mode ambiente",
+      value: isModeAnb,
+    },
     {
       type: "menu",
-      onClick: () => seth(2),
+      onClick: () => seth(4),
       icon: <Settings />,
       title: "Quality",
       items: [
@@ -684,7 +714,7 @@ const CogMenu = function ({
     },
     {
       type: "menu",
-      onClick: () => seth(3),
+      onClick: () => seth(5),
       icon: null,
       title: "Speed",
       items: [
@@ -729,8 +759,8 @@ const CogMenu = function ({
     },
     {
       type: "menu",
-      onClick: () => seth(4),
-      icon: null ,
+      onClick: () => seth(6),
+      icon: null,
       title: "Captions",
       items: [
         {
@@ -740,7 +770,7 @@ const CogMenu = function ({
         },
         {
           title: "Disable",
-          onClick: () => (seth(0),setCaption(-1)),
+          onClick: () => (seth(0), setCaption(-1)),
         },
         ...listCaptions,
       ],
@@ -763,7 +793,10 @@ const CogMenu = function ({
     >
       <div className="settings-player-content">
         {h == 1
-          ? controles.map((props) => <ButtonCog {...props} />)
+          ? controles.map((props) => {
+              if (props.type === "menu") return <ButtonCog {...props} />;
+              if (props.type === "switch") return <Switch {...props} />;
+            })
           : controles[h - 2]?.items?.map((props) => (
               <ButtonCog {...props} set_={seth} />
             ))}
@@ -822,5 +855,30 @@ function fullscreen(a) {
       docElm.msExitFullscreen();
     }
     body.removeAttribute("fullscreen");
+  }
+}
+
+class Switch extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div  onClick={this.props.onClick} className="disabled btn-cog">
+        <div className="btn-cog-icon">{this.props.icon} </div>
+        <div className="btn-cog-text">
+          {this.props.title}
+          {false && <div className="btn-cog-subtitle">h2</div>}
+        </div>
+        {true && (
+          <div className="btn-cog-default">
+            <label class="btn-switch">
+              <input onClick={this.props.onClick} type="checkbox" />
+              <span class="btn-slider-round"></span>
+            </label>
+          </div>
+        )}
+      </div>
+    );
   }
 }
