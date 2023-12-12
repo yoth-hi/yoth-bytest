@@ -1062,10 +1062,11 @@ transform: translate(-50%, -9px) scale(1)!important;
   padding: 9px 14px;
   z-index: 1000;
   border-radius: 4px;
-  background: #000e;
+  background: rgba(0, 0, 0, 0.8);
   bottom: 62px;
   right: 14px;
   position: absolute;
+  border-radius: 20px;
   overflow: hidden;
   transition: 0.2s ease-out;
 }
@@ -1077,7 +1078,7 @@ transform: translate(-50%, -9px) scale(1)!important;
   align-items:center;
   overflow: hidden;
 }
-.settings-player-content {
+.-content {
   max-height: 400px;
   overflow: scroll;
 }

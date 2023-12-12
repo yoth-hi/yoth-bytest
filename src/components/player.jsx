@@ -3,6 +3,7 @@ import Script from "next/script";
 import { useRouter } from "next/navigation";
 import tr from "../service/player";
 import Slider from "./Slider";
+import HoverCardVideo from "./hoverCardVideo";
 import Image from "./image";
 import Spin from "./icons/span";
 import Cine from "../libs/Cine";
@@ -234,6 +235,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   //1 = theater
   //2 = fullscreen
   const [caption, setCaption] = React.useState(-1);
+  const [audioTruck, setAudioTruck] = React.useState(-1);
   const [fff, setfff] = React.useState(null);
   const [isModeAnb, setModeAnb] = React.useState(true);
 
@@ -506,7 +508,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           seth={seth}
           isModeAnb={isModeAnb}
           setModeAnb={setModeAnb}
-          
+          setAudioTruck={setAudioTruck}
           h={h}
           listCaptions={data?.captions}
           setCaption={setCaption}
@@ -567,6 +569,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                   <Button className="player-bottom-btn  resize-icon-player next-video">
                     <NextVideo />
                   </Button>
+                  <HoverCardVideo />
                   <Vol video={video} />
                   <span className="player-time-display" ref={refTime}>
                     00:00 / 00:00
@@ -669,7 +672,7 @@ const CogMenu = function ({
   listCaptions,
   setCaption,
   setResolution,
-  resolutions,
+  resolutions,setAudioTruck,
   h,isModeAnb, setModeAnb
 }) {
     const setPlaybackRate = function (a) {
@@ -690,7 +693,6 @@ const CogMenu = function ({
   });
   
   const controles = [
-    {},
     {
       type: "switch",
       onClick: () => (setModeAnb(!isModeAnb)),
@@ -700,7 +702,7 @@ const CogMenu = function ({
     },
     {
       type: "menu",
-      onClick: () => seth(4),
+      onClick: () => seth(3),
       icon: <Settings />,
       title: "Quality",
       items: [
@@ -714,7 +716,7 @@ const CogMenu = function ({
     },
     {
       type: "menu",
-      onClick: () => seth(5),
+      onClick: () => seth(4),
       icon: null,
       title: "Speed",
       items: [
@@ -755,6 +757,24 @@ const CogMenu = function ({
           onClick: () => (setPlaybackRate(2), seth(1)),
           title: "2x",
         },
+      ],
+    },
+    {
+      type: "menu",
+      onClick: () => seth(5),
+      icon: null,
+      title: "Audio track",
+      items: [
+        {
+          onClick: () => seth(1),
+          title: "Back",
+          icon: <ArrowLeft />,
+        },
+        {
+          title: "Disable",
+          onClick: () => (seth(0), setAudioTruck(-1)),
+        },
+   /*     ...listCaptions,*/
       ],
     },
     {
