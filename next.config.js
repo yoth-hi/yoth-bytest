@@ -2,7 +2,7 @@
 
 
 const nextConfig = {
-  /*async headers() {
+  async headers() {
     return [
       {
         source: '/:path*',
@@ -27,10 +27,18 @@ const nextConfig = {
             key: "Pragma",
             value: "public",
           },
+          {  
+            key: "Accept-Encoding",
+            value: "gzip, deflate",
+          },
+          {  
+            key: "Content-Encoding",
+            value: "gzip",
+          },
        ],
       },
     ]
-  },*/
+  },
 };
 
 module.exports = nextConfig;
