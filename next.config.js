@@ -2,7 +2,7 @@
 
 
 const nextConfig = {
-  async headers() {
+  /*async headers() {
     return [
       {
         source: '/:path*',
@@ -30,7 +30,7 @@ const nextConfig = {
        ],
       },
     ]
-  },
+  },*/
 };
 
 module.exports = nextConfig;

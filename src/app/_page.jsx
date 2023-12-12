@@ -123,6 +123,9 @@ export default function ({ data }) {
         ))}
       </div>
           */}
+          
+          
+          
         <div className="page-content-video-list-grid">
           {(list || data?.content?.listVideo)?.map?.(
             (a) => a && <CardVideo data={a} key={a?.key} />
