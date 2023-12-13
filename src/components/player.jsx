@@ -444,14 +444,17 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         />
       )}
       <Spin _ref={spin} isSpinning className="loading-player" />
-      {id&&<video
+      <video
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
         tabIndex="-1"
         /*  onError={() => (souce ? setError(true) : null)}*/
         onPlay={() => {
-          toPlay(true);
-          set_start_play(false)
+          set_start_play(false);
+          if(!id){
+            video.current?.pause?.();
+          }
+          toPlay(id&&true);
         }}
         onPause={() => {
           toPlay(false);
@@ -463,7 +466,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         controlsList="nodownload"
         muted=""
         autoPlay=""
-        onCanPlayThrough={srt?.onCanPlayThrough}
+     /*   onCanPlayThrough={srt?.onCanPlayThrough}*/
         onProgress={()=>{
           srt?.onProgress?.();
           try {
@@ -488,7 +491,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             default
           />
         )}
-      </video>}
+      </video>
       {false&&<Snerd video={video.current} config={{ platform, id }} />}
       <div className="player-screan-end">
         <div className="player-screan-end-content">
