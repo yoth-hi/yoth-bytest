@@ -451,7 +451,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         /*  onError={() => (souce ? setError(true) : null)}*/
         onPlay={() => {
           toPlay(true);
-          start_play(true)
+          set_start_play(true)
         }}
         onPause={() => {
           toPlay(false);
