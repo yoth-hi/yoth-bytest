@@ -1,4 +1,7 @@
 "use client";
+/*
+ only 'cio' can maintain these codes 
+*/
 var e;
 
 var _ = function (a) {
@@ -112,8 +115,8 @@ export default function ({ video }) {
       body: new Uint8Array([120, 0]),
       method: "POST",
     };
-    if (!b) return a.setSrc("");
-    a.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
+    if (!b) return a.removeSrc();
+    z.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
     //  fetch(b);
     play();
 
@@ -186,11 +189,22 @@ class Z {
     this.endTime=this.startTime=null;
     this.d = a;
     this.l = [];
+   this.stz();
   }
   F(a){ this.H(a)}
   play(){
     this.F("play");
     this.startTime = Date.now();
+  }
+  load(){
+    this.F("load");
+    this.c = true;
+  }
+  setSrc(a){
+    this.c = false;
+    this.d["setSrc"](a);
+    
+    
   }
   H(a){
     this.d[a]();
@@ -198,6 +212,11 @@ class Z {
   }
   playVideo(){
     var b = this.play();
+    this.c || this.load();
+  }
+  stz(){
+    const a = window.MediaSource?new A(this,new window.MediaSource):null;
+    this.resource = a;
   }
 }
 
@@ -205,4 +224,10 @@ const Aj = function(a){
   if(a.mediaElement){
     a.z=a.mediaElement.playVideo()
   }
+}
+
+function A(a,b){
+  this.mediaElement=a;
+  this.u=b;
+  this.t=URL.createObjectURL(b);
 }

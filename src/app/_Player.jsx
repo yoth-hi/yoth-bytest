@@ -42,11 +42,12 @@ export default function () {
       w.hasVideo = false;
     };
   }, [id]);
-  return (
+  const element = (
     <div ref={_}>
       <Layer id={id} platform={platform} sp={(a) => w.sp?.(a)} />
     </div>
   );
+  return element;
 }
 const Layer = memo(({ id, sp, platform }) => (
   <div className="page-watch-container" key={287}>

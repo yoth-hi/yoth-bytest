@@ -451,10 +451,11 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         /*  onError={() => (souce ? setError(true) : null)}*/
         onPlay={() => {
           toPlay(true);
-          set_start_play(true)
+          set_start_play(false)
         }}
         onPause={() => {
           toPlay(false);
+          set_start_play(false)
         }}
         className="video-stream"
         loading="lazy"
@@ -465,10 +466,12 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         onCanPlayThrough={srt?.onCanPlayThrough}
         onProgress={()=>{
           srt?.onProgress?.();
-          const vid = video.current;
-          const end = vid?.buffered.end?.(0);
-          const soFar = parseInt((end/vid.duration)*100);
-          vid._loadTime=soFar;
+          try {
+            const vid = video.current||{};
+            const end = vid?.buffered.end?.(0);
+            const soFar = parseInt((end/vid?.duration)*100);
+            vid._loadTime=soFar;
+          } catch (e) {}
         }}
         onClick={() => {
           play_pouse();
@@ -928,9 +931,19 @@ class Snerd extends React.Component {
       config: [
         ["Id", id],
         ["Platform", platform],
+        ["Dorps", null],
       ],
     };
   }
+  componentDidMount(){
+    this._Id = setInterval(()=>{
+      
+    },800)
+  }
+  componentWillUnmount(){
+    clearInterval(this._Id)
+  }
+  
   render() {
     const { config = [] } = this.state;
     return (
