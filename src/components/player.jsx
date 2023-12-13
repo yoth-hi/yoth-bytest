@@ -292,6 +292,8 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         });
   }, [caption, data]);
   React.useState(() => {
+    try {
+      /* code */
     const body = document.body;
     const spo = body.querySelector(".btn-cog input");
     if (spo) spo.checked = isModeAnb;
@@ -300,6 +302,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     } else {
       body.classList.add("no-mode-ambiente");
     }
+    } catch (e) {}
   }, [isModeAnb]);
   React.useEffect(() => {
     const adt = document.querySelector("#app-desktop");
