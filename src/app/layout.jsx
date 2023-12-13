@@ -6,6 +6,7 @@ import _Users from "../service/GetUsers.js";
 import DesktopHeader from "../components/header";
 import ProsesLoad from "../components/ProsesLoad";
 import Player from "./_Player";
+import GoogleAnalytics from "./GoogleAnalytics";
 import getCodeLanguage from "../libs/getCodeLanguage";
 import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
@@ -99,6 +100,7 @@ export default function RootLayout({ children, ...a }) {
   return (
     <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
       <body className={inter.className}>
+        <GoogleAnalytics/>
         <Player />
         <SettingJson>
           <div id="app-desktop">
