@@ -116,9 +116,10 @@ export default function ({ video }) {
       method: "POST",
     };
     if (!b) return a.removeSrc();
-    z.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
-    //  fetch(b);
     play();
+    z.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
+    play();
+    //  fetch(b);
 
     return;
 
@@ -174,7 +175,7 @@ export default function ({ video }) {
   };
   const onCanPlayThrough = ()=>{
     if(autoPlay){
-      play()
+      
     }
   }
   const pause = () => a.pause();

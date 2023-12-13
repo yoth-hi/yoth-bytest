@@ -444,7 +444,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         />
       )}
       <Spin _ref={spin} isSpinning className="loading-player" />
-      <video
+      {id&&<video
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
         tabIndex="-1"
@@ -488,7 +488,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             default
           />
         )}
-      </video>
+      </video>}
       {false&&<Snerd video={video.current} config={{ platform, id }} />}
       <div className="player-screan-end">
         <div className="player-screan-end-content">
