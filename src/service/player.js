@@ -3,7 +3,7 @@
  only 'cio' can maintain these codes 
 */
 var e;
-
+var autoPlay = true;
 var _ = function (a) {
   this.t = a;
 };
@@ -172,6 +172,11 @@ export default function ({ video }) {
     });
 */
   };
+  const onCanPlayThrough = ()=>{
+    if(autoPlay){
+      play()
+    }
+  }
   const pause = () => a.pause();
   const setPlaybackRate = (b) => a.setPlaybackRate(b);
   return {
@@ -179,6 +184,7 @@ export default function ({ video }) {
     play,
     setPlaybackRate,
     pause,
+    onCanPlayThrough,
     a,
   };
 }
