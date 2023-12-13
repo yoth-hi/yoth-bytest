@@ -139,6 +139,11 @@ img {
 .transparent {
   background: transparent !important;
 }
+.player-over{
+  position: absolute;
+  inset: 50px 5px;
+  z-index: 999;
+}
 .search-bar .icon#search-icon-hover,
 .search-bar .icon#search-icon-hover {
   @apply flex w-[0px] opacity-0 overflow-hidden;
@@ -509,7 +514,7 @@ body:not([fullscreen])
   .page-watch-primary-player-conteiner {
   aspect-ratio: 1.7777777777777/1;
 }
-.page-watch-primary-player-conteiner > * * {
+.page-watch-primary-player-conteiner > * *{
   position: relative;
   z-index: 130;
 }
@@ -653,8 +658,10 @@ transform: translate(-50%, -9px) scale(1)!important;
 .player-bottom-btn .btn-interaction {
   display: none;
 }
-.player-bottom-btn * {
+
+.player-bottom-btn path[d]{
   transition: 0.3s !important;
+  
 }
 .player-top {
   height: 48px;
@@ -692,6 +699,7 @@ transform: translate(-50%, -9px) scale(1)!important;
   transform: scale(2.5, 1.5);
   opacity:1;
 }
+
 .player-bottom-bg {
   height: 150px;
   z-index: 200;
@@ -1060,17 +1068,19 @@ transform: translate(-50%, -9px) scale(1)!important;
 }
 .settings-player {
   padding: 9px 14px;
-  z-index: 1000;
+  z-index: 5000!important;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.8);
   bottom: 62px;
+  
   right: 14px;
-  position: absolute;
+  position: absolute!important;
   border-radius: 20px;
   overflow: hidden;
   transition: 0.2s ease-out;
 }
 .btn-cog {
+  z-index: 4999!important;
   height: 40px;
   cursor: pointer;
   width: 250px;
@@ -2203,4 +2213,12 @@ pointer-events:none!important;opacity:.7!important}
 }
 .skeleton-video{
   aspect-ratio: 16/9;
+}
+.box-nerd-statistics{
+  z-index: 2000;
+  background: #000c;
+  padding: 10px ;
+  width: 100%;
+  max-width: 300px;
+  
 }

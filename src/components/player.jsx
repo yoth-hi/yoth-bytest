@@ -238,6 +238,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   const [audioTruck, setAudioTruck] = React.useState(-1);
   const [fff, setfff] = React.useState(null);
   const [isModeAnb, setModeAnb] = React.useState(true);
+  const [nerd, setNerd] = React.useState(false);
 
   const [isPlay, toPlay] = React.useState(false);
   const [data, setData] = React.useState({});
@@ -290,17 +291,16 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           setfff(URL.createObjectURL(blob));
         });
   }, [caption, data]);
-  React.useState(()=>{
+  React.useState(() => {
     const body = document.body;
     const spo = body.querySelector(".btn-cog input");
-    if(spo)spo.checked=isModeAnb
-    if(isModeAnb){
-      body.classList.remove("no-mode-ambiente")
-    }else {
-      body.classList.add("no-mode-ambiente")
-      
+    if (spo) spo.checked = isModeAnb;
+    if (isModeAnb) {
+      body.classList.remove("no-mode-ambiente");
+    } else {
+      body.classList.add("no-mode-ambiente");
     }
-  },[isModeAnb])
+  }, [isModeAnb]);
   React.useEffect(() => {
     const adt = document.querySelector("#app-desktop");
 
@@ -474,6 +474,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           />
         )}
       </video>
+      {false&&<Snerd video={video.current} config={{ platform, id }} />}
       <div className="player-screan-end">
         <div className="player-screan-end-content">
           {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => (
@@ -491,6 +492,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             srt?.a?.errorCode()}
         </div>
       )}
+
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
@@ -558,11 +560,11 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                       width="100%"
                     >
                       <path
-                        d={
+                        d={`${
                           isPlay
                             ? "M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z"
                             : "M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"
-                        }
+                        }`}
                       ></path>
                     </svg>
                   </Button>
@@ -593,7 +595,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                           .querySelector(".layout-content")
                           ?.classList?.add("animation_on_mode_miniplayer");
                       } else {
-                        router.push("/watch?v=" + id).then(() => {
+                        router.push("/watch?v=" + id)?.then?.(() => {
                           window.yoth?.setMode?.("watch");
                         });
                       }
@@ -672,10 +674,13 @@ const CogMenu = function ({
   listCaptions,
   setCaption,
   setResolution,
-  resolutions,setAudioTruck,
-  h,isModeAnb, setModeAnb
+  resolutions,
+  setAudioTruck,
+  h,
+  isModeAnb,
+  setModeAnb,
 }) {
-    const setPlaybackRate = function (a) {
+  const setPlaybackRate = function (a) {
     srt?.setPlaybackRate(a);
   };
   resolutions = resolutions.map(({ qualityLabel }, a) => {
@@ -691,11 +696,11 @@ const CogMenu = function ({
       onClick: () => (seth(0), setCaption(a)),
     };
   });
-  
+
   const controles = [
     {
       type: "switch",
-      onClick: () => (setModeAnb(!isModeAnb)),
+      onClick: () => setModeAnb(!isModeAnb),
       icon: null,
       title: "Mode ambiente",
       value: isModeAnb,
@@ -774,7 +779,7 @@ const CogMenu = function ({
           title: "Disable",
           onClick: () => (seth(0), setAudioTruck(-1)),
         },
-   /*     ...listCaptions,*/
+        /*     ...listCaptions,*/
       ],
     },
     {
@@ -798,6 +803,7 @@ const CogMenu = function ({
   ];
   return (
     <div
+      onClick={(e) => e.stopPropagation()}
       className={"settings-player" + (h == 0 ? " settings-player-hidden" : "")}
       style={{
         height:
@@ -884,7 +890,7 @@ class Switch extends React.Component {
   }
   render() {
     return (
-      <div  onClick={this.props.onClick} className="disabled btn-cog">
+      <div onClick={this.props.onClick} className="disabled btn-cog">
         <div className="btn-cog-icon">{this.props.icon} </div>
         <div className="btn-cog-text">
           {this.props.title}
@@ -898,6 +904,31 @@ class Switch extends React.Component {
             </label>
           </div>
         )}
+      </div>
+    );
+  }
+}
+class Snerd extends React.Component {
+  constructor(props) {
+    const { config:{ platform, id } } = props;
+    super(props);
+    this.state = {
+      config: [
+        ["Id", id],
+        ["Platform", platform],
+      ],
+    };
+  }
+  render() {
+    const { config = [] } = this.state;
+    return (
+      <div className="box-nerd-statistics">
+        {config.map(([name, value]) => value&&(
+          <pre>
+            <span>{name}:</span>
+            <code style={{ opacity:.7 }}>{value}</code>
+          </pre>
+        ))}
       </div>
     );
   }

@@ -92,9 +92,14 @@ e.hasAttribute = function (a) {
   return this.t.hasAttribute(a);
 };
 export default function ({ video }) {
-  const a = new _(video);
+  
+  const z = new Z(new _(video));
+  const a = z.d;
+  const k = {
+    mediaElement:z
+  }
   var __type;
-  const play = () => a.play();
+  const play = () => Aj(k);
   const setType = function (a) {
     __type = a;
   };
@@ -173,4 +178,31 @@ export default function ({ video }) {
     pause,
     a,
   };
+}
+
+class Z {
+  constructor(a,b,c) {
+    this.q=0;
+    this.endTime=this.startTime=null;
+    this.d = a;
+    this.l = [];
+  }
+  F(a){ this.H(a)}
+  play(){
+    this.F("play");
+    this.startTime = Date.now();
+  }
+  H(a){
+    this.d[a]();
+    this.endTime = Date.now();
+  }
+  playVideo(){
+    var b = this.play();
+  }
+}
+
+const Aj = function(a){
+  if(a.mediaElement){
+    a.z=a.mediaElement.playVideo()
+  }
 }
