@@ -426,6 +426,9 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           : {
               pointerEvents: "none",
               display: "none",
+              width:"0px",
+              height:"0px",
+              userSelect:"none"
             }
       }
       tabIndex="-1"
@@ -448,6 +451,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         /*  onError={() => (souce ? setError(true) : null)}*/
         onPlay={() => {
           toPlay(true);
+          start_play(true)
         }}
         onPause={() => {
           toPlay(false);

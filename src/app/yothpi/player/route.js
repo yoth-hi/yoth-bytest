@@ -164,6 +164,7 @@ export async function POST(req) {
       screenEnd: {
         list:(data?.endscreen?.endscreenRenderer?.elements?.map(({endscreenElementRenderer })=>endscreenElementRenderer))
       },
+      
       nextVideosOnEnd: [   ],
       captions:data?.captions?.playerCaptionsTracklistRenderer?.captionTracks,
       videoDetails: {
