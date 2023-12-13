@@ -57,7 +57,7 @@ export default function ({ video,tt, time }) {
           setProgressPlay(vid.currentTime / vid.duration);
         }
       }
-    }, 500);
+    }, 500/1.2);
     return () => clearInterval(interval);
   }, []);
   return (
@@ -75,7 +75,7 @@ export default function ({ video,tt, time }) {
         <div className="player-prosses pbg"></div>
         <div
           className="player-prosses pload"
-          style={{ transform: `scaleX(${0})` }}
+          style={{ transform: `scaleX(${(video.current?._loadTime||0)/100})` }}
         ></div>
         <div
           className="player-prosses pplay"

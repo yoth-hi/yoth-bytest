@@ -458,6 +458,14 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         controlsList="nodownload"
         muted=""
         autoPlay=""
+        onCanPlayThrough={srt?.onCanPlayThrough}
+        onProgress={()=>{
+          srt?.onProgress?.();
+          const vid = video.current;
+          const end = vid?.buffered.end?.(0);
+          const soFar = parseInt((end/vid.duration)*100);
+          vid._loadTime=soFar;
+        }}
         onClick={() => {
           play_pouse();
         }}
