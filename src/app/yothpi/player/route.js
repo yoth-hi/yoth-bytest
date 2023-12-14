@@ -154,7 +154,12 @@ export async function POST(req) {
       },
       microformat:data?.microformat?.playerMicroformatRenderer || {
         title:{
-          simpleText:(us?.broadcastSettings || t)?.title
+          simpleText:(us?.broadcastSettings || t)?.title,
+          ownerChannelName: us?.login,
+          ownerProfileUrl:"/c/tw@"+us?.login,
+          uploadDate: us?.stream?.createdAt||"",
+          publishDate: us?.stream?.createdAt||"",
+          category: us?.stream?.game?.name||"",
         }
       },
       stream: {

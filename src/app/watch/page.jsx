@@ -123,12 +123,12 @@ export default async function Root(props) {
         <meta itemprop="height" content="720" />
         <meta
           itemprop="isFamilyFriendly"
-          content={data?.microformat?.isFamilySafe ? "true" : "false"}
+          content={(data?.microformat?.isFamilySafe ?? true) ? "true" : "false"}
         />
         {/*
         <meta itemprop="interactionCount" content="424474"/>
         */}
-        <meta itemprop="regionsAllowed" content={data?.microformat?.category?.availableCountries?.join(",")}/>
+        {data?.microformat?.availableCountries&&<meta itemprop="regionsAllowed" content={data?.microformat?.availableCountries?.join(",")}/>}
         <meta itemprop="genre" content={data?.microformat?.category}/>
         <meta itemprop="uploadDate" content={data?.microformat?.uploadDate}/>
         <meta itemprop="datePublished" content={data?.microformat?.publishDate}/>
