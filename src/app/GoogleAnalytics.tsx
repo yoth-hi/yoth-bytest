@@ -1,4 +1,4 @@
-import Script from 'next/script'
+import Script from "next/script";
 export default function () {
   return (
     <>
@@ -7,7 +7,11 @@ export default function () {
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-WN77FWC13V"
       ></script>
-      <Script>{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WN77FWC13V');`}</Script>
+      <Script
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-WN77FWC13V');`,
+        }}
+      />
     </>
   );
 }
