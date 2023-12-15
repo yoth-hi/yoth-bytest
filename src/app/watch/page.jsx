@@ -65,7 +65,7 @@ export default async function Root(props) {
     <>
       <div
         id="watch7-content"
-        class="watch-main-col"
+        className="watch-main-col"
         itemscope=""
         itemid=""
         itemtype="http://schema.org/VideoObject"
@@ -162,9 +162,9 @@ export default async function Root(props) {
         <meta
           itemprop="datePublished"
           content="${data?.microformat?.publishDate}"
-        />`.replace(/\n/g, " "),
+        />`.replace(/\n/g, " ") .replace(/ {2,}/g," "),
         }}
-      />{" "}
+      />
       <script
         dangerouslySetInnerHTML={{
           __html: `gtag('event', 'page_view', {page_title: document.title,page_location: location.href})`,
@@ -177,7 +177,7 @@ export default async function Root(props) {
 function rd(a = "") {
   return a.substring(0, 130) + (a.length > 130 ? "..." : "");
 }
-export const revalidate = 30;
+export const revalidate = 300;
 function u(a) {
   return a || "";
 }

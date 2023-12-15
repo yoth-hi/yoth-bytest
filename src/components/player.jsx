@@ -514,13 +514,13 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
         </div>
       )}
 
+          <div className="player-top-bg" />
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
         onMouseMove={hoverPlayer}
       >
         <div className="player-top">
-          <div className="player-top-bg" />
           <div>
             <h1 className="title">{data.videoDetails?.title}</h1>
           </div>

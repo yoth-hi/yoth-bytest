@@ -701,24 +701,29 @@ transform: translate(-50%, -9px) scale(1)!important;
 }
 
 .player-bottom-bg {
-  height: 150px;
+height: 112px;
   z-index: 200;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADCCAYAAACIaaiTAAAAAXNSR0IArs4c6QAAARFJREFUOE9lyNdHBQAAhfHb3nvvuu2997jNe29TJJEkkkgSSSSJJJJEEkkiifRH5jsP56Xz8PM5gcC/xfCIWBNHiXiTQIlEk0SJZJNCpZo0SqSbDEpkmixKZJscSuSaPErkmwJKFJoiShSbEkqUmjJKlJsKqtJUUaLa1FAiaGopUWfqKdFgGinRZJop0WJaKdFm2inRYTop0WW6qR7TS4k+00+JATNIiSEzTIkRM0qJMTNOiQkTosSkmaLEtJmhxCzMmTAlIiZKiXmzQIlFs0SJZViBVViDddiATdiCbdiBXdiDfTiAQziCYziBUziDc7iAS7iCa7iBW7iDe3iAR3iCZ3iBV3iDd/iAT/iCb/iB3z+hYCsRlTEd8QAAAABJRU5ErkJggg==);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABwCAYAAADfaxrtAAAAAXNSR0IArs4c6QAAANJJREFUKFNNx2krAwAAgOExNrm2mCt3zBA2csstzCSlpbSkJCVJSUqSkpQkJSlJSlLyI/V883546g0E/pdn8hFEAQoRQhhFKEYJSlGGckQQRQUqEUMVqlGDWtShHg1oRBOa0YJWtKEdcXQggU50oRs96EUfkkihHwMYxBCGMYJRjGEcE5jEFKYxg1nMYR4LWMQSlpHGCjJYxRrWsYEsNrGFHLaxg13sYR8HOMQRjnGCU5zhHBe4xBWucYNb3OEeD3jEE57xgle84R0f+MQXvvGD3z8U9x6836aQzwAAAABJRU5ErkJggg==);
+  background-repeat:repeat-x;
+  
+  background-position:bottom;
 }
 .player-top-bg {
-  height: 150px;
+  background-position:top;
+  background-repeat:repeat-x;
+  height: 112px;
   z-index: 20;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   transform: rotate(180deg);
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADCCAYAAACIaaiTAAAAAXNSR0IArs4c6QAAARFJREFUOE9lyNdHBQAAhfHb3nvvuu2997jNe29TJJEkkkgSSSSJJJJEEkkiifRH5jsP56Xz8PM5gcC/xfCIWBNHiXiTQIlEk0SJZJNCpZo0SqSbDEpkmixKZJscSuSaPErkmwJKFJoiShSbEkqUmjJKlJsKqtJUUaLa1FAiaGopUWfqKdFgGinRZJop0WJaKdFm2inRYTop0WW6qR7TS4k+00+JATNIiSEzTIkRM0qJMTNOiQkTosSkmaLEtJmhxCzMmTAlIiZKiXmzQIlFs0SJZViBVViDddiATdiCbdiBXdiDfTiAQziCYziBUziDc7iAS7iCa7iBW7iDe3iAR3iCZ3iBV3iDd/iAT/iCb/iB3z+hYCsRlTEd8QAAAABJRU5ErkJggg==);
-}
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABwCAYAAADfaxrtAAAAAXNSR0IArs4c6QAAANJJREFUKFNNx2krAwAAgOExNrm2mCt3zBA2csstzCSlpbSkJCVJSUqSkpQkJSlJSlLyI/V883546g0E/pdn8hFEAQoRQhhFKEYJSlGGckQQRQUqEUMVqlGDWtShHg1oRBOa0YJWtKEdcXQggU50oRs96EUfkkihHwMYxBCGMYJRjGEcE5jEFKYxg1nMYR4LWMQSlpHGCjJYxRrWsYEsNrGFHLaxg13sYR8HOMQRjnGCU5zhHBe4xBWucYNb3OEeD3jEE57xgle84R0f+MQXvvGD3z8U9x6836aQzwAAAABJRU5ErkJggg==)
+ }
 .player-bottom-btn:not(.play) {
   padding: 0 10px;
 }
