@@ -65,8 +65,7 @@ function Page({ id, platform, data }) {
           Player={<div ref={w}></div>}
           data={data}
           _context={{ id, platform }}
-        />  <script dangerouslySetInnerHTML={{_html:`gtag('event', 'page_view', {page_title: docupage.title,page_location: location.href})`}}/>
-      </div>
+        />       </div>
     </>
   );
 }

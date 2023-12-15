@@ -43,7 +43,7 @@ export default async function Home() {
       <div className="page-home">
       <P data={data}/>
       </div>
-       <script dangerouslySetInnerHTML={{_html:`gtag('event', 'page_view', {page_title: "HOME",page_location: "/" });`}}/>
+       <script dangerouslySetInnerHTML={{__html:`gtag('event', 'page_view', {page_title: "HOME",page_location: "/" });`}}/>
     </>
   );
 }

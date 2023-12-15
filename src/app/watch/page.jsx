@@ -147,7 +147,8 @@ export default async function Root(props) {
           itemprop="datePublished"
           content={data?.microformat?.publishDate}
         />
-      </div>
+      </div> <script dangerouslySetInnerHTML={{__html:`gtag('event', 'page_view', {page_title: docupage.title,page_location: location.href})`}}/>
+
       <Page {...newProps} data={data} key={276} />
     </>
   );

@@ -6,7 +6,7 @@ import Title from "./string";
 import AvtCh from "./cardChannel";
 import CardVideo from "./CardVideoRow";
 import Button from "./button_brr";
-import { useEffect, Suspense,useState } from "react";
+import { useEffect, Suspense, useState } from "react";
 import Fetch from "./../service/ApiRest";
 import Share from "./icons/share";
 import S from "./icons/span";
@@ -17,7 +17,7 @@ const BrowseChannelAndNextItem = function ({ Player, _context }) {
   const { platform, id } = _context;
   const [data, setData] = useState({});
   useEffect(() => {
-        Fetch({
+    Fetch({
       type: "browse",
       context: {
         type: "player_page",
@@ -162,13 +162,7 @@ const VideoList = function ({ platform, id, data }) {
         <Title semibold="" large="" title={t("Others")} />
       )}
       {(list || data?.content?.listVideo)?.map?.(function (a) {
-        return (
-          a && (
-            <Suspense feedback={<CardVideo skeleton data={{}} />}>
-              <CardVideo data={a} />
-            </Suspense>
-          )
-        );
+        return a && <CardVideo data={a} />;
       })}
       {(list || data?.content?.listVideo) && <CardVideo skeleton data={{}} />}
       {(list || data?.content?.listVideo) && <S />}
