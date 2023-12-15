@@ -69,37 +69,42 @@ export default async function Root(props) {
         itemscope=""
         itemid=""
         itemtype="http://schema.org/VideoObject"
-      >
-        <meta itemprop="name" content={data?.videoDetails?.title} />
+        dangerouslySetInnerHTML={{
+          __html: `<meta itemprop="name" content="${u(data?.videoDetails?.title)}" />
         <meta
           itemprop="description"
-          content={data?.videoDetails?.description}
+          content="${u(data?.videoDetails?.description)}"
         />
-        {/*   <meta itemprop="requiresSubscription" content="False" />
-         */}
-        <meta itemprop="identifier" content={id} />
-        {/* 
+        ${"" /*   <meta itemprop="requiresSubscription" content="False" />*/}
+        <meta itemprop="identifier" content="${id}" />
+        ${
+          "" /* 
         <meta itemprop="duration" content="PT25M25S"/>
-       */}
+       */
+        }
         <span
           itemprop="author"
           itemscope=""
           itemtype="http://schema.org/Person"
         >
-          <link itemprop="url" href={data?.microformat?.ownerProfileUrl} />
-          <link itemprop="name" content={data?.microformat?.ownerChannelName} />
+          <link itemprop="url" href="${data?.microformat?.ownerProfileUrl}" />
+          <link itemprop="name" content="${u(
+            data?.microformat?.ownerChannelName
+          )}" />
         </span>
         <script
           type="application/ld+json"
           nonce="W-OZpwMZrBGlfSq_CXU62w"
-        >{`{"@context": "http://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@id": "${data?.microformat?.ownerProfileUrl}", "name": "${data?.microformat?.ownerChannelName}"}}]}`}</script>
+        >{"@context": "http://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@id": "${
+          data?.microformat?.ownerProfileUrl
+        }", "name": "${data?.microformat?.ownerChannelName}"}}]}</script>
         <link
           itemprop="thumbnailUrl"
-          href={
+          href="${
             platform === "youtube"
               ? "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"
               : data?.videoDetails?.thumbnail
-          }
+          }"
         />
         <span
           itemprop="thumbnail"
@@ -108,47 +113,63 @@ export default async function Root(props) {
         >
           <link
             itemprop="url"
-            href={
+            href="${
               platform === "youtube"
                 ? "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"
                 : data?.videoDetails?.thumbnail
-            }
+            }"
           />
           <meta itemprop="width" content="1280" />
           <meta itemprop="height" content="720" />
         </span>
-        {platform === "youtube" ? (
-          <>
+        ${
+          platform === "youtube"
+            ? `
             <link
               itemprop="embedUrl"
-              href={"https://www.youtube.com/embed/" + id}
+              href="${"https://www.youtube.com/embed/" + id}"
             />
             <meta itemprop="playerType" content="HTML5 Flash" />
-          </>
-        ) : null}
+        `
+            : ""
+        }
         <meta itemprop="width" content="1280" />
         <meta itemprop="height" content="720" />
         <meta
           itemprop="isFamilyFriendly"
-          content={data?.microformat?.isFamilySafe ?? true ? "true" : "false"}
+          content="${
+            data?.microformat?.isFamilySafe ?? true ? "true" : "false"
+          }"
         />
-        {/*
+        ${
+          "" /*
         <meta itemprop="interactionCount" content="424474"/>
-        */}
-        {data?.microformat?.availableCountries && (
+        */
+        }
+        ${
+          data?.microformat?.availableCountries &&
+          `
           <meta
             itemprop="regionsAllowed"
-            content={data?.microformat?.availableCountries?.join(",")}
+            content="${data?.microformat?.availableCountries?.join(",")}"
           />
-        )}
-        <meta itemprop="genre" content={data?.microformat?.category} />
-        <meta itemprop="uploadDate" content={data?.microformat?.uploadDate} />
+        `
+        }
+        <meta itemprop="genre" content="${data?.microformat?.category}" />
+        <meta itemprop="uploadDate" content="${
+          data?.microformat?.uploadDate
+        }" />
         <meta
           itemprop="datePublished"
-          content={data?.microformat?.publishDate}
-        />
-      </div> <script dangerouslySetInnerHTML={{__html:`gtag('event', 'page_view', {page_title: docupage.title,page_location: location.href})`}}/>
-
+          content="${data?.microformat?.publishDate}"
+        />`.replace(/\n/g, " "),
+        }}
+      />{" "}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `gtag('event', 'page_view', {page_title: document.title,page_location: location.href})`,
+        }}
+      />
       <Page {...newProps} data={data} key={276} />
     </>
   );
@@ -157,3 +178,6 @@ function rd(a = "") {
   return a.substring(0, 130) + (a.length > 130 ? "..." : "");
 }
 export const revalidate = 30;
+function u(a) {
+  return a || "";
+}
