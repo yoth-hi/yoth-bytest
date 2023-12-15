@@ -108,19 +108,19 @@ export default function ({ video }) {
   };
   const setSrc = (b) => {
 
-    var c = {
-      credentials: "include",
-      cache: "no-store",
-      mode: "no-cors",
-      body: new Uint8Array([120, 0]),
-      method: "POST",
-    };
     if (!b) return a.removeSrc();
     play();
     z.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
     play();
-    //  fetch(b);
-
+    var c = {
+      credentials: "include",
+      cache: "no-store",
+      mode:"no-cors",
+      redirect:"follow",
+      body: new Uint8Array([120, 0]),
+      method: "POST",
+    };
+ //   const m = new Jt(b,c)
     return;
 
     /*
@@ -237,4 +237,38 @@ function A(a,b){
   this.mediaElement=a;
   this.u=b;
   this.t=URL.createObjectURL(b);
+}
+
+
+class Jt {
+  constructor(url,config={}) {
+    this.t = config;
+    var _this = this;
+    this.handleResponse=function(response){
+      
+      if(response){
+        if(_this.status=response.status,response.ok&&response.body&&204!==_this.status){
+          _this.status=_this.status||242;
+          _this.body=response.body. getReader();
+          Gh(_this);
+        }else console.info?.("[ INFO/NoStream ]", ...arguments);
+      }
+    }
+    this.start(url);
+  }
+  start(req){
+    var init = {credentials:"include",cache:"no-store"};
+    Object.assign(init,this.t);
+    req=new Request(req,init);
+    fetch(req)
+      .then(this.handleResponse);
+  }
+  ren(){
+    console.info?.("[ INFO/READ ]", ...arguments);
+  }
+}
+
+function Gh(a){
+  a.body .read()
+    .then(a.ren)
 }

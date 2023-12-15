@@ -6,17 +6,18 @@ import Title from "./string";
 import AvtCh from "./cardChannel";
 import CardVideo from "./CardVideoRow";
 import Button from "./button_brr";
-import { useEffect, useState } from "react";
+import { useEffect, Suspense,useState } from "react";
 import Fetch from "./../service/ApiRest";
 import Share from "./icons/share";
 import S from "./icons/span";
 import { t } from "../libs/transition";
 var j = {};
+
 const BrowseChannelAndNextItem = function ({ Player, _context }) {
   const { platform, id } = _context;
   const [data, setData] = useState({});
   useEffect(() => {
-    Fetch({
+        Fetch({
       type: "browse",
       context: {
         type: "player_page",
@@ -36,7 +37,10 @@ const BrowseChannelAndNextItem = function ({ Player, _context }) {
           </h3>
         </div>
         <div className="page-watch-info-outers">
-          <AvtCh data={data?.content?.cardChannel} endpoint={videoDetails?.actorEndpoint}/>
+          <AvtCh
+            data={data?.content?.cardChannel}
+            endpoint={videoDetails?.actorEndpoint}
+          />
           {videoDetails ? (
             <div className="page-watch-info-buttons">
               <div className="page-watch-info-buttons-like">
@@ -88,7 +92,10 @@ const BrowseChannelAndNextItem = function ({ Player, _context }) {
             </div>
           )}
         </div>
-        <Description metadata={videoDetails?.metadata} text={videoDetails?.description} />
+        <Description
+          metadata={videoDetails?.metadata}
+          text={videoDetails?.description}
+        />
       </div>
       <div className="page-watch-items">
         {videoDetails?.isLive && (
@@ -154,13 +161,20 @@ const VideoList = function ({ platform, id, data }) {
       {(list || data?.content?.listVideo) && (
         <Title semibold="" large="" title={t("Others")} />
       )}
-      {(list || data?.content?.listVideo)?.map?.((a) => (a&&
-        <CardVideo data={a} />
-      ))}
+      {(list || data?.content?.listVideo)?.map?.(function (a) {
+        return (
+          a && (
+            <Suspense feedback={<CardVideo skeleton data={{}} />}>
+              <CardVideo data={a} />
+            </Suspense>
+          )
+        );
+      })}
       {(list || data?.content?.listVideo) && <CardVideo skeleton data={{}} />}
       {(list || data?.content?.listVideo) && <S />}
     </div>
   );
 };
+
 //page-watch-primary => scroll
 export default BrowseChannelAndNextItem;

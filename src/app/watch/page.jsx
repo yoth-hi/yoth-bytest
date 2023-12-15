@@ -81,11 +81,18 @@ export default async function Root(props) {
         {/* 
         <meta itemprop="duration" content="PT25M25S"/>
        */}
-        <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-          <link itemprop="url" href={data?.microformat?.ownerProfileUrl}/>
-          <link itemprop="name" content={data?.microformat?.ownerChannelName}/>
+        <span
+          itemprop="author"
+          itemscope=""
+          itemtype="http://schema.org/Person"
+        >
+          <link itemprop="url" href={data?.microformat?.ownerProfileUrl} />
+          <link itemprop="name" content={data?.microformat?.ownerChannelName} />
         </span>
-       <script type="application/ld+json" nonce="W-OZpwMZrBGlfSq_CXU62w">{`{"@context": "http://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@id": "${data?.microformat?.ownerProfileUrl}", "name": "${data?.microformat?.ownerChannelName}"}}]}`}</script>
+        <script
+          type="application/ld+json"
+          nonce="W-OZpwMZrBGlfSq_CXU62w"
+        >{`{"@context": "http://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@id": "${data?.microformat?.ownerProfileUrl}", "name": "${data?.microformat?.ownerChannelName}"}}]}`}</script>
         <link
           itemprop="thumbnailUrl"
           href={
@@ -123,21 +130,29 @@ export default async function Root(props) {
         <meta itemprop="height" content="720" />
         <meta
           itemprop="isFamilyFriendly"
-          content={(data?.microformat?.isFamilySafe ?? true) ? "true" : "false"}
+          content={data?.microformat?.isFamilySafe ?? true ? "true" : "false"}
         />
         {/*
         <meta itemprop="interactionCount" content="424474"/>
         */}
-        {data?.microformat?.availableCountries&&<meta itemprop="regionsAllowed" content={data?.microformat?.availableCountries?.join(",")}/>}
-        <meta itemprop="genre" content={data?.microformat?.category}/>
-        <meta itemprop="uploadDate" content={data?.microformat?.uploadDate}/>
-        <meta itemprop="datePublished" content={data?.microformat?.publishDate}/>
+        {data?.microformat?.availableCountries && (
+          <meta
+            itemprop="regionsAllowed"
+            content={data?.microformat?.availableCountries?.join(",")}
+          />
+        )}
+        <meta itemprop="genre" content={data?.microformat?.category} />
+        <meta itemprop="uploadDate" content={data?.microformat?.uploadDate} />
+        <meta
+          itemprop="datePublished"
+          content={data?.microformat?.publishDate}
+        />
       </div>
       <Page {...newProps} data={data} key={276} />
     </>
   );
 }
-function rd(a=""){
- return a.substring(0, 130) +(a.length>130?"...":"");
+function rd(a = "") {
+  return a.substring(0, 130) + (a.length > 130 ? "..." : "");
 }
 export const revalidate = 30;

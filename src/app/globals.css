@@ -1992,11 +1992,8 @@ transform: translate(-50%, -9px) scale(1)!important;
   border-radius: 100%;
   overflow: hidden;
 }
-#nprogress {
-  z-index: 999999;
-}
-#nprogress * {
-  z-index: 999999;
+#nprogress .bar {
+  z-index: 999999!important;
 }
 .card-video-row-thumbnail .card-thumbnail img {
   position: absolute;

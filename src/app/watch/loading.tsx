@@ -1,6 +1,7 @@
 import Description from "../../components/Description";
 import AvtCh from "../../components/cardChannel";
 export default function () {
+  
   return (
     <div className="page-watch">
       <div className="page-watch-info">
