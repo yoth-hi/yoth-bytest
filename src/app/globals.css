@@ -556,7 +556,7 @@ body:not([fullscreen])
 .player-bottom-buttons {
   text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
 }
-[touche] .player-prosses-dot,
+[touch] .player-prosses-dot,
 .player-prosses-content:hover .player-prosses-dot
 {
 transform: translate(-50%, -9px) scale(1)!important;

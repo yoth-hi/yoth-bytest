@@ -14,7 +14,7 @@ export default memo(function ({ data, skeleton }) {
       skeleton={skeleton ? "" : undefined}
       className="card-video"
     >
-      <Link href={endpoint || "/"} aria-label={title || ""}>
+      <Link prefetch={false} href={endpoint || "/"} aria-label={title || ""}>
         <div
           className={
             thumbnail ? "card-video-thumbnail" : "skeleton-image-video"
@@ -34,6 +34,7 @@ export default memo(function ({ data, skeleton }) {
         </div>
       </Link>
       <Link
+        prefetch={false}
         href={endpoint || "/"}
         className="endpoint-block"
         aria-label={title || ""}

@@ -22,6 +22,7 @@ export async function generateMetadata(props) {
       id,
     },
   });
+  const bs = "/watch?"+((tw?"tw":(v?"v":null))?.concat("=",id))+ ""
   return {
     title: data?.microformat?.title?.simpleText || data?.videoDetails?.title,
     description:
@@ -37,6 +38,15 @@ export async function generateMetadata(props) {
           ? "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"
           : data?.videoDetails?.thumbnail,
       ],
+    },category:data?.microformat?.category,
+    metadataBase: new URL("https://yoth-hi.vercel.app"),
+    alternates: {
+      canonical: bs+ "/",
+      languages: {
+        pt:bs+ "&ling=pt",
+        "pt-br": bs+"&ling=pt-br",
+        en: bs+"&ling=en",
+      },
     },
   };
 }
@@ -70,7 +80,9 @@ export default async function Root(props) {
         itemid=""
         itemtype="http://schema.org/VideoObject"
         dangerouslySetInnerHTML={{
-          __html: `<meta itemprop="name" content="${u(data?.videoDetails?.title)}" />
+          __html: `<meta itemprop="name" content="${u(
+            data?.videoDetails?.title
+          )}" />
         <meta
           itemprop="description"
           content="${u(data?.videoDetails?.description)}"
@@ -162,7 +174,9 @@ export default async function Root(props) {
         <meta
           itemprop="datePublished"
           content="${data?.microformat?.publishDate}"
-        />`.replace(/\n/g, " ") .replace(/ {2,}/g," "),
+        />`
+            .replace(/\n/g, " ")
+            .replace(/ {2,}/g, " "),
         }}
       />
       <script
@@ -175,7 +189,7 @@ export default async function Root(props) {
   );
 }
 function rd(a = "") {
-  return a.substring(0, 130) + (a.length > 130 ? "..." : "");
+  return a.substring(0, 50) + (a.length > 50 ? "..." : "");
 }
 export const revalidate = 300;
 function u(a) {

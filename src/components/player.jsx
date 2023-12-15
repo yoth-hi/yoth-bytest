@@ -1,10 +1,11 @@
 "use client";
 import Script from "next/script";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import tr from "../service/player";
 import Slider from "./Slider";
 import HoverCardVideo from "./hoverCardVideo";
-import Image from "./image";
+import KImage from "./image";
 import Spin from "./icons/span";
 import Cine from "../libs/Cine";
 import Play from "./icons/play";
@@ -438,12 +439,16 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     >
       {(start_play || data?.videoDetails?.tw_isOffline) && (
         <Image
-          src={
+          src={(
             platform === "youtube"
               ? "https://i.ytimg.com/vi/" + id + "/hq720.jpg"
-              : data?.videoDetails?.thumbnail
+              : data?.videoDetails?.thumbnail)||""
           }
-          width={"100%"}
+          width={1280}
+          height={720}
+          priority={true}
+          alt="thumbnail"
+          quality={30}
         />
       )}
       <Spin _ref={spin} isSpinning className="loading-player" />

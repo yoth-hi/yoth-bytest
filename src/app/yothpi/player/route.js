@@ -196,4 +196,4 @@ export async function POST(req) {
     }
   );
 }
-export const revalidate = 60;
+export const revalidate = 100;
