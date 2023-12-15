@@ -877,8 +877,9 @@ function fullscreen(a) {
     (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
     (document.msFullscreenElement && document.msFullscreenElement !== null);
 
-  var docElm = document.documentElement;
-  var body = document.body;
+  var dom = document;
+  var docElm = dom.documentElement;
+  var body = dom.body;
   const is = a === undefined ? !isInFullScreen : a;
   if (is) {
     if (docElm.requestFullscreen) {
@@ -892,14 +893,14 @@ function fullscreen(a) {
     }
     body.setAttribute("fullscreen", "");
   } else {
-    if (docElm.exitFullscreen) {
-      docElm.exitFullscreen();
-    } else if (docElm.webkitExitFullscreen) {
-      docElm.webkitExitFullscreen();
-    } else if (docElm.mozCancelFullScreen) {
-      docElm.mozCancelFullScreen();
-    } else if (docElm.msExitFullscreen) {
-      docElm.msExitFullscreen();
+    if (dom.exitFullscreen) {
+      dom.exitFullscreen();
+    } else if (dom.webkitExitFullscreen) {
+      dom.webkitExitFullscreen();
+    } else if (dom.mozCancelFullScreen) {
+      dom.mozCancelFullScreen();
+    } else if (dom.msExitFullscreen) {
+      dom.msExitFullscreen();
     }
     body.removeAttribute("fullscreen");
   }

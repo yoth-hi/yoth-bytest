@@ -65,8 +65,8 @@ const BrowseChannelAndNextItem = function ({ Player, _context }) {
               <Button
                 title={
                   platform === "youtube"
-                    ? content?.asesibility?.Go_to_Youtube
-                    : content?.asesibility?.Go_to_Twitch
+                    ? ("Watch on Youtube")
+                    : ("Watch on Twitch")
                 }
                 type="link"
                 href={

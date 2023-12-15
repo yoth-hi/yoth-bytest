@@ -24,7 +24,7 @@ html {
   --hover-btn-bg: #fff2;
   background: #0f0f0f;
   --foreground-rgb: 221, 221, 221;
-  --background-rgb: 0,0,0;
+  --background-rgb: 15,15,15;
   --fill-rgb: 255, 255, 255;
 }
   .cinematic-canvas {
