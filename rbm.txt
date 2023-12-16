@@ -6,3 +6,4 @@ type PropsSetPlayerDataType = {
   mode: 'fullscreen' | 'theater' | 'watch' | 'miniplayer',
   id: string
 }
+ 

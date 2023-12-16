@@ -27,9 +27,29 @@ export const metadata = {
   openGraph: {
     title: "Yoth",
     description,
-  },  themeColor: "#000",
+  },
+  themeColor: "#000",
   referrer: "origin-when-cross-origin",
-  keywords: ["Video","Share","Streamers","yoth","yt","YouTube","tw","Twitch","lives","join platforms","Entertainment","Explore","Watch"],
+  keywords: [
+    "Video",
+    "Share",
+    "Streamers",
+    "yoth",
+    "yt",
+    "YouTube",
+    "tw",
+    "Twitch",
+    "lives",
+    "join platforms",
+    "Entertainment",
+    "Explore",
+    "Watch",
+    "Livestream",
+    "Clip",
+    "Highlight",
+    "Video",
+    "Gaming",
+  ],
   appLinks: {
     web: {
       url: host,
@@ -47,11 +67,11 @@ export const metadata = {
   robots: {
     index: true,
     follow: true,
-    nocache: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
-      noimageindex: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
@@ -99,8 +119,13 @@ export default function RootLayout({ children, ...a }) {
 
   return (
     <html lang={ling} {...head_props} style={{ fontSize: "10px" }}>
+      <head>
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="YOTH!" />
+        <link rel="shortcut icon" href="/apple-icon-57x57.png" />
+      </head>
       <body className={inter.className}>
-        <GoogleAnalytics/>
+        <GoogleAnalytics />
         <Player />
         <SettingJson>
           <div id="app-desktop">
@@ -121,7 +146,7 @@ export default function RootLayout({ children, ...a }) {
   //    <Script src="/s/player/en/base.js" />
 }
 function parseLanguagePreferences(preferences) {
-  if(!preferences)return;
+  if (!preferences) return;
   const languageArray = preferences?.split(",").map((item) => {
     const [code, priority] = item.trim().split(";q=");
     return { code, priority: parseFloat(priority) || 1 };

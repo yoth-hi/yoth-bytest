@@ -75,9 +75,10 @@ var bz = function (a) {
   _2 = _3[0][1];
   _1 = _1 + "&alr=yes&sig=" + t(_2);
 
-  return _3.reverse().join("&");
+  return ty(_3.reverse().join("&"));
   // decodeURIComponent([_3[2]?.[1],_3[1]?.[1]+"="+_3[0]?.[1]].join("&"));
 };
+function ty (a){a&&(a=a.replace("url,",""),a=new URL(a),a=a.origin+decodeURIComponent(a.pathname));return a}
 
 /*      {!data?.videoDetails?.tw_isOffline && (
         <div className="player-top">
@@ -519,7 +520,6 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             srt?.a?.errorCode()}
         </div>
       )}
-          <div className="player-top-bg" />
       <div
         className="player-controls"
         onTouchMove={hoverPlayer}
@@ -610,7 +610,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                   >
                     <Settings />
                   </Button>
-                  <Button
+                    {statusPlayerModeWatch == 0 && <Button
                     className="player-bottom-btn"
                     onClick={() => {
                       if (location.pathname === "/watch") {
@@ -638,7 +638,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                         fill="#fff"
                       ></path>
                     </svg>
-                  </Button>
+                  </Button>}
                   {statusPlayerModeWatch != 2 && (
                     <Button
                       className="resize-icon-player player-bottom-btn"

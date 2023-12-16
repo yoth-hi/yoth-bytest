@@ -929,6 +929,18 @@ height: 112px;
   .page-watch-info-buttons {
     margin-top: 10px;
   }
+  body[search] .desktop-layout-start,
+  body[search] .desktop-layout-end
+  {
+    display:none;
+  }
+  body:not([search]) .search-bar
+  {
+    display:none;
+  }
+  body .search-buttom{
+    display:block;
+  }
 }
 @media (max-width: 1000px) {
   body {
@@ -992,6 +1004,12 @@ height: 112px;
   padding-right: 16px;
   overflow: hidden;
   background: rgba(var(--background-wp-rgb), 0.2);
+}
+.search-buttom{
+  margin-left:auto;
+  max-width:36px;
+  width:36px;
+  display:none;
 }
 .button-text-container {
   @apply flex items-center;
@@ -1583,7 +1601,7 @@ height: 112px;
   margin-left: auto;
 }
 .guide-section-title {
-  margin: 6px 12px 4px;
+  margin: 6px 14px 14px;
   font-size: 16px;
   line-height: 22px;
   font-weight: 500;
@@ -2231,13 +2249,13 @@ pointer-events:none!important;opacity:.7!important}
   inset:0;
 }
 .item-video-end-scream:hover{
-  transform:scale(1.09);
-  
+  transform:scale(1.06);
 }
 .item-video-end-scream{
   transform:scale(1.04);
   border-radius:4px;overflow:hidden;
   z-index:9996!important;
+  transition:.2s;
   position:absolute;
   box-shadow:rgba(0,0,0,0.5) 0px 0px 2px;
 }
