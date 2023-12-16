@@ -122,7 +122,7 @@ export default function RootLayout({ children, ...a }) {
       <head>
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="YOTH!" />
-        <link rel="shortcut icon" href="/apple-icon-57x57.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
         <GoogleAnalytics />

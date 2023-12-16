@@ -19,7 +19,7 @@ export default memo(function ({ classRoot, loadingSkeleton, alt, src, ...rest })
               style={{ opacity: loaded ? "1" : "1" }}
               onLoad={(e) => setStated(true)}
               onError={(e) => setStated(false)}
-              alt={alt || "image no asesibility"}
+              alt={alt || rest["aria-label"] ||"YOTH"}
             />
           )
       : ""}
