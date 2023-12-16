@@ -27,9 +27,9 @@ export const metadata = {
   openGraph: {
     title: "Yoth",
     description,
-  },
+  },  themeColor: "#000",
   referrer: "origin-when-cross-origin",
-  keywords: ["Video", "Share", "Streamers", "Watch"],
+  keywords: ["Video","Share","Streamers","yoth","yt","YouTube","tw","Twitch","lives","join platforms","Entertainment","Explore","Watch"],
   appLinks: {
     web: {
       url: host,
@@ -98,7 +98,7 @@ export default function RootLayout({ children, ...a }) {
   };
 
   return (
-    <html lang={ling} {...head_props} style={{ fontSize: "14px" }}>
+    <html lang={ling} {...head_props} style={{ fontSize: "10px" }}>
       <body className={inter.className}>
         <GoogleAnalytics/>
         <Player />

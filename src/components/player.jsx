@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import tr from "../service/player";
 import Slider from "./Slider";
 import HoverCardVideo from "./hoverCardVideo";
+import VideoBlock from "./VideoBlock";
 import KImage from "./image";
 import Spin from "./icons/span";
 import Cine from "../libs/Cine";
@@ -518,7 +519,6 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
             srt?.a?.errorCode()}
         </div>
       )}
-
           <div className="player-top-bg" />
       <div
         className="player-controls"
@@ -684,6 +684,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           </>
         )}
       </div>
+      <>{data?.screenEnd?.list?.map((data)=>(data?.style==="VIDEO"&&<VideoBlock ctr={()=>srt} data={data} />))}</>
     </div>
   );
 });

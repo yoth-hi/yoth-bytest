@@ -1,10 +1,11 @@
-export default function ({ title, dir, ...rest }) {
+export default function (props) {
+  const { title = "", className = "" , dir = "auto" } = props;
   return (
-    <div {...rest} className={"core-string " + (rest.className||"")}>
+    <div {...props} className={"core-string " + (className)}>
       <div className="core-formate-string">
         <span
-          dir={dir || "auto"}
-          aria-label={title || rest["aria-label"]}
+          dir={dir}
+          aria-label={title || props["aria-label"]}
           title={title}
           className="formate-string"
         >

@@ -1522,8 +1522,8 @@ height: 112px;
   margin: 0 auto;
 }
 .user-avatar-image {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
   margin-top: 20px;
 }
 .card-user-info {
@@ -1771,8 +1771,8 @@ height: 112px;
   }
 }
 .channel-image-profile {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
 }
 .channel-content {
   max-width: min(3000px, 80vw);
@@ -2051,6 +2051,8 @@ font-size:20px;
 font-weight:600;
 font-size:14px;
 opacity:.9;
+margin-bottom:4px;
+margin-top:4px;
 }
 .card-channel-info{
 margin-right:20px;}
@@ -2223,4 +2225,31 @@ pointer-events:none!important;opacity:.7!important}
   width: 100%;
   max-width: 300px;
   
+}
+.player-video-screan-end{
+  position:absolute;
+  inset:0;
+}
+.item-video-end-scream:hover{
+  transform:scale(1.09);
+  
+}
+.item-video-end-scream{
+  transform:scale(1.04);
+  border-radius:4px;overflow:hidden;
+  z-index:9996!important;
+  position:absolute;
+  box-shadow:rgba(0,0,0,0.5) 0px 0px 2px;
+}
+
+.item-video-end-scream * {
+  z-index:9995!important;
+}
+.item-video-end-scream .endpoint-block{
+  cursor:pointer;
+  
+}.item-video-end-scream-details{
+  position:absolute;
+  inset:0;
+  opacity:.3;
 }

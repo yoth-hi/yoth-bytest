@@ -48,7 +48,7 @@ export default memo(function ({ data, skeleton }) {
             {actorImage && (
               <Image
                 classRoot="card-video-profile"
-                width={64}
+                width={32}
                 src={actorImage}
                 aria-label={actorName}
               />
