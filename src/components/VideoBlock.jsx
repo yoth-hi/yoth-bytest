@@ -2,36 +2,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Title from "./string";
-type Props = {
-  data: {
-    aspectRatio?: number;
-    endMs?: any;
-    endpoint?: any;
-    id?: string;
-    image?: {
-      thumbnails?:[{
-        width: number;
-        url: string;
-        height: number;
-      }]
-    };
-    left?: any;
-    metadata?: any;
-    startMs?: any;
-    style?: string;
-    thumbnailOverlays?: [object];
-    title?: string;
-    top?: number;
-    trackingParams?: string;
-    width?: number;
-  };
-  ctr?: any;
-};
 
-export default function ({ data, ctr }: Props) {
-  const [visible, setVisible] = useState<any>(false);
+
+export default function ({ data, ctr }) {
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const interval: any = setInterval(() => {
+    const interval = setInterval(() => {
       setVisible(!(+data?.startMs >= ctr?.()?.a?.getCurrentTime() * 1000));
     }, 500);
     return () => {
@@ -53,9 +29,7 @@ export default function ({ data, ctr }: Props) {
       <Link href={"/watch?v=" + data.endpoint?.watchEndpoint?.videoId}>
         <div className="endpoint-block">
           <img
-            src={
-              (data.image?.thumbnails?.[3] || data.image?.thumbnails?.[0])?.url
-            }
+            src={data.image?.thumbnails?.[3]?.url}
           />
           <div className="item-video-end-scream-details">
             <div className="player-bottom-bg" />
@@ -65,6 +39,6 @@ export default function ({ data, ctr }: Props) {
     </div>
   );
 }
-function flow(a: any): number {
+function flow(a) {
   return (a || 0) * 100;
 }
