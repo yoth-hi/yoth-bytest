@@ -8,7 +8,13 @@ type Props = {
     endMs?: any;
     endpoint?: any;
     id?: string;
-    image?: object;
+    image?: {
+      thumbnails?:[{
+        width: number;
+        url: string;
+        height: number;
+      }]
+    };
     left?: any;
     metadata?: any;
     startMs?: any;
