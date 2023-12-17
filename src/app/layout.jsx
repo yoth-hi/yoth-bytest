@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Script from "next/script";
 import _Users from "../service/GetUsers.js";
 import DesktopHeader from "../components/header";
@@ -102,11 +102,21 @@ export default function RootLayout({ children, ...a }) {
       _ = false;
       break;
     default:
-      _ = false;
+      _ = true;
   }
-  const darkHeader = true;
-  const dark = true; //_;
-  const hideHeaderBorderBottom = true;
+  const g = cookies();
+  var dark = true;
+
+  if (g.has("x-theme")) {
+    dark = _ ?? g.get("x-theme");
+  } else {
+    try {
+      g.set("x-theme", _, {});
+      dark = _;
+    } catch (e) {
+      dark = true;
+    }
+  }
   const rerenderAfterLogin = true;
   const ling = getCodeLanguage();
   const loggedUID = 83583758364;

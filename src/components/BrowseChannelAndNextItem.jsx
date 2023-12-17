@@ -158,9 +158,6 @@ const VideoList = function ({ platform, id, data }) {
   }, []);
   return (
     <div className="page-watch-next">
-      {(list || data?.content?.listVideo) && (
-        <Title semibold="" large="" title={t("Others")} />
-      )}
       {(list || data?.content?.listVideo)?.map?.(function (a) {
         return a && <CardVideo data={a} />;
       })}

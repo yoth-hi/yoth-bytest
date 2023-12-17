@@ -4,6 +4,8 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "./image";
 import MenuLogin from "./MenuLogin";
+import SettingsIcon from "./icons/Settings";
+import Button from "./button_root";
 import ButtonLogin from "./buttonLogin";
 import { t } from "../libs/transition";
 export default function ({ user: User }) {
@@ -28,27 +30,37 @@ export default function ({ user: User }) {
           </div>
         </div>
       ) : (
-        <ButtonLogin />
+        <>
+          <Button className="btn-settings" onClick={() => setOpen(!IsOpen)}>
+            <SettingsIcon />
+          </Button>
+          <ButtonLogin />
+        </>
       )}
-      {IsOpen ? createPortal(<Menu />, document.body) : null}
+      {IsOpen ? createPortal(<Menu User={User} />, document.body) : null}
     </>
   );
   //  <Menu />
 }
 const Menu = function ({ User }) {
+  const g = User
+    ? [
+        {
+          name: t("Your_channel"),
+          endpoint: "/",
+          type: "route",
+          icon: null,
+        },
+        {
+          name: t("Logout"),
+          type: "route",
+          endpoint: "/logout",
+          icon: null,
+        },
+      ]
+    : [];
   const Array_Items_Menu_user = [
-    {
-      name: t("Your_channel"),
-      endpoint: "/",
-      type: "route",
-      icon: null,
-    },
-    {
-      name: t("Logout"),
-      type: "route",
-      endpoint: "/logout",
-      icon: null,
-    },
+    ...g,
     {
       name: t("Theme"),
       type: "modal",

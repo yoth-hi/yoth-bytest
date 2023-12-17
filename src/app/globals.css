@@ -19,7 +19,7 @@ html {
 }
 /*@media (prefers-color-scheme: dark) {*/
 /*dark*/
-html {
+html[dark]  {
   --background-wp-rgb: 255, 255, 255;
   --hover-btn-bg: #fff2;
   background: #0f0f0f;
@@ -27,11 +27,11 @@ html {
   --background-rgb: 15,15,15;
   --fill-rgb: 255, 255, 255;
 }
-  .cinematic-canvas {
+html[dark]  .cinematic-canvas {
     display: block !important;
   }
 
-  .page-watch-primary-player-conteiner {
+html[dark] .page-watch-primary-player-conteiner {
     background: #0000 !important;
   }
 /*}*/
@@ -127,10 +127,10 @@ img {
   height: 38px;
   margin-right: 1px;
   @apply cursor-pointer w-[64px];
-  background: rgba(var(--background-wp-rgb), 0.2);
+  background: rgba(var(--background-wp-rgb), 0.1);
 }
 .search-bar .container {
-  @apply flex shadow overflow-hidden  rounded-full ml-[16px] flex-1 items-center relative;
+  @apply flex shadow overflow-hidden  rounded-full flex-1 items-center relative;
 }
 .search-bar:hover,
 .search-bar:focus {
@@ -170,8 +170,7 @@ img {
   @apply border-[#888]/50 border;
   transition: border 0.3s;
   flex-basis: 700px;
-
-  @apply ml-[10px] mr-[14px] rounded-full flex items-center;
+  @apply ml-[10px] pl-[10px] mr-[14px] rounded-full flex items-center;
   height: 40px;
 }
 .search-bar-form {
@@ -323,7 +322,7 @@ body:not([exped]) .sidebar .card-avatar {
   width: 400px;
   bottom: 15px;
   right: 15px;
-  box-shadow: 0px 0px 2px rgba(var(--background-wp-rgb), 0.2);
+  box-shadow: 0px 0px 2px rgba(var(--background-wp-rgb), 0.1);
 
   overflow: hidden;
   background: rgba(var(--background-rgb));
@@ -530,25 +529,26 @@ body:not([fullscreen])
   border-radius: 0px;
 }
 .video-player {
-  font-size: 15px;
+  font-size: 11px;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
   line-height: 1.2;
   z-index: 10;
+  touch-action: manipulation;
 }
 .video-stream {
   @apply inset-0 absolute block h-full w-full;
 }
 .player-bottom {
-  height: 48px;
-  padding-top: 2px;
+  height: 58px;
+  padding-top: 4px;
   position: absolute;
   z-index: 2000;
   bottom: 0px;
-  left: 15px;
-  right: 15px;
+  left: 12px;
+  right: 12px;
   max-width: 100%;
   text-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
 }
@@ -642,8 +642,8 @@ transform: translate(-50%, -9px) scale(1)!important;
   border-radius: 50%;
 }
 .player-bottom-buttons {
-  hidden: 48px;
-  line-height: 48px;
+  hidden: 54px;
+  line-height: 54px;
   text-align: left;
   @apply flex items-center justify-between;
 }
@@ -651,7 +651,7 @@ transform: translate(-50%, -9px) scale(1)!important;
   display: inline-block;
   opacity: 0.9;
   overflow: hidden;
-  width: 48px;
+  width: 54px;
   padding: 0px 2px;
   cursor: pointer!important;
 }
@@ -1003,7 +1003,7 @@ height: 112px;
   margin-left: 5px;
   padding-right: 16px;
   overflow: hidden;
-  background: rgba(var(--background-wp-rgb), 0.2);
+  background: rgba(var(--background-wp-rgb), 0.1);
 }
 .search-buttom{
   margin-left:auto;
@@ -1707,8 +1707,8 @@ height: 112px;
 }
 .btn-login {
   border-radius: 99999px;
-  border: 2px solid #fffe;
-  color: #fffe;
+  border: 2px solid rgba(var(--foreground-rgb),.7);
+  color: rgba(var(--foreground-rgb),.7);
   padding: 5px 15px;
   font-size: 13px;
 }
@@ -1992,7 +1992,7 @@ height: 112px;
 }
 .page-home-top-button {
   background: rgba(var(--foreground-rgb), 0.1);
-  border: rgba(var(--background-wp-rgb), 0.2) 1px solid;
+  border: rgba(var(--background-wp-rgb), 0.1) 1px solid;
   padding: 3px 6px;
   margin: 8px 2px;
   border-radius: 4px;
@@ -2043,7 +2043,7 @@ margin-right:15px;
 }
 .page-search-content-alist{
 margin-bottom:15px;
-pedding-bottom:5px;
+padding-bottom:5px;
 border-bottom:1px solid #8884;
 }
 .page-search-content-alist>.core-string{
@@ -2057,7 +2057,7 @@ font-size:20px;
   position:absolute;
   bottom:0;
   right:0;
-  pedding:2px 10px;
+  padding:2px 10px;
   margin:15px;
   background:#000e;
   border-radius:4px;
@@ -2270,4 +2270,36 @@ pointer-events:none!important;opacity:.7!important}
   position:absolute;
   inset:0;
   opacity:.3;
+}
+.btn-settings{
+  width:40px;
+  height:40px;
+  padding:8px;
+  border-radius:50%;
+  margin-right:14px;
+}
+.page-setting{
+  display:flex;
+  height:100%;
+}
+.page-setting-menu{
+  width:300px;
+  max-width:45vw;
+  height:100%;
+}
+.btn-setting-menu{
+  margin:2px 3px;
+  border-radius:4px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  font-size:14px;
+  
+}
+.btn-setting-menu-string{
+  margin-left:14px;
+}
+.page-setting-menu-title-page{
+  margin: 2px 14px;
 }
