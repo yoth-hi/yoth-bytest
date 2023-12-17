@@ -85,7 +85,7 @@ export default async function Root(props) {
           )}" />
         <meta
           itemprop="description"
-          content="${u(data?.videoDetails?.description)}"
+          content="${u(data?.microformat?.description?.simpleText || rd(data?.videoDetails?.descriptio))}"
         />
         ${"" /*   <meta itemprop="requiresSubscription" content="False" />*/}
         <meta itemprop="identifier" content="${id}" />
