@@ -5,5 +5,5 @@ export async function generateMetadata(props) {
   };
 }
 export default function (props) {
-  return <Page />;
+  return <Page {...props}/>;
 }
