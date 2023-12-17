@@ -33,12 +33,29 @@ const getData = async (a = {}) =>
       ...a,
     },
   });
+  function grid(inputArray, columns) {
+  const resultArray = [];
+  const outr = [];
+  for (let i = 0; i < inputArray.length; i += columns) {
+    resultArray.push(inputArray.slice(i, i + columns));
+  }
+for (let z = 0;z< resultArray.length; z++) {
+  var item = resultArray[z];
+  if(item)outr.push(item)
+}
+  return outr;
+}
 export default function ({ data }) {
   const [list, setList] = useState(data?.content?.listVideo);
+  const [w,  setW] = useState(parseInt((innerWidth-200)/320));
   //   const [row, setRow] = useState(parseInt(window.innerWidth / 360));
 
-  // useEffect(() => {
-  //     window.addEventListener("resize", function () {
+   useEffect(() => {
+     const resize = function(){
+       /*const a = parseInt((innerWidth-200)/320);
+       if(a!==w) setW(a);*/
+     }
+     window.addEventListener("resize", resize)
   //       const w = window.innerWidth;
   //       const r = parseInt(w / 360);
   //       const u = y(data?.content?.listVideo || [], r);
@@ -46,15 +63,21 @@ export default function ({ data }) {
   //       setRow(r)
   //      setList(u);
   //     });
-  //   }, []);
+  return ()=>{
+     window.removeEventListener("resize", resize)
+    
+  }
+   }, []);
   //  data?.content?.listVideo?
+const h =  /*grid(*/(list||data?.content?.listVideo)/*,parseInt(w)) */
   var start = 0,
     _list = [];
+  
   useEffect(() => {
     var sst = true;
     const interval = setInterval(function () {
       const a = document.querySelectorAll(
-        ".page-content-video-list-grid .card-video[skeleton]"
+        ".page-content-video-list-row .card-video[skeleton]"
       )[0];
       const b = document.querySelector("#app-desktop");
       if (!a) return;
@@ -123,17 +146,20 @@ export default function ({ data }) {
         ))}
       </div>
           */}
-          
-          
-          
+
         <div className="page-content-video-list-grid">
-          {(list || data?.content?.listVideo)?.map?.(
-            (a) => a && <CardVideo data={a} key={a?.key} />
-          )}
-          {[0, 0, 0, 0]?.map(() => (
+          {/*h?.map?.((a) => (
+            <div className="page-content-video-list-row">
+              {a?.map?.((a) => a && <CardVideo data={a} key={a?.key} />)}
+            </div>
+          ))*/}
+              {(h)?.map?.((a) => a && <CardVideo data={a} key={a?.key} />)}
+        </div> 
+          <div className="page-content-video-list-row">
+          {(new Array(w*2)).fill("?$").map(() => (
             <CardVideo data={{}} skeleton />
           ))}
-        </div>
+          </div>
         <Spin />
       </div>
     </>

@@ -13,7 +13,7 @@ export default function (props) {
   );
 }
 const T = memo(function (props) {
-  const { data = {}, skeleton } = props;
+  const { data = {}, big, skeleton } = props;
   if (!data || !data.thumbnail) {
     if (!skeleton) return;
   }
@@ -22,7 +22,7 @@ const T = memo(function (props) {
   return (
     <>
       <Link href={endpoint || "#"}>
-        <div className="card-video-row-thumbnail">
+        <div className={"card-video-row-thumbnail"+(big?" big":"")}>
           <Image classRoot="card-thumbnail" src={thumbnail} />
         </div>
       </Link>

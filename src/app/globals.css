@@ -449,6 +449,8 @@ body[scrollwatch] .desktop-header {
 }
 body[fullscreen] .layout-content[full] .page-watch-container {
   height: calc(100vh - calc(var(--header-height) + 140));
+}[full] .page-watch-container {
+  background:#000;
 }
 .page-watch-container {
   @apply mt-[20px] justify-center flex mx-[auto];
@@ -848,7 +850,9 @@ height: 112px;
   @apply text-[18px];
 }
 
-.page-content-video-list-grid ~ #spin {
+.page-content-video-list-grid ~ #spin ,
+.page-content-video-list-col ~ #spin 
+{
   margin: 0px auto;
 }
 .chat-edit-buttons {
@@ -1142,6 +1146,13 @@ height: 112px;
   display: flex;
   margin: 10px 0px;
 }
+.card-video-row-thumbnail.big {
+  height: 168.75px;
+  max-height: 168.75px;
+  min-height: 168.75px;
+  width: 300px;
+  min-width: 300px;
+}
 .card-video-row-thumbnail {
   background: #8882;
   height: 123.75px;
@@ -1303,6 +1314,7 @@ height: 112px;
   margin: 12px 16px 0px;
   opacity: 0.8;
 }
+.skeleton-home-page,
 .page-content-video-list-grid {
   display: grid;
   position: relative;
@@ -1459,6 +1471,7 @@ height: 112px;
 .skeleton-image-square:not([norounded]) {
   border-radius: 100000px;
 }
+.skeleton-home-page-banner,
 .banner-home {
   height: 400px;
   overflow: hidden;
@@ -1827,7 +1840,7 @@ height: 112px;
   @apply text-[#323232] dark:text-[#eee] text-[14px];
 }
 .page-search-content {
-  max-width: min(600px, calc(95vw - var(--sidebar-width)));
+  max-width: min(800px, calc(95vw - var(--sidebar-width)));
   margin: 5px auto;
 }
 .page-home #center > .core-string {
@@ -2027,9 +2040,19 @@ height: 112px;
   width: 220px;
   object-position: left;
 }
+.card-video-row-thumbnail.big .card-thumbnail img {
+
+  height: 168.75px!important;
+  width: 300px!important;
+}
 .card-video-row-thumbnail .card-thumbnail {
   height: 124px;
   width: 220px;
+  position: relative;
+}
+.card-video-row-thumbnail.big .card-thumbnail {
+  height: 168.75px;
+  width: 300px;
   position: relative;
 }
 .page-search-topbar{
@@ -2302,4 +2325,10 @@ pointer-events:none!important;opacity:.7!important}
 }
 .page-setting-menu-title-page{
   margin: 2px 14px;
+}
+.page-content-video-list-row{
+  display:flex;
+  width:100%;
+  position:relative;
+  margin: 0 14px;
 }

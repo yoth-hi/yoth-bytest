@@ -41,7 +41,7 @@ export default function (props) {
                 <div>
                   {q?.list?.map((q) =>
                     q && q?.type === "video" ? (
-                      <CardVideoRow data={q} />
+                      <CardVideoRow big data={q} />
                     ) : (
                       <A q={q} />
                     )

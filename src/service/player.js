@@ -111,16 +111,15 @@ export default function ({ video }) {
     if (!b) return a.removeSrc();
     play();
     z.setSrc(b); //)b=`/yothpi/stream?q=${encodeURIComponent(b)}&m=${encodeURIComponent( JSON.stringify(c))}`);
+    
     play();
-    var c = {
-      credentials: "include",
-      cache: "no-store",
-      mode:"no-cors",
-      redirect:"follow",
-      body: new Uint8Array([120, 0]),
-      method: "POST",
-    };
- //   const m = new Jt(b,c)
+   try {
+     /* code */
+   const m = new Jt(b);
+   console.log(m)
+   } catch (e) {
+     alert(e)
+   }
     return;
 
     /*
@@ -242,33 +241,23 @@ function A(a,b){
 
 class Jt {
   constructor(url,config={}) {
-    this.t = config;
-    var _this = this;
-    this.handleResponse=function(response){
-      
-      if(response){
-        if(_this.status=response.status,response.ok&&response.body&&204!==_this.status){
-          _this.status=_this.status||242;
-          _this.body=response.body. getReader();
-          Gh(_this);
-        }else console.info?.("[ INFO/NoStream ]", ...arguments);
-      }
-    }
+    this.m={}
     this.start(url);
   }
-  start(req){
-    var init = {credentials:"include",cache:"no-store"};
-    Object.assign(init,this.t);
-    req=new Request(req,init);
-    fetch(req)
-      .then(this.handleResponse);
+  start(a){
+    var b = {
+      "Cache-Control":"public, max-age=3600",
+      "stale-while-revalidate":"3600",
+      "redirect":"follow",
+      "mode":"no-cors"
+    }
+    Object.assign(b,this.m);
+    a=new Request(a,b);
+    fetch(a).then(this.as,this.err)
   }
-  ren(){
-    console.info?.("[ INFO/READ ]", ...arguments);
+  as(a){
+    const contentLength = a.headers.get("Content-Length")||0;
+    const bodySize = parseInt(contentLength,10);
+    console.log(bodySize,a)
   }
-}
-
-function Gh(a){
-  a.body .read()
-    .then(a.ren)
 }

@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import ProfileMenu from "./headerProfileMenu";
 import Search from "./headerSeachBar";
@@ -5,7 +6,7 @@ import Button from "./Button";
 import Notification from "./icons/Notification";
 import MenuBtn from "./MenuBtn";
 import { t } from "../libs/transition";
-
+import { Suspense } from "react";
 const Btns = function () {
   return (
     <>
@@ -14,7 +15,8 @@ const Btns = function () {
   );
 };
 
-export default function ({ data: { users } }) {
+async function Header({ data: { users } }) {
+  await new Promise((ok) => setTimeout(ok, 1500));
   return (
     <div className={`desktop-header`}>
       <div className="desktop-layout-start">
@@ -50,5 +52,12 @@ export default function ({ data: { users } }) {
         <ProfileMenu user={users} />
       </div>
     </div>
+  );
+}
+export default function (props) {
+  return (
+    <Suspense fallback={<div className={`desktop-header`} />}>
+      <Header {...props} />
+    </Suspense>
   );
 }
