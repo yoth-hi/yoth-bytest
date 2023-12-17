@@ -16,6 +16,7 @@ const Btns = function () {
 };
 
 async function Header({ data: { users } }) {
+  await new Promise((a)=>setTimeout(a,300))
   return (
     <>
       <Search />

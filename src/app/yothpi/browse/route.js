@@ -549,9 +549,10 @@ export async function POST(req) {
           )
         )
       );
+      
       t.forEach(() => {
         (data.content.listVideo = data.content.listVideo || []).push(
-          (0,
+          (0,fft(t[Math.floor(Math.random() * t.length)]),
           t[Math.floor(Math.random() * t.length)])
         );
       });

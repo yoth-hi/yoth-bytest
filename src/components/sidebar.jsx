@@ -34,7 +34,8 @@ const Avatar = function ({ profile, name }) {
   );
 };
 
-function Sidebar({ data: { users } }) {
+async function Sidebar({ data: { users } }) {
+  await new Promise((a)=>setTimeout(a,300))
   return (
     <>
       <div className="guide-section">
