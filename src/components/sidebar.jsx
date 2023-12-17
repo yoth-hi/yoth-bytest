@@ -1,10 +1,11 @@
-import Button from "./Button";
+"use client";import Button from "./Button";
 import Link from "next/link";
 import Title from "./string";
 import ButtonLogin from "./buttonLogin";
 import Image from "./image";
 import MainNavigations from "./sidebar/mainNavigations";
 import { t } from "../libs/transition";
+import { Suspense} from "react";
 
 const Avatar = function ({ profile, name }) {
   const isLive = Math.random() < 0.2;
@@ -33,9 +34,9 @@ const Avatar = function ({ profile, name }) {
   );
 };
 
-export default function ({ data: { users } }) {
+function Sidebar({ data: { users } }) {
   return (
-    <div className="sidebar">
+    <>
       <div className="guide-section">
         <MainNavigations />
       </div>
@@ -119,7 +120,7 @@ export default function ({ data: { users } }) {
             </>
           ) : (
             <div className="guide-section-login">
-            <ButtonLogin />
+              <ButtonLogin />
             </div>
           )}
         </div>
@@ -129,7 +130,7 @@ export default function ({ data: { users } }) {
         <div className="guide-section-split-line" />
         <Link href="/about" aria-label="About"> About</Link>
       </div>*/}
-    </div>
+    </>
   );
 }
 //link = path
@@ -152,3 +153,12 @@ const Items = function ({ href = "", newness, icon, title, imageUrl }) {
     </div>
   );
 };
+export default function (props) {
+  return (
+    <div className="sidebar">
+      <Suspense fallback={<></>}>
+      <Sidebar {...props}/>
+      </Suspense>
+    </div>
+  );
+}

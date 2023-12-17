@@ -16,7 +16,18 @@ const Btns = function () {
 };
 
 async function Header({ data: { users } }) {
-  await new Promise((ok) => setTimeout(ok, 1500));
+  return (
+    <>
+      <Search />
+      <div className="desktop-layout-end">
+        {users && <Btns />}
+
+        <ProfileMenu user={users} />
+      </div>
+    </>
+  );
+}
+export default function (props) {
   return (
     <div className={`desktop-header`}>
       <div className="desktop-layout-start">
@@ -45,19 +56,15 @@ async function Header({ data: { users } }) {
           </svg>
         </Link>
       </div>
-      <Search />
-      <div className="desktop-layout-end">
-        {users && <Btns />}
-
-        <ProfileMenu user={users} />
-      </div>
+      <Suspense
+        fallback={
+          <>
+            <div className="skeleton-image-square" />
+          </>
+        }
+      >
+        <Header {...props} />
+      </Suspense>
     </div>
-  );
-}
-export default function (props) {
-  return (
-    <Suspense fallback={<div className={`desktop-header`} />}>
-      <Header {...props} />
-    </Suspense>
   );
 }
