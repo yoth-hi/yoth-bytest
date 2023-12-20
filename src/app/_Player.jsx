@@ -5,6 +5,7 @@ export default function () {
   const [id, setId] = useState(null);
   const [platform, setPlatform] = useState(null);
   const [mode, setMode] = useState("watch");
+  const [data, setData] = useState({});
   const _ = useRef(null);
   if (typeof window !== "undefined") {
     var w = (window.yoth = window.yoth || {});
@@ -14,6 +15,8 @@ export default function () {
       setPlatform(b);
     };
     w.setMode = setMode;
+    w.setData = setData;
+    w.Ur = data;
     w.append = function (a) {
       if (_.current) a?.appendChild(_.current);
     };

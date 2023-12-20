@@ -117,6 +117,13 @@ export default function () {
         href="/following"
         className={"item-side-bar "+(url==="/following"?"active":"")}
       />
+  {/*    <Item athn50x
+        title={t("History")}
+        icon={url === "/history" ? <Heart_active /> : <Heart />}
+        x-href="/history"
+        href="?page-inative=#history"
+        className={"item-side-bar inative "+(url==="/history"?"active":"")}
+      />*/}
     </div>
   );
 }

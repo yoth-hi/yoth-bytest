@@ -2385,3 +2385,6 @@ pointer-events:none!important;opacity:.7!important}
 .app-brower[opened]{
   visibility: visible;
 }
+[dark] layout-content[full]{
+  background:#0f0f0f;
+}

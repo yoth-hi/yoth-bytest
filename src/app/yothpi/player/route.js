@@ -175,9 +175,9 @@ export async function POST(req) {
       videoDetails: {
         title: (us?.broadcastSettings || t)?.title,
         description: us?.description,
-        actorName: us?.login || t?.acthor,
-        actorId: us?.login,
-        actorImage: us?.profileImageURL,
+        author: us?.login || t?.author,
+        authorId: us?.login,
+        authorImage: us?.profileImageURL,
         thumbnail:
           us?.stream?.previewImageURL
             .replace("{width}", 1280)

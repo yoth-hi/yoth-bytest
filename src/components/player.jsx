@@ -252,11 +252,11 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
   const [_audioSrc, set_audioSrc] = React.useState(0); // index resolutions
   const [h, seth] = React.useState(0);
   const [temp_, s] = React.useState(false);
-  const play_pouse = function () {
+  const play_pouse = function (a) {
     const vid = video.current;
     if (start_play) set_start_play(false);
     if (!vid) return alert("%% no video ");
-    vid.paused ? srt.play() : srt.pause();
+    (a??vid.paused) ? srt.play() : srt.pause();
   };
   const audioSrc = Object.values(data?.stream || {}).filter(
     ({ qualityLabel }) => !!!qualityLabel
@@ -362,9 +362,11 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
       }
     }, 50);
     const ev = (event) => {
+      const adt = document.querySelector("#app-desktop");
+
       if (document.fullscreenElement) {
-        // exitFullscreen is only available on the Document object.
       } else {
+
       }
     };
 
@@ -408,6 +410,54 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
     }).then((ft) => {
       window.yoth?.setData?.(ft);
       setData(ft);
+      if ("mediaSession" in navigator) {
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: ft?.videoDetails?.title,
+    artist:ft?.videoDetails?.author, 
+    //album: "The Ultimate Collection (Remastered)",
+    artwork: [{src:ft?.videoDetails?.thumbnail,sizes:""}]
+  });
+
+  navigator.mediaSession.setActionHandler("play", () => {
+    /* Code excerpted. */
+    play_pouse(true)
+  });
+  navigator.mediaSession.setActionHandler("pause", () => {
+    play_pouse(false)
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("stop", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("seekbackward", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("seekforward", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("seekto", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("previoustrack", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("nexttrack", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("skipad", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("togglecamera", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("togglemicrophone", () => {
+    /* Code excerpted. */
+  });
+  navigator.mediaSession.setActionHandler("hangup", () => {
+    /* Code excerpted. */
+  });
+}
+
     });
 
     setError(false);
@@ -875,7 +925,7 @@ function ry(a, b) {
   a.apply(arguments, this);
 }
 
-function fullscreen(a) {
+function fullscreen(a, j) {
   var isInFullScreen =
     (document.fullscreenElement && document.fullscreenElement !== null) ||
     (document.webkitFullscreenElement &&
@@ -887,7 +937,7 @@ function fullscreen(a) {
   var docElm = dom.documentElement;
   var body = dom.body;
   const is = a === undefined ? !isInFullScreen : a;
-  if (is) {
+ if (is) {
     if (docElm.requestFullscreen) {
       docElm.requestFullscreen();
     } else if (docElm.mozRequestFullScreen) {
