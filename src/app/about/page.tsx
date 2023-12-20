@@ -15,3 +15,4 @@ export default function (props: any) {
     </div>
   );
 }
+export const dynamic = 'force-static'

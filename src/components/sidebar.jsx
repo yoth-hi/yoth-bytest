@@ -43,7 +43,7 @@ async function Min_Side({}) {
   );
 }
 async function Sidebar({ data: { users } }) {
-  await new Promise((a) => setTimeout(a, 300));
+  await new Promise((a) => setTimeout(a, 1));
   return (
     <>
       <div class="app-brower-space"></div>
@@ -143,10 +143,7 @@ async function Sidebar({ data: { users } }) {
                 </div>
               </div>
               <div className="hover-item"></div>
-              {/*  <div className="guide-section">
-        <div className="guide-section-split-line" />
-        <Link href="/about" aria-label="About"> About</Link>
-      </div>*/}
+                <div className="guide-section"><div className="guide-section-split-line" /><Link href="/about" aria-label="About">About</Link></div>
             </div>
           </div>
         </div>
