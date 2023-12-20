@@ -8,11 +8,14 @@ export default function () {
     setOpen(!isOpen);
   };
   useEffect(() => {
-    const body = document?.body;
+    const body = document?.querySelector(".app-brower");
+    const _ = document?. body;
     if (isOpen) {
-      body.setAttribute("exped", "true");
+      body?.setAttribute("opened", "");
+      _?.setAttribute("exped", "");
     } else {
-      body.removeAttribute("exped");
+      body?.removeAttribute("opened");
+      _?.removeAttribute("exped");
     }
   }, [isOpen]);
   return (
