@@ -136,9 +136,9 @@ export default function RootLayout({ children, ...a }) {
         <link rel="icon" href="/favicon-32x32.png" sizes="32x32"/>
         <link rel="icon" href="/favicon-96x96.png" sizes="96x96"/>
         <link rel="icon" href="/apple-icon-144x144.png" sizes="144x144"/>
+        <GoogleAnalytics />
       </head>
       <body className={inter.className}>
-        <GoogleAnalytics />
         <Player />
         <SettingJson>
           <div id="app-desktop">
