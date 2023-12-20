@@ -610,7 +610,7 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
                   >
                     <Settings />
                   </Button>
-                    {statusPlayerModeWatch == 0 && <Button
+                    {statusPlayerModeWatch === 0 && <Button
                     className="player-bottom-btn"
                     onClick={() => {
                       if (location.pathname === "/watch") {

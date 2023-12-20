@@ -7,7 +7,7 @@ import { t, formate } from "../libs/transition";
 export default function (props) {
   if (!props) return;
   return (
-    <Btn root={"div"} skeleton={props.skeleton ? "" : undefined} className="card-video-row">
+    <Btn root={Link} href={props.data?.endpoint || "#"} skeleton={props.skeleton ? "" : undefined} className="card-video-row">
       <T {...props} />
     </Btn>
   );

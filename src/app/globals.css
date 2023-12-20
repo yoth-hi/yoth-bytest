@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 *{transition:.2s}
+.page-watch-primary-player *{transition:0s!important}
 html {
   background: #fff;
   text-size-adjust: none;
@@ -348,7 +349,7 @@ body:not([exped]) .sidebar .card-avatar {
   font-size: 16px;
   line-height: 22px;
 }
-body[watchpage]:not([exped]) .sidebar * {
+body[watchpage] .sidebar {
   display: none !important;
 }
 
