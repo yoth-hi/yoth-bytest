@@ -22,7 +22,7 @@ export default function Banner({ data: { list } }) {
         </div>
         <Image
           className="banner-content-inner animate-start-banner"
-          src={_a?.[index]}
+          src={`https://static-cdn.jtvnw.net/previews-ttv/live_user_${id?.replace("tw:","")}-400x225.jpg`}
         />
         <div className="thumbnail-pagenation">
           {list?.map((a, b) => (
@@ -38,7 +38,7 @@ export default function Banner({ data: { list } }) {
               data-index={b}
               className="thumbnail-pagenation-item"
             >
-              <Image src={_a[b]} alt={a?.title} />
+              <Image src={`https://static-cdn.jtvnw.net/previews-ttv/live_user_${a?.id?.replace("tw:","")}-400x225.jpg`} alt={a?.title} />
             </button>
           ))}
         </div>

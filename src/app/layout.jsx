@@ -128,7 +128,7 @@ export default function RootLayout({ children, ...a }) {
   };
 
   return (
-    <html lang={ling} {...head_props} style={{ fontSize: "10px" }}>
+    <html lang={ling} {...head_props} style={{ fontFamily: "'Roboto', sans-serif",fontSize: "10px" }}>
       <head>
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="YOTH!" />
@@ -138,7 +138,7 @@ export default function RootLayout({ children, ...a }) {
         <link rel="icon" href="/apple-icon-144x144.png" sizes="144x144"/>
         <GoogleAnalytics />
       </head>
-      <body className={inter.className}>
+      <body>
         <Player />
         <SettingJson>
           <div id="app-desktop">

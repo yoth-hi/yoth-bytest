@@ -278,8 +278,8 @@ export async function POST(req) {
         }
       );
       const a = await _T?.json();
-      data.content.banner = _list;
       data.content.listVideo = [];
+      var g=[{},{},{},{},{}]
       a?.contents.singleColumnBrowseResultsRenderer.tabs[0]?.tabRenderer.content.sectionListRenderer?.contents[1]?.itemSectionRenderer.contents[0].horizontalCardListRenderer.cards?.map(
         ({ videoCardRenderer }) => {
           var k = {
@@ -290,14 +290,16 @@ export async function POST(req) {
             plt: "yt",
           };
           data.content.listVideo?.push(k);
-          _list[parseInt(Math.random() * 5)] = {
+          g[parseInt(+Math.random() * 5)] = {
             thumbnail: k?.thumbnail,
             id: k?.id,
             platform: "youtube",
             endpoint:`/watch?v=${videoCardRenderer?.videoId}`,
+            ...k,
           };
         }
       );
+      data.content.banner=g;
     } else if (type === "player_page_render_next_videos") {
       if (platform !== "youtube") {
         data.content.listVideo = _list;

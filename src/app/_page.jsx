@@ -125,7 +125,7 @@ const h =  /*grid(*/(list||data?.content?.listVideo)/*,parseInt(w)) */
         */
         }
       </div>
-      <Banner data={data?.content?.banner ?? {}} />
+  {/*    <Banner data={data?.content?.banner ?? {}} />*/}
       <div id="center">
         <Title semibold="" large="" title={t("Recommended")} />
         {/* 
