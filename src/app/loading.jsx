@@ -5,5 +5,6 @@ const SkeletonCardVideo = function(){
 }
 
 export default function () {
-  return <><div className="skeleton-home-page-banner" /><div className="skeleton-home-page">{s.map(()=><SkeletonCardVideo/>)}</div></>;
+//  <div className="skeleton-home-page-banner" />
+  return <><div className="skeleton-home-page">{s.map(()=><SkeletonCardVideo/>)}</div></>;
 }
