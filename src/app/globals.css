@@ -178,6 +178,7 @@ img {
   flex-basis: 700px;
   @apply ml-[10px] pl-[10px] mr-[14px] rounded-full flex items-center;
   height: 40px;
+  background:rgba(var(--background-rgb),1);
 }
 .search-bar-form {
   @apply flex  items-center;
@@ -749,6 +750,7 @@ height: 112px;
 }
 .chat {
   z-index: 9999;
+  background:rgba(var(--background-rgb),1);
   position: relative;
   @apply rounded-[16px] mt-[20px] border border-black/30 dark:border-white/30;
 }
