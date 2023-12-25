@@ -1,35 +1,35 @@
 "use client";
 export default function ({ close }) {
   return (
-    <div
+    <div key={2e74}
       className="bg-modal-hover"
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation()
         if (close) {
           document.querySelector(".bg-modal-hover").classList.add("to-close");
-          setTimeout(close, 700);
+          setTimeout(close, 300);
         }
       }}
     >
-      <div className="modal-login" onClick={() => {
-        
+      <div className="modal-login" onClick={(e) => {
+        e.stopPropagation();
       }}>
-        <div >
-          <div>
-            <h1>Login of 3°</h1>
+        <div className="modal-login--body">
+          <div className="modal-login-title">
+            <h1>Login with Yoth</h1>
           </div>
           <div>
-            <img />
-            <div>
-              <a>
+            <div className="modal-login-content">
+              <div className="modal-login-item">
                 <div className="modal-login-item-login">
                   <img src="https://play-lh.googleusercontent.com/QLQzL-MXtxKEDlbhrQCDw-REiDsA9glUH4m16syfar_KVLRXlzOhN7tmAceiPerv4Jg" />
                 </div>
-              </a>
-              <a>
+              </div>
+              <div className="modal-login-item">
                 <div className="modal-login-item-login">
                   <img src="https://www.outsystems.com/forge/DownloadResource.aspx?FileName=&ImageBinaryId=43951" />
                 </div>
-              </a>
+              </div>
               <img />
             </div>
           </div>

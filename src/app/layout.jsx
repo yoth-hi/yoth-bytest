@@ -11,6 +11,7 @@ import getCodeLanguage from "../libs/getCodeLanguage";
 import Sidebar from "../components/sidebar";
 import Miniplayer from "../components/Miniplayer";
 import SettingJson from "../context/Provider";
+import GetHea from "../context/getTheme.js"
 const inter = Inter({ subsets: ["latin"] });
 const host = "https://yoth-hi.vercel.app/"; //"https://yoth-hi.vercel.app";
 const description =
@@ -104,32 +105,22 @@ export default function RootLayout({ children, ...a }) {
     default:
       _ = true;
   }
-  const g = cookies();
-  var dark = true;
 
-  if (g.has("x-theme")) {
-    dark = _ ?? g.get("x-theme");
-  } else {
-    try {
-      g.set("x-theme", _, {});
-      dark = _;
-    } catch (e) {
-      dark = true;
-    }
-  }
+
+  
   const rerenderAfterLogin = true;
   const ling = getCodeLanguage();
   const loggedUID = 83583758364;
   const bg = {};
-  const head_props = dark ? { dark: "" } : { light: "" };
-  const users = _Users();
+    const users = _Users();
   const data = {
     users,
   };
 
   return (
-    <html lang={ling} {...head_props} style={{ fontFamily: "'Roboto', sans-serif",fontSize: "10px" }}>
+    <html lang={ling} dark="" style={{ fontFamily: "'Roboto', sans-serif",fontSize: "10px" }}>
       <head>
+        <GetHea/>
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="YOTH!" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />

@@ -520,9 +520,8 @@ export default React.memo(function ({ platform, id, sp, controls = true }) {
           toPlay(false);
           set_start_play(false)
         }}
+        style={{  }}
         className="video-stream"
-        loading="lazy"
-        preload="none"
         controlsList="nodownload"
         muted=""
         autoPlay=""

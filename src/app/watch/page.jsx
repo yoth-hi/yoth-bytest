@@ -106,7 +106,7 @@ export default async function Root(props) {
         </span>
         <script
           type="application/ld+json"
-          nonce="W-OZpwMZrBGlfSq_CXU62w"
+          nonce="${btoa(`${id+data?.microformat?.ownerChannelName}`)}"
         >{"@context": "http://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@id": "${
           data?.microformat?.ownerProfileUrl
         }", "name": "${data?.microformat?.ownerChannelName}"}}]}</script>
@@ -179,6 +179,7 @@ export default async function Root(props) {
             .replace(/ {2,}/g, " "),
         }}
       />
+      <link rel="preconnect" href="https://googlevideo.com" />
       <script
         dangerouslySetInnerHTML={{
           __html: `gtag('event', 'page_view', {page_title: document.title,page_location: location.href})`,
