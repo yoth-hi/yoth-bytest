@@ -7,7 +7,6 @@ import CardCategory from "../../components/CardCategory";
 export const metadata = {
   title: "Gaming"
 }
-
 export default async function Home() {
  const data = await Fetch({
     type: "browse",
@@ -39,7 +38,7 @@ export default async function Home() {
           <CardCategory />
           <CardCategory />
           <CardCategory />
-  */}[[Under development]]
+  */}[Under development]
         </div>{/*<p dangerouslySetInnerHTML={{__html:JSON.stringify(data,null,1).replace(/\<|\>/g, "").replace(/\n/g, " <br/>")}}/>
         <div className="page-content-video">
           <Title semibold="" large="" title="Recommended for you" />

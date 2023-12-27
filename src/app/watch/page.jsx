@@ -106,7 +106,7 @@ export default async function Root(props) {
         </span>
         <script
           type="application/ld+json"
-          nonce="${btoa(`${id+data?.microformat?.ownerChannelName}`)}"
+          nonce="${btoa(encodeURIComponent(`${id+data?.microformat?.ownerChannelName}`))}"
         >{"@context": "http://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@id": "${
           data?.microformat?.ownerProfileUrl
         }", "name": "${data?.microformat?.ownerChannelName}"}}]}</script>
