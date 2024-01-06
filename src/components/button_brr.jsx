@@ -8,7 +8,7 @@ const Button = function ({ title, href, target, type, className = "", icon }) {
       root={R}
       href={href}
       target={target}
-      className={"button-text " + className}
+      className={"spec-button button-text " + className}
       type={type}
     >
       <div className="button-text-container">
